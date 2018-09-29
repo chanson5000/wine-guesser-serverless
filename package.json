@@ -1,0 +1,12 @@
+{
+  "name": "wine-guesser-serverless",
+  "version": "0.0.5",
+  "description": "Wine Guesser Serverless",
+  "main": "index.js",
+  "repository": "https://github.com/chanson5000/wine-guesser-serverless",
+  "author": "Cory Hanson",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.3.0"
+  }
+}

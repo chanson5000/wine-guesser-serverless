@@ -5,3 +5,5 @@ export const invalidRequest = {
     'Content-Type': 'application/json',
   },
 };
+
+export default invalidRequest;

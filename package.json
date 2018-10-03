@@ -6,6 +6,10 @@
   "repository": "https://github.com/chanson5000/wine-guesser-serverless",
   "author": "Cory Hanson",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint src/**",
+    "test": "jest --testPathPattern ./test/unit/"
+  },
   "dependencies": {
     "aws-sdk": "^2.325.0",
     "joi": "^13.7.0",
@@ -13,7 +17,20 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.24.1",
+    "jest": "^23.6.0",
     "node": "^10.11.0",
-    "webpack": "^4.20.2"
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-node-externals": "^1.7.2"
   }
 }

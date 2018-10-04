@@ -1,22 +1,25 @@
-import { makeWineQueryParams } from './util';
-
+import {makeWineQueryParams} from './util';
 const aws = require('aws-sdk');
-
-aws.config.update({ region: 'us-east-2' });
-
+aws.config.update({region: 'us-east-2'});
+const docClient = new aws.DynamoDB.DocumentClient();
+const db = new aws.DynamoDB();
 
 class Repository {
   static async findAllRedWines(scanParams) {
-    const docClient = new aws.DynamoDB.DocumentClient();
 
-    docClient.scan(scanParams).then(data => ({
-      success: true,
-      response: data.Items,
-    })).catch(err => ({
-      success: false,
-      response: err,
-    }));
-  }
+    return await docClient.scan(scanParams).promise()
+        .then((data) => {
+          return {
+            success: true,
+            results: data.Items
+          };
+        }).catch((err) => {
+          return {
+            success: false,
+            results: err
+          }
+        });
+  };
 
   async findRedWine(varietal, world = null) {
     const docClient = new this.db.DocumentClient();
@@ -37,32 +40,44 @@ class Repository {
     }));
   }
 
-  async putRedWine(params) {
-    this.db.putItem(params).then(data => ({
-      success: true,
-      response: data,
-    })).catch(err => ({
-      success: false,
-      response: err,
-    }));
-  }
+  static async putRedWine(params) {
+    return await db.putItem(params).promise()
+        .then(data => {
+          return {
+            success: true,
+            response: data
+          }
+        }).catch(err => {
+          return {
+            success: false,
+            response: err
+          }
+        });
+  };
 
-  async deleteRedWine(varietal, world) {
+  static async deleteRedWine(varietal, world) {
     const params = {
       TableName: 'redWines',
-      Item: {
-        varietal: { S: varietal },
-        world: { S: world },
-      },
+      Key: {
+        "varietal": {"S": varietal},
+        "world": {"S": world}
+      }
     };
 
-    this.db.deleteItem(params).then(data => ({
-      success: true,
-      response: data,
-    })).catch(err => ({
-      success: false,
-      response: err,
-    }));
+    const db = new aws.DynamoDB();
+
+    return await db.deleteItem(params).promise()
+        .then(data => {
+          return {
+            success: true,
+            response: data
+          }
+        }).catch(err => {
+          return {
+            success: false,
+            response: err
+          }
+        });
   }
 }
 

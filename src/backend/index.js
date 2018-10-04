@@ -6,17 +6,17 @@ import {
 import { invalidRequest } from './staticProxyResponse';
 import Repository from './repository';
 
-const aws = require('aws-sdk');
+// const aws = require('aws-sdk');
 
-aws.config.update({ region: 'us-east-2' });
+// aws.config.update({ region: 'us-east-2' });
 
 exports.getAllRedWines = async (event, context, callback) => {
   const scanParams = {
     TableName: 'redWines',
   };
 
-  const db = aws.DynamoDB;
-  const repository = new Repository(db);
+  // const db = aws.DynamoDB;
+  // const repository = new Repository();
 
   const result = await Repository.findAllRedWines(scanParams);
   if (result.success) {

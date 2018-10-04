@@ -2,13 +2,15 @@
   "name": "wine-guesser-serverless",
   "version": "0.0.5",
   "description": "Wine Guesser Serverless",
+  "private" : true,
   "main": "index.js",
   "repository": "https://github.com/chanson5000/wine-guesser-serverless",
   "author": "Cory Hanson",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/**",
-    "test": "jest test"
+    "test": "jest --testPathPattern ./test/unit/",
+    "pack": "webpack --config webpack.backend.config.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",

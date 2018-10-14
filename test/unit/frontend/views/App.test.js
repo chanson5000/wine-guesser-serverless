@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {expect} from 'chai';
+// import {expect} from 'chai';
 import {RedGuessLink, WhiteGuessLink} from '../../../../src/frontend/components/common';
 import {Landing} from '../../../../src/frontend/components/common';
 

@@ -70,6 +70,11 @@
     "webpack-dev-server": "^3.1.9",
     "webpack-node-externals": "^1.7.2"
   },
+  "engines": {
+    "node": ">=8.10.0",
+    "yarn": ">=1.10.1",
+    "npm": ">=5.6.0"
+  },
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,

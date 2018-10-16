@@ -1,4 +1,4 @@
-import Repository from '../../../src/backend/Repository';
+import Repository from '../../../../src/backend/repository';
 
 describe('repository tests', () => {
 

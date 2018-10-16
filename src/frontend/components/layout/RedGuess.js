@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Form from 'react-bootstrap/lib/Form';
 import RedWineFields from '../../model/RedWineFields';
 import DescriptorFormGroup from '../common/DescriptorFormGroup';
-import Button from 'react-bootstrap/es/Button';
+import Button from 'react-bootstrap/lib/Button';
 
 class RedGuess extends Component {
   render() {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Form from 'react-bootstrap/lib/Form';
 import WhiteWineFields from '../../model/WhiteWineFields';
 import DescriptorFormGroup from '../common/DescriptorFormGroup';
-import Button from 'react-bootstrap/es/Button';
+import Button from 'react-bootstrap/lib/Button';
 
 class WhiteGuess extends Component {
   render() {

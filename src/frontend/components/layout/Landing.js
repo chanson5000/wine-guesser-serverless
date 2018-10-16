@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import WineGlassLink from '../common/WineGlassLink';
 
-class Landing extends Component {
+export class Landing extends Component {
   render() {
     return (
         <div className="container p-4 text-center">

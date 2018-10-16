@@ -6,11 +6,11 @@ const ExternalLink = ({
 }) => {
   if (newWindow) {
     return (
-        <a href={url} rel="noopener noreferer" target="_blank">{text}</a>
+        <a href={url} rel="noopener noreferrer" target="_blank">{text}</a>
     )
   } else {
     return (
-        <a href={url} rel="noopener noreferer">{text}</a>
+        <a href={url} rel="noopener noreferrer">{text}</a>
     )
   }
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Form from "react-bootstrap/lib/Form";
-import Row from "react-bootstrap/es/Row";
-import Col from "react-bootstrap/es/Col";
+import Row from "react-bootstrap/lib/Row";
+import Col from "react-bootstrap/lib/Col";
 
 const DescriptorFormGroup = ({
                      label, controlId, type, options

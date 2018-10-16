@@ -2,18 +2,86 @@
   "name": "wine-guesser-serverless",
   "version": "0.0.5",
   "description": "Wine Guesser Serverless",
+  "private": true,
   "main": "index.js",
   "repository": "https://github.com/chanson5000/wine-guesser-serverless",
   "author": "Cory Hanson",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint src/**",
+    "test-backend": "jest --testPathPattern ./test/unit/backend",
+    "test-frontend": "jest --testPathPattern ./test/unit/frontend",
+    "test": "jest --testPathPattern ./test/unit",
+    "pack": "webpack --config webpack.backend.config.js",
+    "pack-frontend": "webpack --config webpack.frontend.config.js",
+    "build:frontend": "webpack-cli --mode production --config ./webpack.frontend.config.js",
+    "build:backend": "webpack-cli --mode production --config ./webpack.backend.config.js",
+    "start": "webpack-dev-server --mode development --config ./webpack.frontend.config.js --open",
+    "pack-backend": "webpack --config webpack.backend.config.js",
+    "script-test": "react-scripts test --env=jsdom",
+    "react-start": "react-scripts start"
+  },
   "dependencies": {
     "aws-sdk": "^2.325.0",
+    "bootstrap": "^4.1.3",
     "joi": "^13.7.0",
     "mongoose": "^5.3.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-bootstrap": "^1.0.0-beta.1",
+    "react-dom": "^16.5.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "node": "^10.11.0",
-    "webpack": "^4.20.2"
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-arrow-functions": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.0.4",
+    "chance": "^1.0.16",
+    "copy-webpack-plugin": "^4.5.3",
+    "css-loader": "^1.0.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.24.1",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.6.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "react-scripts": "^2.0.5",
+    "react-test-renderer": "^16.5.2",
+    "regenerator-runtime": "^0.12.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "verbose": true,
+    "setupFiles": [
+      "./test/unit/frontend/setUp.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+    }
   }
 }

@@ -29,8 +29,7 @@ export const makeWineQueryParams = (table, varietal, world = null) => {
 export const isNullOrUndef = object => object === null || object === undefined;
 
 export const tryParameter = (parameters, key) => {
-  if (isNullOrUndef(parameters)
-      || isNullOrUndef(parameters[key])) {
+  if (isNullOrUndef(parameters) || isNullOrUndef(parameters[key])) {
     return null;
   }
 

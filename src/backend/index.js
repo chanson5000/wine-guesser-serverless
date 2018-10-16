@@ -6,17 +6,10 @@ import {
 import { invalidRequest } from './staticProxyResponse';
 import Repository from './repository';
 
-// const aws = require('aws-sdk');
-
-// aws.config.update({ region: 'us-east-2' });
-
 exports.getAllRedWines = async (event, context, callback) => {
   const scanParams = {
     TableName: 'redWines',
   };
-
-  // const db = aws.DynamoDB;
-  // const repository = new Repository();
 
   const result = await Repository.findAllRedWines(scanParams);
   if (result.success) {
@@ -43,27 +36,23 @@ exports.doGetRedByVarietal = async (event, context, callback) => {
     world = tryParameter(event.queryStringParameters);
   }
 
-  const db = aws.DynamoDB;
-  const repository = new Repository(db);
-
   let result;
   if (world === null) {
-    result = await repository.findRedWine(varietal);
+    result = await Repository.findRedWine(varietal);
   } else {
-    result = await repository.findRedWine(varietal, world);
+    result = await Repository.findRedWine(varietal, world);
   }
 
   if (result.success) {
     const proxyResponse = makeJsonProxyResponse(200, result.response);
     callback(null, proxyResponse);
   } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
+    const proxyResponse = makeJsonProxyResponse(500, {errorMessage: 'Unable to retrieve results.'});
     callback(null, proxyResponse);
   }
 };
 
 exports.doPutRedWine = async (event, context, callback) => {
-  const db = new aws.DynamoDB({ apiVersion: '2012-10-08' });
 
   if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
     callback(null, invalidRequest);
@@ -95,8 +84,7 @@ exports.doPutRedWine = async (event, context, callback) => {
     },
   };
 
-  const repository = new Repository(db);
-  const result = await repository.putRedWine(params);
+  const result = await Repository.putRedWine(params);
 
   if (result.success) {
     const successMessage = { successMessage: `Added ${varietal} to the database.` };
@@ -126,10 +114,7 @@ exports.doDeleteRedWine = async (event, context, callback) => {
     }
   }
 
-  const db = new aws.DynamoDB();
-  const repository = new Repository(db);
-
-  const result = await repository.deleteRedWine(varietal, world);
+  const result = await Repository.deleteRedWine(varietal, world);
 
   if (result.success) {
     const successMessage = { successMessage: `Removed ${varietal} from the database.` };

@@ -2,7 +2,7 @@ import {makeWineQueryParams} from './util';
 const aws = require('aws-sdk');
 aws.config.update({region: 'us-east-2'});
 const docClient = new aws.DynamoDB.DocumentClient();
-const db = new aws.DynamoDB();
+const db = new aws.DynamoDB({ apiVersion: '2012-10-08' });
 
 class Repository {
   static async findAllRedWines(scanParams) {
@@ -21,8 +21,7 @@ class Repository {
         });
   };
 
-  async findRedWine(varietal, world = null) {
-    const docClient = new this.db.DocumentClient();
+  static async findRedWine(varietal, world = null) {
 
     let queryParams;
     if (world === null) {
@@ -63,8 +62,6 @@ class Repository {
         "world": {"S": world}
       }
     };
-
-    const db = new aws.DynamoDB();
 
     return await db.deleteItem(params).promise()
         .then(data => {

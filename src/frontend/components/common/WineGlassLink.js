@@ -9,25 +9,21 @@ const WineGlassLink = ({
                        }) => {
   if (isRedWine) {
     return (
-        <div>
-          <Link to="/guess-red">
-            <img
-                src={redGlass}
-                alt="Guess a red wine."
-            />
-          </Link>
-        </div>
+        <Link to="/guess-red">
+          <img
+              src={redGlass}
+              alt="Guess a red wine."
+          />
+        </Link>
     );
   } else {
     return (
-        <div>
-          <Link to="/guess-white">
-            <img
-                src={whiteGlass}
-                alt="Guess a white wine."
-            />
-          </Link>
-        </div>
+        <Link to="/guess-white">
+          <img
+              src={whiteGlass}
+              alt="Guess a white wine."
+          />
+        </Link>
     );
   }
 };

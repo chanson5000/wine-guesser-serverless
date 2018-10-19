@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
 const SelectListGroup = ({
-                           label, controlId, options, value
+                           label, controlId, options, value, onChange
                          }) => {
 
   const optionsMap = options.map((option) => (
@@ -20,7 +20,7 @@ const SelectListGroup = ({
           {label}
         </Form.Label>
         <Col md={3}>
-          <Form.Control as="select" value={value}>
+          <Form.Control as="select" onChange={onChange}>
             {optionsMap}
           </Form.Control>
         </Col>
@@ -32,6 +32,7 @@ SelectListGroup.propTypes = {
   label: PropTypes.string.isRequired,
   controlId: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.string,

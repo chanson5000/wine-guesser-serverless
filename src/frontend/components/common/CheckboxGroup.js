@@ -12,9 +12,9 @@ const CheckboxGroup = ({
       <Form.Check
           type='checkbox'
           key={option.value}
-          id={option.value}
+          // id={option.value}
           label={option.label}
-          value={values[option.value]}
+          value={option.value}
       />
   ));
 

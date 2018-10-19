@@ -1,62 +1,65 @@
 import React, {Component} from 'react';
 import Form from 'react-bootstrap/lib/Form';
 import WhiteWineFields from '../../model/WhiteWineFields';
-import DescriptorFormGroup from '../common/DescriptorFormGroup';
 import Button from 'react-bootstrap/lib/Button';
+import SelectListGroup from "../common/SelectListGroup";
+import CheckboxGroup from "../common/CheckboxGroup";
 
 class WhiteGuess extends Component {
   render() {
+    const value = [];
     return (
         <div className="container text-center">
           <h2 className="p-2">Select white wine characteristics.</h2>
           <Form>
-            <DescriptorFormGroup
+
+            <SelectListGroup
                 controlId="color"
                 label="Color"
-                type="select"
+                value={value}
                 options={WhiteWineFields.color}/>
 
-            <DescriptorFormGroup
+            <CheckboxGroup
                 controlId="condition"
                 label="Condition"
-                type="checkbox"
+                values={value}
                 options={WhiteWineFields.condition}/>
 
-            <DescriptorFormGroup
+            <CheckboxGroup
                 controlId="fruit"
                 label="Fruit Type"
-                type="checkbox"
+                values={value}
                 options={WhiteWineFields.type}/>
 
-            <DescriptorFormGroup
+            <CheckboxGroup
                 controlId="nonFruit"
                 label="Non-Fruit"
-                type="checkbox"
+                values={value}
                 options={WhiteWineFields.nonFruit}/>
 
-            <DescriptorFormGroup
+            <SelectListGroup
                 controlId="sweetness"
                 label="Sweetness"
-                type="select"
-                options={WhiteWineFields.sweetness}/>
+                value={value}
+                options={WhiteWineFields.structure}/>
 
-            <DescriptorFormGroup
+            <SelectListGroup
                 controlId="acidity"
                 label="Acidity"
-                type="select"
+                value={value}
                 options={WhiteWineFields.structure}/>
 
-            <DescriptorFormGroup
+            <SelectListGroup
                 controlId="alcohol"
                 label="Alcohol"
-                type="select"
+                value={value}
                 options={WhiteWineFields.structure}/>
 
-            <DescriptorFormGroup
+            <SelectListGroup
                 controlId="climate"
                 label="Climate"
-                type="select"
-                options={WhiteWineFields.climate}/>
+                value={value}
+                options={WhiteWineFields.structure}/>
 
             <Button type="submit" className="guess-btn m-2">Guess</Button>
           </Form>

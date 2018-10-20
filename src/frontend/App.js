@@ -6,7 +6,8 @@ import {
   Landing,
   RedGuess,
   WhiteGuess,
-  NotFound
+  NotFound,
+  NewRedWine
 } from './components/pages';
 
 import './App.css';
@@ -19,8 +20,9 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" component={Landing} />
-            <Route exact path="/guess-red" component={RedGuess} />
-            <Route exact path="/guess-white" component={WhiteGuess} />
+            <Route exact path="/wine/red/guess" component={RedGuess} />
+            <Route exact path="/wine/white/guess" component={WhiteGuess} />
+            <Route exact path="/wine/red/new" component={NewRedWine} />
             <Route exact path="/about" component={About} />
             <Route component={NotFound} />
           </Switch>

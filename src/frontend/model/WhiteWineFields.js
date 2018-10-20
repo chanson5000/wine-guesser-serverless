@@ -46,7 +46,7 @@ const WhiteWineFields = {
   ],
   structure: [
     {value: 'moderateMinus', label: 'Moderate minus'},
-    {value: 'moderate', label: 'moderate'},
+    {value: 'moderate', label: 'Moderate'},
     {value: 'moderatePlus', label: 'Moderate plus'},
     {value: 'high', label: 'High'}
   ],

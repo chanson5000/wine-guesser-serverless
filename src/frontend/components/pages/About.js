@@ -1,5 +1,5 @@
-import React from "react";
-import ExternalLink from "../common/ExternalLink";
+import React from 'react';
+import ExternalLink from '../common/ExternalLink';
 
 const About = () => {
   return (
@@ -11,12 +11,12 @@ const About = () => {
       </h3>
       <p>
         Wine guesser uses wine characteristic information and testing criteria
-        used by those attempting to receive accreditation by the{" "}
+        used by those attempting to receive accreditation by the{' '}
         <ExternalLink
           url="https://www.mastersommeliers.org/"
           text="Court of Master Sommeliers"
           newWindow={true}
-        />{" "}
+        />{' '}
         . When blind tasting a wine, input evaluated characteristics into the
         form and see how close you are to picking out key indicators of the
         wine.

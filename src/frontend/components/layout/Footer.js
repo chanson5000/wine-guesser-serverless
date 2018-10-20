@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import ExternalLink from "../common/ExternalLink";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import ExternalLink from '../common/ExternalLink';
 
 const Footer = () => {
   return (

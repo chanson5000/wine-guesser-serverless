@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ExternalLink = ({
-  url, text, newWindow
-}) => {
+const ExternalLink = ({ url, text, newWindow }) => {
   if (newWindow) {
     return (
-        <a href={url} rel="noopener noreferrer" target="_blank">{text}</a>
-    )
+      <a href={url} rel="noopener noreferrer" target="_blank">
+        {text}
+      </a>
+    );
   } else {
     return (
-        <a href={url} rel="noopener noreferrer">{text}</a>
-    )
+      <a href={url} rel="noopener noreferrer">
+        {text}
+      </a>
+    );
   }
 };
 

@@ -1,9 +1,6 @@
 import WineGlassLink from './common/WineGlassLink';
 import ExternalLink from './common/ExternalLink';
-import DescriptorFormGroup from './common/DescriptorFormGroup';
+import SelectListGroup from './common/SelectListGroup';
+import CheckboxGroup from './common/CheckboxGroup';
 
-export {
-  WineGlassLink,
-  ExternalLink,
-  DescriptorFormGroup
-}
+export { WineGlassLink, ExternalLink, SelectListGroup, CheckboxGroup };

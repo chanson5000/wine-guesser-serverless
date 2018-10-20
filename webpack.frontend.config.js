@@ -30,7 +30,10 @@ module.exports = () => ({
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
-      {test: /\.(jpe?g|gif|ico|png|svg|woff|ttf|wav|mp3|json)$/, loader: "file-loader?name=[name].[ext]"}
+      {
+        test: /\.(jpe?g|gif|ico|png|svg|woff|ttf|wav|mp3|json)$/,
+        loader: 'file-loader?name=[name].[ext]'
+      }
     ]
   },
   output: {
@@ -47,10 +50,10 @@ module.exports = () => ({
       chunkFilename: '[id].css',
       filename: '[name].css'
     }),
-      new CopyWebpackPlugin([
-        {from: './public/favicon.ico'},
-        {from: './public/manifest.json'}
-      ])
+    new CopyWebpackPlugin([
+      { from: './public/favicon.ico' },
+      { from: './public/manifest.json' }
+    ])
   ],
   devServer: {
     historyApiFallback: true

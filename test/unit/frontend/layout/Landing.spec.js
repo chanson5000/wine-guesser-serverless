@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import Landing from '../../../../src/frontend/components/layout/Landing';
+import Landing from '../../../../src/frontend/components/pages/Landing';
 import WineGlassLink from '../../../../src/frontend/components/common/WineGlassLink';
 
 describe('<Landing />', () => {

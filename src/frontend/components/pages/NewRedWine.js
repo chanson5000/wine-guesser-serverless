@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Form from 'react-bootstrap/lib/Form';
-import RedWineFields from "../../model/RedWineFields";
-import SelectListGroup from "../common/SelectListGroup";
-import CheckboxGroup from "../common/CheckboxGroup";
+import RedWineFields from '../../model/RedWineFields';
+import SelectListGroup from '../common/SelectListGroup';
+import CheckboxGroup from '../common/CheckboxGroup';
 import Button from 'react-bootstrap/lib/Button';
 
 export class NewRedWine extends Component {
@@ -51,46 +51,48 @@ export class NewRedWine extends Component {
       climateCool: '',
       climateModerate: '',
       climateWarm: ''
-    }
+    };
   }
 
   onSubmit(event) {
     event.preventDefault();
 
-    const newWine = {}
+    const newWine = {};
   }
 
   render() {
-    const {errors} = this.state;
+    const { errors } = this.state;
 
     return (
-        <div className="container text-center">
-          <h2 className="p-2">Add a red wine to the database.</h2>
-          <Form onSubmit={this.onSubmit}>
-            <SelectListGroup
-                controlId="color"
-                label="Color"
-                value={this.state.color}
-                options={RedWineFields.color}/>
+      <div className="container text-center">
+        <h2 className="p-2">Add a red wine to the database.</h2>
+        <Form onSubmit={this.onSubmit}>
+          <SelectListGroup
+            controlId="color"
+            label="Color"
+            value={this.state.color}
+            options={RedWineFields.color}
+          />
 
-            <CheckboxGroup
-                controlId="condition"
-                label="Condition"
-                values={this.state.condition}
-                options={RedWineFields.condition}/>
+          <CheckboxGroup
+            controlId="condition"
+            label="Condition"
+            values={this.state.condition}
+            options={RedWineFields.condition}
+          />
 
-            <CheckboxGroup
-                controlId="fruit"
-                label="Fruit Type"
-                values={this.state.fruit}
-                options={RedWineFields.type}/>
+          <CheckboxGroup
+            controlId="fruit"
+            label="Fruit Type"
+            values={this.state.fruit}
+            options={RedWineFields.type}
+          />
 
-
-            <Button type="submit" className="guess-btn m-2">Add</Button>
-          </Form>
-        </div>
+          <Button type="submit" className="guess-btn m-2">
+            Add
+          </Button>
+        </Form>
+      </div>
     );
   }
 }
-
-

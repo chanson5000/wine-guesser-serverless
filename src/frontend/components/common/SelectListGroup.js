@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from 'react-bootstrap/lib/Form';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
+import { Form, Row, Col } from 'react-bootstrap';
 
 const SelectListGroup = ({ label, name, options, value, onChange }) => {
   const optionsMap = options.map(option => (

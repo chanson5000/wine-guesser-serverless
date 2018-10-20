@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/lib/Form';
+import { Form, Button } from 'react-bootstrap';
 import WhiteWineFields from '../../model/WhiteWineFields';
-import Button from 'react-bootstrap/lib/Button';
 import { SelectListGroup, CheckboxGroup } from '../common';
 
 class WhiteGuess extends Component {

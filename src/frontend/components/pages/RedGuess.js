@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/lib/Form';
+import { Form, Button } from 'react-bootstrap';
 import RedWineFields from '../../model/RedWineFields';
 import { SelectListGroup, CheckboxGroup } from '../common';
-import Button from 'react-bootstrap/lib/Button';
 
 class RedGuess extends Component {
   state = {

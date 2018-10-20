@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from 'react-bootstrap/lib/Form';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
+import { Form, Row, Col } from 'react-bootstrap';
 
 const TextInput = ({
   label,
@@ -28,9 +26,9 @@ const TextInput = ({
           type={type}
           placeholder={placeholder}
           onChange={onChange}
-          className={{'is-invalid': error}}
+          className={{ 'is-invalid': error }}
         />
-        {error && <div className="invalid-feedback">{error}</div> }
+        {error && <div className="invalid-feedback">{error}</div>}
       </Col>
     </Form.Group>
   );

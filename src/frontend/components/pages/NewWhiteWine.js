@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/lib/Form';
-import RedWineFields from '../../model/RedWineFields';
+import WhiteWineFields from '../../model/WhiteWineFields';
 import { SelectListGroup, CheckboxGroup, TextInput } from '../common';
 import Button from 'react-bootstrap/lib/Button';
 
-class NewRedWine extends Component {
+class NewWhiteWine extends Component {
   state = {
     varietal: '',
     world: 'new',
-    color: 'garnet',
+    color: 'straw',
     condition: {
       tart: false,
       ripe: false,
@@ -16,39 +16,38 @@ class NewRedWine extends Component {
       baked: false
     },
     type: {
-      red: false,
-      black: false,
-      blue: false
+      applePear: false,
+      citrus: false,
+      stone: false,
+      tropical: false
     },
     nonFruit: {
-      floral: false,
-      vegetalPyrazine: false,
-      vegetalTomato: false,
-      herbalTobacco: false,
-      herbalMint: false,
-      herbalThyme: false,
-      herbalTea: false,
-      herbalOregano: false,
+      fruitBlossoms: false,
+      redFlowers: false,
+      hay: false,
+      herbalFresh: false,
+      chive: false,
       herbalDried: false,
-      spicePepper: false,
-      spiceAnise: false,
-      spiceOther: false,
-      coffee: false,
-      cocoa: false,
-      game: false,
-      smoke: false,
-      balsamic: false,
-      carbonicMaceration: false,
-      volatileAcidity: false,
-      oxidization: false,
+      herbalSage: false,
+      herbalTea: false,
+      vegetalPyrazine: false,
+      spice: false,
+      terpene: false,
+      wax: false,
+      soap: false,
+      oysterShell: false,
+      botrytis: false,
+      oxidative: false,
+      lees: false,
       organic: false,
       inorganic: false,
-      oak: false
+      oak: false,
+      bitter: false
     },
-    tannin: 'moderateMinus',
+    sweetness: 'dry',
     acidity: 'moderateMinus',
     alcohol: 'moderateMinus',
-    climate: 'moderateMinus',
+    climate: 'cool',
     errors: {}
   };
 
@@ -83,7 +82,7 @@ class NewRedWine extends Component {
       condition,
       type,
       nonFruit,
-      tannin,
+      sweetness,
       acidity,
       alcohol,
       climate,
@@ -92,7 +91,7 @@ class NewRedWine extends Component {
 
     return (
       <div className="container text-center">
-        <h2 className="p-2">Add a red wine to the database.</h2>
+        <h2 className="p-2">Add a white wine to the database.</h2>
         <Form onSubmit={this.onSubmit}>
           <TextInput
             label="Varietal"
@@ -109,7 +108,7 @@ class NewRedWine extends Component {
             label="World"
             onChange={this.onChange}
             name="color"
-            options={RedWineFields.world}
+            options={WhiteWineFields.world}
           />
 
           <SelectListGroup
@@ -117,7 +116,7 @@ class NewRedWine extends Component {
             label="Color"
             value={color}
             onChange={this.onChange}
-            options={RedWineFields.color}
+            options={WhiteWineFields.color}
           />
 
           <CheckboxGroup
@@ -125,7 +124,7 @@ class NewRedWine extends Component {
             label="Condition"
             values={condition}
             onChange={this.onChange}
-            options={RedWineFields.condition}
+            options={WhiteWineFields.condition}
           />
 
           <CheckboxGroup
@@ -133,7 +132,7 @@ class NewRedWine extends Component {
             label="Fruit Type"
             values={type}
             onChange={this.onChange}
-            options={RedWineFields.type}
+            options={WhiteWineFields.type}
           />
 
           <CheckboxGroup
@@ -141,15 +140,15 @@ class NewRedWine extends Component {
             label="Non-Fruit"
             values={nonFruit}
             onChange={this.onChange}
-            options={RedWineFields.nonFruit}
+            options={WhiteWineFields.nonFruit}
           />
 
           <SelectListGroup
-            name="tannin"
-            label="Tannin"
-            value={tannin}
+            name="sweetness"
+            label="Sweetness"
+            value={sweetness}
             onChange={this.onChange}
-            options={RedWineFields.structure}
+            options={WhiteWineFields.structure}
           />
 
           <SelectListGroup
@@ -157,7 +156,7 @@ class NewRedWine extends Component {
             label="Acidity"
             value={acidity}
             onChange={this.onChange}
-            options={RedWineFields.structure}
+            options={WhiteWineFields.structure}
           />
 
           <SelectListGroup
@@ -165,7 +164,7 @@ class NewRedWine extends Component {
             label="Alcohol"
             value={alcohol}
             onChange={this.onChange}
-            options={RedWineFields.structure}
+            options={WhiteWineFields.structure}
           />
 
           <SelectListGroup
@@ -173,7 +172,7 @@ class NewRedWine extends Component {
             label="Climate"
             value={climate}
             onChange={this.onChange}
-            options={RedWineFields.structure}
+            options={WhiteWineFields.climate}
           />
 
           <Button type="submit" className="guess-btn m-2">
@@ -185,4 +184,4 @@ class NewRedWine extends Component {
   }
 }
 
-export default NewRedWine;
+export default NewWhiteWine;

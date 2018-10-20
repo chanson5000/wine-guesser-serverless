@@ -35,7 +35,8 @@ module.exports = () => ({
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist/frontend')
+    path: path.resolve(__dirname, 'dist/frontend'),
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -50,5 +51,8 @@ module.exports = () => ({
         {from: './public/favicon.ico'},
         {from: './public/manifest.json'}
       ])
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true
+  }
 });

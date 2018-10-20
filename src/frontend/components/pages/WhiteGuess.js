@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/lib/Form';
 import WhiteWineFields from '../../model/WhiteWineFields';
 import Button from 'react-bootstrap/lib/Button';
-import SelectListGroup from '../common/SelectListGroup';
-import CheckboxGroup from '../common/CheckboxGroup';
+import { SelectListGroup, CheckboxGroup } from '../common';
 
 class WhiteGuess extends Component {
   state = {

@@ -3,17 +3,15 @@ import {
   makeWineQueryParams,
   tryParameter,
   isNullOrUndef
-} from "../../../src/backend/util";
+} from '../../../src/backend/util';
 
 import Chance from 'chance';
 
 const chance = new Chance();
 
 describe('utility tests', () => {
-
   describe('makeJsonProxyResponse', () => {
-
-    const inputStatusCode = chance.integer({min: 0, max: 999});
+    const inputStatusCode = chance.integer({ min: 0, max: 999 });
     const inputBody = chance.string();
 
     const result = makeJsonProxyResponse(inputStatusCode, inputBody);
@@ -21,13 +19,12 @@ describe('utility tests', () => {
     test('it should return correct proxy response', () => {
       expect(result.statusCode).toEqual(inputStatusCode);
       expect(result.body).toEqual(JSON.stringify(inputBody));
-      expect(result.headers).toEqual({'Content-Type': 'application/json'});
+      expect(result.headers).toEqual({ 'Content-Type': 'application/json' });
     });
   });
 
   describe('makeWineQueryParams', () => {
     describe('when world is not provided', () => {
-
       const inputTable = chance.string();
       const inputVarietal = chance.string();
 
@@ -43,7 +40,6 @@ describe('utility tests', () => {
     });
 
     describe('when world is provided', () => {
-
       const inputTable = chance.string();
       const inputVarietal = chance.string();
       const inputWorld = chance.string();
@@ -52,7 +48,9 @@ describe('utility tests', () => {
 
       test('it should return correct params', () => {
         expect(result.TableName).toEqual(inputTable);
-        expect(result.KeyConditionExpression).toEqual('varietal = :v and world = :w');
+        expect(result.KeyConditionExpression).toEqual(
+          'varietal = :v and world = :w'
+        );
         expect(result.ExpressionAttributeValues).toEqual({
           ':v': inputVarietal,
           ':w': inputWorld
@@ -63,7 +61,6 @@ describe('utility tests', () => {
 
   describe('isNullOrUndef', () => {
     describe('when null is argument', () => {
-
       const nullArgument = null;
       const result = isNullOrUndef(nullArgument);
 
@@ -73,7 +70,6 @@ describe('utility tests', () => {
     });
 
     describe('when undefined is argument', () => {
-
       let undefinedArgument;
       const result = isNullOrUndef(undefinedArgument);
 
@@ -83,7 +79,6 @@ describe('utility tests', () => {
     });
 
     describe('when non-null or non-undefined is argument', () => {
-
       const stringArgument = chance.string();
       const result = isNullOrUndef(stringArgument);
 
@@ -95,7 +90,6 @@ describe('utility tests', () => {
 
   describe('tryParameter', () => {
     describe('when given valid parameters', () => {
-
       const validParameterKey = chance.string();
       const returnValue = chance.string();
 
@@ -110,7 +104,6 @@ describe('utility tests', () => {
     });
 
     describe('when parameters are null', () => {
-
       const inputParameters = null;
       const anyKey = chance.string();
 
@@ -122,7 +115,6 @@ describe('utility tests', () => {
     });
 
     describe('when parameters are undefined', () => {
-
       let inputParameters;
       const anyKey = chance.string();
 
@@ -134,7 +126,6 @@ describe('utility tests', () => {
     });
 
     describe('when key is not in parameters', () => {
-
       let inputParameters = [];
       const anyParameterKey = 'someKey';
       const inputParameterKey = 'keyToSearch';
@@ -149,7 +140,6 @@ describe('utility tests', () => {
     });
 
     describe('when key is in parameters', () => {
-
       let inputParameters = [];
       const inputParameterKey = chance.string();
       const valueToReturn = chance.string();

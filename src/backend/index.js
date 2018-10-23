@@ -1,133 +1,63 @@
-import { makeJsonProxyResponse, tryParameter, isNullOrUndef } from './util';
-import { invalidRequest } from './staticProxyResponse';
-import Repository from './repository';
+import { parseValidEventParams } from './util';
+import {
+  getAllRedWines,
+  getAllWhiteWines,
+  getRedWineByVarietal,
+  getWhiteWineByVarietal,
+  addRedWine,
+  addWhiteWine,
+  deleteRedWine,
+  deleteWhiteWine
+} from './dbActions';
 
-exports.getAllRedWines = async (event, context, callback) => {
-  const scanParams = {
-    TableName: 'redWines'
-  };
-
-  const result = await Repository.findAllRedWines(scanParams);
-  if (result.success) {
-    const proxyResponse = makeJsonProxyResponse(200, result.response);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(
-      result.response.statusCode,
-      result.response
-    );
-    callback(null, proxyResponse);
-  }
+exports.getAllRedWinesHandler = async (event, context, callback) => {
+  const result = await getAllRedWines();
+  callback(null, result);
 };
 
-exports.doGetRedByVarietal = async (event, context, callback) => {
-  if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
-    callback(null, invalidRequest);
-  }
-
-  const varietal = tryParameter(event.pathParameters, 'varietal');
-  if (varietal === null) {
-    callback(null, invalidRequest);
-  }
-
-  let world = tryParameter(event.pathParameters, 'world');
-  if (world === null) {
-    world = tryParameter(event.queryStringParameters, 'world');
-  }
-
-  let result;
-  if (world === null) {
-    result = await Repository.findRedWine(varietal);
-  } else {
-    result = await Repository.findRedWine(varietal, world);
-  }
-
-  if (result.success) {
-    const proxyResponse = makeJsonProxyResponse(200, result.response);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(result.response.statusCode, {
-      errorMessage: result.response.message,
-      body: {},
-      code: result.response.code
-    });
-    callback(null, proxyResponse);
-  }
+exports.getAllWhiteWinesHandler = async (event, context, callback) => {
+  const result = await getAllWhiteWines();
+  callback(null, result);
 };
 
-exports.doPutRedWine = async (event, context, callback) => {
-  if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
-    callback(null, invalidRequest);
-  }
+exports.getRedWineByVarietalHandler = async (event, context, callback) => {
+  const params = parseValidEventParams(event);
+  const result = await getRedWineByVarietal(params.varietal, params.world);
 
-  const varietal = tryParameter(event.pathParameters, 'varietal');
-  if (varietal === null) {
-    callback(null, invalidRequest);
-  }
-
-  let world = tryParameter(event.pathParameters, 'world');
-  if (world === null) {
-    world = tryParameter(event.queryStringParameters);
-    if (world === null) {
-      callback(null, invalidRequest);
-    }
-  }
-
-  if (!(world === 'old' || world === 'new')) {
-    callback(null, invalidRequest);
-  }
-
-  // Change this to work with a schema.
-  const params = {
-    TableName: 'redWines',
-    Item: {
-      varietal: { S: varietal },
-      world: { S: world }
-    }
-  };
-
-  const result = await Repository.putRedWine(params);
-
-  if (result.success) {
-    const successMessage = {
-      successMessage: `Added ${varietal} to the database.`
-    };
-    const proxyResponse = makeJsonProxyResponse(200, successMessage);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
-    callback(null, proxyResponse);
-  }
+  callback(null, result);
 };
 
-exports.doDeleteRedWine = async (event, context, callback) => {
-  if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
-    callback(null, invalidRequest);
-  }
+exports.getWhiteWineByVarietalHandler = async (event, context, callback) => {
+  const params = parseValidEventParams(event);
+  const result = await getWhiteWineByVarietal(params.varietal, params.world);
 
-  const varietal = tryParameter(event.pathParameters, 'varietal');
-  if (varietal === null) {
-    callback(null, invalidRequest);
-  }
+  callback(null, result);
+};
 
-  let world = tryParameter(event.pathParameters, 'world');
-  if (world === null) {
-    world = tryParameter(event.queryStringParameters);
-    if (world === null) {
-      callback(null, invalidRequest);
-    }
-  }
+exports.addRedWineHandler = async (event, context, callback) => {
+  const params = parseValidEventParams(event);
+  const result = await addRedWine(params);
 
-  const result = await Repository.deleteRedWine(varietal, world);
+  callback(null, result);
+};
 
-  if (result.success) {
-    const successMessage = {
-      successMessage: `Removed ${varietal} from the database.`
-    };
-    const proxyResponse = makeJsonProxyResponse(200, successMessage);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
-    callback(null, proxyResponse);
-  }
+exports.addWhiteWineHandler = async (event, context, callback) => {
+  const params = parseValidEventParams(event);
+  const result = await addWhiteWine(params);
+
+  callback(null, result);
+};
+
+exports.deleteRedWineHandler = async (event, context, callback) => {
+  const params = parseValidEventParams(event);
+  const result = await deleteRedWine(params);
+
+  callback(null, result);
+};
+
+exports.deleteWhiteWineHandler = async (event, context, callback) => {
+  const params = parseValidEventParams(event);
+  const result = await deleteWhiteWine(params);
+
+  callback(null, result);
 };

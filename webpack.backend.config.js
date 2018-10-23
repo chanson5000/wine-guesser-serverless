@@ -7,26 +7,18 @@ module.exports = {
   externals: [
     nodeExternals({
       whitelist: [
-        'babel-polyfill',
-        'core-js/fn/regexp/escape',
-        'core-js/shim',
-        'debug',
-        'follow-redirects',
-        'has-flag',
-        'hoek',
-        'isemail',
-        'is-buffer',
-        'joi',
-        'ms',
-        'os',
-        'regenerator-runtime/runtime',
-        'stream',
-        'supports-color',
-        'topo',
-        'tty',
-        'url',
-        'util',
-        'uuid'
+        '@babel/polyfill',
+        'core-js/es6',
+        'core-js/fn/array/includes',
+        'core-js/fn/string/pad-start',
+        'core-js/fn/string/pad-end',
+        'core-js/fn/symbol/async-iterator',
+        'core-js/fn/object/get-own-property-descriptors',
+        'core-js/fn/object/values',
+        'core-js/fn/object/entries',
+        'core-js/fn/promise/finally',
+        'core-js/web',
+        'regenerator-runtime/runtime'
       ]
     })
   ],

@@ -13,5 +13,10 @@ module.exports = {
       jest: true,
       es6: true
     }
+  },
+  settings: {
+    react: {
+      version: '16.5.2'
+    }
   }
 };

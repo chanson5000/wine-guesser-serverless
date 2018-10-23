@@ -9,7 +9,7 @@ const WineGlassLink = ({
                        }) => {
   if (isRedWine) {
     return (
-        <Link to="/guess-red">
+        <Link to="/wine/red/guess">
           <img
               src={redGlass}
               alt="Guess a red wine."
@@ -18,7 +18,7 @@ const WineGlassLink = ({
     );
   } else {
     return (
-        <Link to="/guess-white">
+        <Link to="/wine/white/guess">
           <img
               src={whiteGlass}
               alt="Guess a white wine."

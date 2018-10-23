@@ -1,14 +1,10 @@
-import {
-  makeJsonProxyResponse,
-  tryParameter,
-  isNullOrUndef,
-} from './util';
+import { makeJsonProxyResponse, tryParameter, isNullOrUndef } from './util';
 import { invalidRequest } from './staticProxyResponse';
 import Repository from './repository';
 
 exports.getAllRedWines = async (event, context, callback) => {
   const scanParams = {
-    TableName: 'redWines',
+    TableName: 'redWines'
   };
 
   const result = await Repository.findAllRedWines(scanParams);
@@ -16,7 +12,10 @@ exports.getAllRedWines = async (event, context, callback) => {
     const proxyResponse = makeJsonProxyResponse(200, result.response);
     callback(null, proxyResponse);
   } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
+    const proxyResponse = makeJsonProxyResponse(
+      result.response.statusCode,
+      result.response
+    );
     callback(null, proxyResponse);
   }
 };
@@ -33,7 +32,7 @@ exports.doGetRedByVarietal = async (event, context, callback) => {
 
   let world = tryParameter(event.pathParameters, 'world');
   if (world === null) {
-    world = tryParameter(event.queryStringParameters);
+    world = tryParameter(event.queryStringParameters, 'world');
   }
 
   let result;
@@ -47,13 +46,16 @@ exports.doGetRedByVarietal = async (event, context, callback) => {
     const proxyResponse = makeJsonProxyResponse(200, result.response);
     callback(null, proxyResponse);
   } else {
-    const proxyResponse = makeJsonProxyResponse(500, {errorMessage: 'Unable to retrieve results.'});
+    const proxyResponse = makeJsonProxyResponse(result.response.statusCode, {
+      errorMessage: result.response.message,
+      body: {},
+      code: result.response.code
+    });
     callback(null, proxyResponse);
   }
 };
 
 exports.doPutRedWine = async (event, context, callback) => {
-
   if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
     callback(null, invalidRequest);
   }
@@ -80,14 +82,16 @@ exports.doPutRedWine = async (event, context, callback) => {
     TableName: 'redWines',
     Item: {
       varietal: { S: varietal },
-      world: { S: world },
-    },
+      world: { S: world }
+    }
   };
 
   const result = await Repository.putRedWine(params);
 
   if (result.success) {
-    const successMessage = { successMessage: `Added ${varietal} to the database.` };
+    const successMessage = {
+      successMessage: `Added ${varietal} to the database.`
+    };
     const proxyResponse = makeJsonProxyResponse(200, successMessage);
     callback(null, proxyResponse);
   } else {
@@ -117,7 +121,9 @@ exports.doDeleteRedWine = async (event, context, callback) => {
   const result = await Repository.deleteRedWine(varietal, world);
 
   if (result.success) {
-    const successMessage = { successMessage: `Removed ${varietal} from the database.` };
+    const successMessage = {
+      successMessage: `Removed ${varietal} from the database.`
+    };
     const proxyResponse = makeJsonProxyResponse(200, successMessage);
     callback(null, proxyResponse);
   } else {

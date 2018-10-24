@@ -24,27 +24,24 @@ const getAllWines = async (isRedWine = false) => {
   }
 };
 
-export const getRedWineByVarietal = async (varietal, world = null) =>
-  await getWineByVarietal({ varietal: varietal, world: world }, true);
+export const getRedWineByVarietal = async wine =>
+  await getWineByVarietal(wine, true);
 
-export const getWhiteWineByVarietal = async (varietal, world = null) =>
-  await getWineByVarietal({ varietal: varietal, world: world });
+export const getWhiteWineByVarietal = async wine =>
+  await getWineByVarietal(wine);
 
-const getWineByVarietal = async (params, isRedWine = false) => {
-  if (params.varietal === null) {
+const getWineByVarietal = async (wine, isRedWine = false) => {
+  if (wine.varietal === null) {
     return invalidRequestProxyResponse;
   }
 
   let result;
   if (isRedWine) {
-    result = await Repository.findRedWineByVarietal(
-      params.varietal,
-      params.world
-    );
+    result = await Repository.findRedWineByVarietal(wine.varietal, wine.world);
   } else {
     result = await Repository.findWhiteWineByVarietal(
-      params.varietal,
-      params.world
+      wine.varietal,
+      wine.world
     );
   }
 
@@ -55,20 +52,20 @@ const getWineByVarietal = async (params, isRedWine = false) => {
   }
 };
 
-export const addRedWine = async params => addWine(params, true);
+export const addRedWine = async wine => addWine(wine, true);
 
-export const addWhiteWine = async params => addWine(params);
+export const addWhiteWine = async wine => addWine(wine);
 
-const addWine = async (params, isRedWine = false) => {
-  if (!validAddWineParams(params)) {
+const addWine = async (wine, isRedWine = false) => {
+  if (!validAddWineParams(wine)) {
     return invalidRequestProxyResponse;
   }
 
   let result;
   if (isRedWine) {
-    result = await Repository.putRedWine(params);
+    result = await Repository.putRedWine(wine);
   } else {
-    result = await Repository.putWhiteWine(params);
+    result = await Repository.putWhiteWine(wine);
   }
 
   if (result.success) {
@@ -79,22 +76,20 @@ const addWine = async (params, isRedWine = false) => {
   }
 };
 
-export const deleteRedWine = async (varietal, world = null) =>
-  await deleteWine({ varietal: varietal, world: world }, true);
+export const deleteRedWine = async wine => await deleteWine(wine, true);
 
-export const deleteWhiteWine = async (varietal, world = null) =>
-  await deleteWine({ varietal: varietal, world: world });
+export const deleteWhiteWine = async wine => await deleteWine(wine);
 
-const deleteWine = async (params, isRedWine = false) => {
-  if (params.varietal === null) {
+const deleteWine = async (wine, isRedWine = false) => {
+  if (wine.varietal === null) {
     return invalidRequestProxyResponse;
   }
 
   let result;
   if (isRedWine) {
-    result = await Repository.deleteRedWine(params.varietal, params.world);
+    result = await Repository.deleteRedWine(wine);
   } else {
-    result = await Repository.deleteWhiteWine(params.varietal, params.world);
+    result = await Repository.deleteWhiteWine(wine);
   }
 
   if (result.success) {
@@ -105,10 +100,10 @@ const deleteWine = async (params, isRedWine = false) => {
   }
 };
 
-const validAddWineParams = params => {
-  const world = params.world;
+const validAddWineParams = wine => {
+  const world = wine.world;
   return !(
-    params.varietal === null ||
+    wine.varietal === null ||
     world === null ||
     !(world === 'old' || world === 'new')
   );

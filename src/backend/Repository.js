@@ -40,11 +40,11 @@ const queryWines = async queryParams => {
     });
 };
 
-const putWine = async (params, isRedWine = false) => {
+const putWine = async (wine, isRedWine = false) => {
   let putParams = {
     Item: {
-      varietal: { S: params.varietal },
-      world: { S: params.world }
+      varietal: { S: wine.varietal },
+      world: { S: wine.world }
     }
   };
 
@@ -93,37 +93,42 @@ class Repository {
   static async findAllRedWines() {
     return await scanWines({ TableName: 'redWines' });
   }
+
   static async findAllWhiteWines() {
     return await scanWines({ TableName: 'whiteWines' });
   }
 
-  static async findRedWineByVarietal(varietal, world = null) {
-    return await queryWines(makeWineQueryParams('redWines', varietal, world));
+  static async findRedWineByVarietal(wine) {
+    return await queryWines(
+      makeWineQueryParams('redWines', wine.varietal, wine.world)
+    );
   }
 
-  static async findWhiteWineByVarietal(varietal, world = null) {
-    return await queryWines(makeWineQueryParams('whiteWines', varietal, world));
+  static async findWhiteWineByVarietal(wine) {
+    return await queryWines(
+      makeWineQueryParams('whiteWines', wine.varietal, wine.world)
+    );
   }
 
-  static async putRedWine(params) {
-    return await putWine(params, true);
+  static async putRedWine(wine) {
+    return await putWine(wine, true);
   }
 
-  static async putWhiteWine(params) {
-    return await putWine(params);
+  static async putWhiteWine(wine) {
+    return await putWine(wine);
   }
 
-  static async deleteRedWine(varietal, world) {
+  static async deleteRedWine(wine) {
     return await deleteWine({
       TableName: 'redWines',
-      Key: { varietal: { S: varietal }, world: { S: world } }
+      Key: { varietal: { S: wine.varietal }, world: { S: wine.world } }
     });
   }
 
-  static async deleteWhiteWine(varietal, world) {
+  static async deleteWhiteWine(wine) {
     return await deleteWine({
       TableName: 'whiteWines',
-      Key: { varietal: { S: varietal }, world: { S: world } }
+      Key: { varietal: { S: wine.varietal }, world: { S: wine.world } }
     });
   }
 }

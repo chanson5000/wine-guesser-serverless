@@ -10,7 +10,7 @@ import Chance from 'chance';
 const chance = new Chance();
 
 describe('utility tests', () => {
-  describe('makeJsonProxyResponse', () => {
+  describe('successProxyResponse', () => {
     const inputStatusCode = chance.integer({ min: 0, max: 999 });
     const inputBody = chance.string();
 

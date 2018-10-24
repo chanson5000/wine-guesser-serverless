@@ -50,14 +50,14 @@ exports.addWhiteWineHandler = async (event, context, callback) => {
 
 exports.deleteRedWineHandler = async (event, context, callback) => {
   const params = parseValidEventParams(event);
-  const result = await deleteRedWine(params);
+  const result = await deleteRedWine(params.varietal, params.world);
 
   callback(null, result);
 };
 
 exports.deleteWhiteWineHandler = async (event, context, callback) => {
   const params = parseValidEventParams(event);
-  const result = await deleteWhiteWine(params);
+  const result = await deleteWhiteWine(params.varietal, params.world);
 
   callback(null, result);
 };

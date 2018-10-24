@@ -10,14 +10,14 @@ export const invalidRequestProxyResponse = {
 };
 
 export const successProxyResponse = response => ({
-  statusCode: response.statusCode,
-  body: JSON.stringify(response.body),
+  statusCode: 200,
+  body: JSON.stringify(response),
   headers: commonHeaders
 });
 
 export const errorProxyResponse = response => ({
   // TODO: Add some logging of errors.
   statusCode: response.statusCode,
-  body: JSON.stringify(response.body),
+  body: JSON.stringify(response.message),
   headers: commonHeaders
 });

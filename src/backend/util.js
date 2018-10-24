@@ -25,26 +25,30 @@ export const tryParameter = (parameters, key) => {
     return null;
   }
 
-  return decodeURI(parameters[key]);
+  return decodeURIComponent(parameters[key]);
 };
 
-export const parseValidEventParams = event => {
-  if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
-    return {varietal: null, world: null};
-  }
-
-  const varietal = tryParameter(event.pathParameters, 'varietal');
-  if (varietal === null) {
-    return {varietal: null, world: null};
-  }
-
-  let world = tryParameter(event.pathParameters, 'world');
-  if (world === null) {
-    world = tryParameter(event.queryStringParameters, 'world');
-  }
-
-  return {
-    varietal: varietal,
-    world: world
+export const makeValidWineObject = event => {
+  const combinedParams = {
+    ...event.queryStringParameters,
+    ...event.pathParameters
   };
+
+  let wine = {};
+
+  for (const key in combinedParams) {
+    wine = {
+      ...wine,
+      [decodeURIComponent(key)]: decodeURIComponent(combinedParams[key])
+    };
+  }
+
+  if (wine.varietal === undefined) {
+    wine.varietal = null;
+  }
+  if (wine.world === undefined) {
+    wine.world = null;
+  }
+
+  return wine;
 };

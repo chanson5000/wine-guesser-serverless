@@ -1,5 +1,4 @@
 import {
-  makeJsonProxyResponse,
   makeWineQueryParams,
   tryParameter,
   isNullOrUndef
@@ -10,18 +9,18 @@ import Chance from 'chance';
 const chance = new Chance();
 
 describe('utility tests', () => {
-  describe('successProxyResponse', () => {
-    const inputStatusCode = chance.integer({ min: 0, max: 999 });
-    const inputBody = chance.string();
-
-    const result = makeJsonProxyResponse(inputStatusCode, inputBody);
-
-    test('it should return correct proxy response', () => {
-      expect(result.statusCode).toEqual(inputStatusCode);
-      expect(result.body).toEqual(JSON.stringify(inputBody));
-      expect(result.headers).toEqual({ 'Content-Type': 'application/json' });
-    });
-  });
+//   describe('successProxyResponse', () => {
+//     const inputStatusCode = chance.integer({ min: 0, max: 999 });
+//     const inputBody = chance.string();
+//
+//     const result = makeJsonProxyResponse(inputStatusCode, inputBody);
+//
+//     test('it should return correct proxy response', () => {
+//       expect(result.statusCode).toEqual(inputStatusCode);
+//       expect(result.body).toEqual(JSON.stringify(inputBody));
+//       expect(result.headers).toEqual({ 'Content-Type': 'application/json' });
+//     });
+//   });
 
   describe('makeWineQueryParams', () => {
     describe('when world is not provided', () => {

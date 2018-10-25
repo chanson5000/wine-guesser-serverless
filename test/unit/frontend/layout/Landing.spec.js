@@ -1,26 +1,26 @@
 import React from 'react';
-import {shallow} from 'enzyme';
-import Landing from '../../../../src/frontend/components/layout/Landing';
-import WineGlassLink from '../../../../src/frontend/components/common/WineGlassLink';
+import { shallow } from 'enzyme';
+import Landing from '../../../../src/frontend/components/pages/Landing';
+import WineGlassLink from '../../../../src/frontend/components/common/WineGlassLink/WineGlassLink';
 
 describe('<Landing />', () => {
-  let wrapper,
-      h2,
-      redWineGlassLink,
-      whiteWineGlassLink;
+  let wrapper, h2, redWineGlassLink, whiteWineGlassLink;
 
   const renderComponent = () => {
-    wrapper = shallow(
-        <Landing/>
-    );
+    wrapper = shallow(<Landing />);
 
-    h2 = wrapper.children().at(0);
-    redWineGlassLink.childAt(1).childAt(0).childAt(0);
-    whiteWineGlassLink.childAt(1).childAt(1).childAt(0);
+    h2 = wrapper.childAt(0);
+    redWineGlassLink = wrapper
+      .childAt(1)
+      .childAt(0)
+      .childAt(0);
+    whiteWineGlassLink = wrapper
+      .childAt(1)
+      .childAt(1)
+      .childAt(0);
   };
 
   describe('when component is rendered', () => {
-
     beforeAll(() => {
       renderComponent();
     });
@@ -29,12 +29,12 @@ describe('<Landing />', () => {
       expect(wrapper.exists()).toBe(true);
     });
 
-    test('with \'div\' as the root element', () => {
+    test("with 'div' as the root element", () => {
       expect(wrapper.type()).toEqual('div');
     });
 
     test('and div has correct properties', () => {
-      expect(wrapper.props().class).toEqual('container p-4 text-center');
+      expect(wrapper.props().className).toEqual('container p-4 text-center');
     });
 
     test('with <h2> child', () => {
@@ -50,14 +50,36 @@ describe('<Landing />', () => {
     });
 
     test('with correct properties', () => {
-      expect(wrapper.childAt(1).props().class).toEqual('row justify-content-center');
+      expect(wrapper.childAt(1).props().className).toEqual(
+        'row justify-content-center'
+      );
     });
 
-    test('with correct div\'s at children', () => {
-      expect(wrapper.childAt(1).childAt(0).type()).toEqual('div');
-      expect(wrapper.childAt(1).childAt(0).props().class).toEqual('col-auto');
-      expect(wrapper.childAt(1).childAt(1).type()).toEqual('div');
-      expect(wrapper.childAt(1).childAt(1).props().class).toEqual('col-auto');
+    test("with correct div's at children", () => {
+      expect(
+        wrapper
+          .childAt(1)
+          .childAt(0)
+          .type()
+      ).toEqual('div');
+      expect(
+        wrapper
+          .childAt(1)
+          .childAt(0)
+          .props().className
+      ).toEqual('col-auto');
+      expect(
+        wrapper
+          .childAt(1)
+          .childAt(1)
+          .type()
+      ).toEqual('div');
+      expect(
+        wrapper
+          .childAt(1)
+          .childAt(1)
+          .props().className
+      ).toEqual('col-auto');
     });
 
     test('with red <WineGlassLink/>', () => {

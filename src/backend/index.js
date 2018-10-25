@@ -1,142 +1,63 @@
+import { makeValidWineObject } from './util';
 import {
-  makeJsonProxyResponse,
-  tryParameter,
-  isNullOrUndef,
-} from './util';
-import { invalidRequest } from './staticProxyResponse';
-import Repository from './repository';
+  getAllRedWines,
+  getAllWhiteWines,
+  getRedWineByVarietal,
+  getWhiteWineByVarietal,
+  addRedWine,
+  addWhiteWine,
+  deleteRedWine,
+  deleteWhiteWine
+} from './dbActions';
 
-// const aws = require('aws-sdk');
-
-// aws.config.update({ region: 'us-east-2' });
-
-exports.getAllRedWines = async (event, context, callback) => {
-  const scanParams = {
-    TableName: 'redWines',
-  };
-
-  // const db = aws.DynamoDB;
-  // const repository = new Repository();
-
-  const result = await Repository.findAllRedWines(scanParams);
-  if (result.success) {
-    const proxyResponse = makeJsonProxyResponse(200, result.response);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
-    callback(null, proxyResponse);
-  }
+exports.getAllRedWinesHandler = async (event, context, callback) => {
+  const result = await getAllRedWines();
+  callback(null, result);
 };
 
-exports.doGetRedByVarietal = async (event, context, callback) => {
-  if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
-    callback(null, invalidRequest);
-  }
-
-  const varietal = tryParameter(event.pathParameters, 'varietal');
-  if (varietal === null) {
-    callback(null, invalidRequest);
-  }
-
-  let world = tryParameter(event.pathParameters, 'world');
-  if (world === null) {
-    world = tryParameter(event.queryStringParameters);
-  }
-
-  const db = aws.DynamoDB;
-  const repository = new Repository(db);
-
-  let result;
-  if (world === null) {
-    result = await repository.findRedWine(varietal);
-  } else {
-    result = await repository.findRedWine(varietal, world);
-  }
-
-  if (result.success) {
-    const proxyResponse = makeJsonProxyResponse(200, result.response);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
-    callback(null, proxyResponse);
-  }
+exports.getAllWhiteWinesHandler = async (event, context, callback) => {
+  const result = await getAllWhiteWines();
+  callback(null, result);
 };
 
-exports.doPutRedWine = async (event, context, callback) => {
-  const db = new aws.DynamoDB({ apiVersion: '2012-10-08' });
+exports.getRedWineByVarietalHandler = async (event, context, callback) => {
+  const wine = makeValidWineObject(event);
+  const result = await getRedWineByVarietal(wine);
 
-  if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
-    callback(null, invalidRequest);
-  }
-
-  const varietal = tryParameter(event.pathParameters, 'varietal');
-  if (varietal === null) {
-    callback(null, invalidRequest);
-  }
-
-  let world = tryParameter(event.pathParameters, 'world');
-  if (world === null) {
-    world = tryParameter(event.queryStringParameters);
-    if (world === null) {
-      callback(null, invalidRequest);
-    }
-  }
-
-  if (!(world === 'old' || world === 'new')) {
-    callback(null, invalidRequest);
-  }
-
-  // Change this to work with a schema.
-  const params = {
-    TableName: 'redWines',
-    Item: {
-      varietal: { S: varietal },
-      world: { S: world },
-    },
-  };
-
-  const repository = new Repository(db);
-  const result = await repository.putRedWine(params);
-
-  if (result.success) {
-    const successMessage = { successMessage: `Added ${varietal} to the database.` };
-    const proxyResponse = makeJsonProxyResponse(200, successMessage);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
-    callback(null, proxyResponse);
-  }
+  callback(null, result);
 };
 
-exports.doDeleteRedWine = async (event, context, callback) => {
-  if (isNullOrUndef(event) || isNullOrUndef(event.pathParameters)) {
-    callback(null, invalidRequest);
-  }
+exports.getWhiteWineByVarietalHandler = async (event, context, callback) => {
+  const wine = makeValidWineObject(event);
+  const result = await getWhiteWineByVarietal(wine);
 
-  const varietal = tryParameter(event.pathParameters, 'varietal');
-  if (varietal === null) {
-    callback(null, invalidRequest);
-  }
+  callback(null, result);
+};
 
-  let world = tryParameter(event.pathParameters, 'world');
-  if (world === null) {
-    world = tryParameter(event.queryStringParameters);
-    if (world === null) {
-      callback(null, invalidRequest);
-    }
-  }
+exports.addRedWineHandler = async (event, context, callback) => {
+  const wine = makeValidWineObject(event);
+  const result = await addRedWine(wine);
 
-  const db = new aws.DynamoDB();
-  const repository = new Repository(db);
+  callback(null, result);
+};
 
-  const result = await repository.deleteRedWine(varietal, world);
+exports.addWhiteWineHandler = async (event, context, callback) => {
+  const wine = makeValidWineObject(event);
+  const result = await addWhiteWine(wine);
 
-  if (result.success) {
-    const successMessage = { successMessage: `Removed ${varietal} from the database.` };
-    const proxyResponse = makeJsonProxyResponse(200, successMessage);
-    callback(null, proxyResponse);
-  } else {
-    const proxyResponse = makeJsonProxyResponse(500, result.response);
-    callback(null, proxyResponse);
-  }
+  callback(null, result);
+};
+
+exports.deleteRedWineHandler = async (event, context, callback) => {
+  const wine = makeValidWineObject(event);
+  const result = await deleteRedWine(wine);
+
+  callback(null, result);
+};
+
+exports.deleteWhiteWineHandler = async (event, context, callback) => {
+  const wine = makeValidWineObject(event);
+  const result = await deleteWhiteWine(wine);
+
+  callback(null, result);
 };

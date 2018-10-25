@@ -1,0 +1,14 @@
+[
+  {
+    "ParameterKey": "WebsiteBucketName",
+    "ParameterValue": "wine-guesser-sam-website-bucket"
+  },
+  {
+    "ParameterKey": "StagingBucketName",
+    "ParameterValue": "wine-guesser-sam-staging-bucket"
+  },
+  {
+    "ParameterKey": "LambdaExecutionRole",
+    "ParameterValue": "wine-guesser-sam-lambda-execution-role"
+  }
+]

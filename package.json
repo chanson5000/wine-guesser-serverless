@@ -9,21 +9,29 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint src/**",
+    "test-integration": "jest --testPathPattern ./test/integration/backend",
     "test-backend": "jest --testPathPattern ./test/unit/backend",
     "test-frontend": "jest --testPathPattern ./test/unit/frontend",
     "test": "jest --testPathPattern ./test/unit",
     "pack": "webpack --config webpack.backend.config.js",
     "pack-frontend": "webpack --config webpack.frontend.config.js",
     "build:frontend": "webpack-cli --mode production --config ./webpack.frontend.config.js",
-    "build:backend": "webpack-cli --mode production --config ./webpack.backend.config.js",
+    "build:backend": "build-backend && package-sam",
     "start": "webpack-dev-server --mode development --config ./webpack.frontend.config.js --open",
     "pack-backend": "webpack --config webpack.backend.config.js",
     "script-test": "react-scripts test --env=jsdom",
-    "react-start": "react-scripts start"
+    "react-start": "react-scripts start",
+    "build-backend": "webpack-cli --mode production --config ./webpack.backend.config.js",
+    "package-sam": "aws cloudformation package --template-file ./aws/template-sam.yml --s3-bucket wine-guesser-sam-staging-bucket --output-template-file ./dist/template-sam.yaml",
+    "provision:base": "aws cloudformation create-stack --stack-name wine-guesser-base --template-body file://./aws/template-base.yml --parameters file://./aws/parameters.json --capabilities CAPABILITY_NAMED_IAM",
+    "deploy:backend": "aws cloudformation deploy --stack-name wine-guesser-sam --template-file ./dist/template-sam.yaml",
+    "deploy:frontend": "aws s3 cp ./dist/frontend/ s3://wine-guesser-website-bucket/ --recursive --include \"*\" --acl public-read"
   },
   "dependencies": {
     "aws-sdk": "^2.325.0",
+    "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
+    "firebase": "^5.5.4",
     "joi": "^13.7.0",
     "mongoose": "^5.3.0",
     "prop-types": "^15.6.2",
@@ -35,11 +43,13 @@
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-transform-arrow-functions": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
@@ -53,9 +63,9 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "eslint": "^5.7.0",
-    "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.24.1",
+    "eslint-plugin-react": "^7.11.1",
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
@@ -70,6 +80,11 @@
     "webpack-dev-server": "^3.1.9",
     "webpack-node-externals": "^1.7.2"
   },
+  "engines": {
+    "node": ">=8.10.0",
+    "yarn": ">=1.3.2",
+    "npm": ">=5.6.0"
+  },
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
@@ -83,5 +98,8 @@
     "moduleNameMapper": {
       ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
     }
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

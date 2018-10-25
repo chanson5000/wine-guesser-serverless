@@ -1,0 +1,192 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  BaseName:
+    Type: String
+    Default: wine-guesser
+  BaseStackName:
+    Type: String
+    Default: "${BaseName}-sam"
+  BackendCodeUri:
+    Type: String
+    Default: ../dist/backend/
+
+
+Globals:
+  Function:
+    Runtime: nodejs8.10
+    Environment:
+      Variables:
+
+    MemorySize: 128
+    Timeout: 60
+  Api:
+    Cors:
+      AllowHeaders: "'content-type, authorization'"
+      AllowOrigin: "'*'"
+
+Resources:
+  GetAllRedWinesFunction:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-getAllRedWines-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.getAllRedWinesHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+      Events:
+        PostResource:
+          Type: Api
+          Properties:
+            Path: /wines/red
+            Method: get
+
+  GetAllWhiteWinesFunction:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-getAllWhiteWines-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.getAllWhiteWinesHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+      Events:
+        PostResource:
+          Type: Api
+          Properties:
+            Path: /wines/white
+            Method: get
+
+  GetRedWineByVarietal:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-getRedWineByVarietal-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.getRedWineByVarietalHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+      Events:
+        PostResourceVarietal:
+          Type: Api
+          Properties:
+            Path: /wines/red/{varietal}
+            Method: get
+        PostResourceWorld:
+          Type: Api
+          Properties:
+            Path: /wine/red/{varietal}/{world}
+            Method: get
+
+  GetWhiteWineByVarietal:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-getWhiteWineByVarietal-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.getWhiteWineByVarietalHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+        Events:
+          PostResourceVarietal:
+            Type: Api
+            Properties:
+              Path: /wines/white/{varietal}
+              Method: get
+          PostResourceWorld:
+            Type: Api
+            Properties:
+              Path: /wine/white/{varietal}/{world}
+              Method: get
+
+  AddRedWine:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-addRedWine-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.addRedWineHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+        Events:
+          PostResourceVarietal:
+            Type: Api
+            Properties:
+              Path: /wines/red/{varietal}
+              Method: put
+          PostResourceWorld:
+            Type: Api
+            Properties:
+              Path: /wines/red/{varietal}/{world}
+              Method: put
+
+  AddWhiteWine:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-addWhiteWine-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.addWhiteWineHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+        Events:
+          PostResourceVarietal:
+            Type: Api
+            Properties:
+              Path: /wines/white/{varietal}
+              Method: put
+          PostResourceWorld:
+            Type: Api
+            Properties:
+              Path: /wines/white/{varietal}/{world}
+              Method: put
+
+  DeleteRedWine:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-deleteRedWine-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.deleteRedWineHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+        Events:
+          PostResourceVarietal:
+            Type: Api
+            Properties:
+              Path: /wines/red/{varietal}
+              Method: delete
+          PostResourceWorld:
+            Type: Api
+            Properties:
+              Path: /wines/red/{varietal}/{world}
+              Method: delete
+
+  DeleteWhiteWine:
+    Type: AWS::Serverless:Function
+    Properties:
+      FunctionName: "${BaseName}-deleteWhiteWine-function"
+      CodeUri: "${BackendCodeUri}"
+      Handler: index.deleteWhiteWineHandler
+      Role:
+        Fn::ImportValue:
+          Fn::Sub: "${BaseStackName}-lambda-execution-role-arn"
+        Events:
+          PostResourceVarietal:
+            Type: Api
+            Properties:
+              Path: /wines/white/{varietal}
+              Method: delete
+          PostResourceWorld:
+            Type: Api
+            Properties:
+              Path: /wines/white/{varietal}/{world}
+              Method: delete
+
+Outputs:
+  ApiUrl:
+    Description: API endpoint URL for Wine Guesser SAM
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/

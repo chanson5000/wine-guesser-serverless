@@ -1,11 +1,3 @@
-export const makeJsonProxyResponse = (statusCode, body) => ({
-  statusCode: 200,
-  body: JSON.stringify(body),
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
 export const makeWineQueryParams = (table, varietal, world = null) => {
   if (world !== null) {
     return {
@@ -13,26 +5,50 @@ export const makeWineQueryParams = (table, varietal, world = null) => {
       KeyConditionExpression: 'varietal = :v and world = :w',
       ExpressionAttributeValues: {
         ':v': varietal,
-        ':w': world,
-      },
+        ':w': world
+      }
     };
   }
   return {
     TableName: table,
     KeyConditionExpression: 'varietal = :v',
     ExpressionAttributeValues: {
-      ':v': varietal,
-    },
+      ':v': varietal
+    }
   };
 };
 
 export const isNullOrUndef = object => object === null || object === undefined;
 
 export const tryParameter = (parameters, key) => {
-  if (isNullOrUndef(parameters)
-      || isNullOrUndef(parameters[key])) {
+  if (isNullOrUndef(parameters) || isNullOrUndef(parameters[key])) {
     return null;
   }
 
-  return parameters[key];
+  return decodeURIComponent(parameters[key]);
+};
+
+export const makeValidWineObject = event => {
+  const combinedParams = {
+    ...event.queryStringParameters,
+    ...event.pathParameters
+  };
+
+  let wine = {};
+
+  for (const key in combinedParams) {
+    wine = {
+      ...wine,
+      [decodeURIComponent(key)]: decodeURIComponent(combinedParams[key])
+    };
+  }
+
+  if (wine.varietal === undefined) {
+    wine.varietal = null;
+  }
+  if (wine.world === undefined) {
+    wine.world = null;
+  }
+
+  return wine;
 };

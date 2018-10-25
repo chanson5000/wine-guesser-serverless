@@ -1,14 +1,22 @@
 module.exports = {
-  extends: [
-    'airbnb-base',
-    'plugin:jest/recommended',
-  ],
-  plugins: [
-    'import',
-    'jest',
-  ],
+  parser: "babel-eslint",
+  plugins: ['react'],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:jest/recommended'],
   env: {
-    node: true,
-    'jest/globals': true,
+    node: true
   },
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+      jest: true,
+      es6: true
+    }
+  },
+  settings: {
+    react: {
+      version: '16.5.2'
+    }
+  }
 };

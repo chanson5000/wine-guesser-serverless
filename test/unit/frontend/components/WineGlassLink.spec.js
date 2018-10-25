@@ -33,7 +33,7 @@ describe('<WineGlassLink />', () => {
     });
 
     test('to "/guess-red"', () => {
-      expect(wrapper.props().to).toEqual('/guess-red');
+      expect(wrapper.props().to).toEqual('/wine/red/guess');
     });
 
     test("as 'img' tag", () => {
@@ -56,7 +56,7 @@ describe('<WineGlassLink />', () => {
     });
 
     test('links to "/guess-white"', () => {
-      expect(wrapper.props().to).toEqual('/guess-white');
+      expect(wrapper.props().to).toEqual('/wine/white/guess');
     });
 
     // TODO: Figure out how to test this, as well.

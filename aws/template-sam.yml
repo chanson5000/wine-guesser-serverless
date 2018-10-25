@@ -1,3 +1,4 @@
+---
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 
@@ -184,3 +185,8 @@ Resources:
             Properties:
               Path: /wines/white/{varietal}/{world}
               Method: delete
+
+Outputs:
+  ApiUrl:
+    Description: API endpoint URL for Wine Guesser SAM
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/

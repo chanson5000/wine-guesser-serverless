@@ -16,11 +16,16 @@
     "pack": "webpack --config webpack.backend.config.js",
     "pack-frontend": "webpack --config webpack.frontend.config.js",
     "build:frontend": "webpack-cli --mode production --config ./webpack.frontend.config.js",
-    "build:backend": "webpack-cli --mode production --config ./webpack.backend.config.js",
+    "build:backend": "build-backend && package-sam",
     "start": "webpack-dev-server --mode development --config ./webpack.frontend.config.js --open",
     "pack-backend": "webpack --config webpack.backend.config.js",
     "script-test": "react-scripts test --env=jsdom",
-    "react-start": "react-scripts start"
+    "react-start": "react-scripts start",
+    "build-backend": "webpack-cli --mode production --config ./webpack.backend.config.js",
+    "package-sam": "aws cloudformation package --template-file ./aws/template-sam.yml --s3-bucket wine-guesser-sam-staging-bucket --output-template-file ./dist/template-sam.yaml",
+    "provision:base": "aws cloudformation create-stack --stack-name wine-guesser-base --template-body file://./aws/template-base.yml --parameters file://./aws/parameters.json --capabilities CAPABILITY_NAMED_IAM",
+    "deploy:backend": "aws cloudformation deploy --stack-name wine-guesser-sam --template-file ./dist/template-sam.yaml",
+    "deploy:frontend": "aws s3 cp ./dist/frontend/ s3://wine-guesser-website-bucket/ --recursive --include \"*\" --acl public-read"
   },
   "dependencies": {
     "aws-sdk": "^2.325.0",

@@ -39,7 +39,7 @@ module.exports = () => ({
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist/frontend'),
-    publicPath: '/'
+    publicPath: "/"
   },
   plugins: [
     new HtmlWebPackPlugin({

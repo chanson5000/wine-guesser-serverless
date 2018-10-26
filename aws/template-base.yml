@@ -19,9 +19,11 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref WebsiteBucketName
+      WebsiteConfiguration:
+        IndexDocument: index.html
 
   WineGuesserLambdaExecutionRole:
-    Type: AWS::IAM:Role
+    Type: AWS::IAM::Role
     Properties:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSLambdaFullAccess
@@ -37,12 +39,12 @@ Resources:
                 - apigateway.amazonaws.com
                 - lambda.amazonaws.com
             Action:
-              - sts: AssumeRole
+              - sts:AssumeRole
 
 Outputs:
   WineGuesserWebsiteUrl:
     Description: Wine Guesser website URL.
-    Value: !GetAtt WineGuesserWebsiteBucket.WebsiteUrl
+    Value: !GetAtt WineGuesserWebsiteBucket.WebsiteURL
     Export:
       Name:
         Fn::Sub: "${AWS::StackName}-website-url"

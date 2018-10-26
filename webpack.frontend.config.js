@@ -38,7 +38,8 @@ module.exports = () => ({
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist/frontend')
+    path: path.resolve(__dirname, 'dist/frontend'),
+    publicPath: "http://new.wineguesser.com/"
   },
   plugins: [
     new HtmlWebPackPlugin({

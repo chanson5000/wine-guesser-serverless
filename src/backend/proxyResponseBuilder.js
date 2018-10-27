@@ -17,7 +17,7 @@ export const successProxyResponse = response => ({
 
 export const errorProxyResponse = response => ({
   // TODO: Add some logging of errors.
-  statusCode: response.statusCode,
+  statusCode: 500,
   body: JSON.stringify(response),
   headers: commonHeaders
 });

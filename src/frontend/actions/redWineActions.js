@@ -1,6 +1,7 @@
 import { GET_RED_WINES } from './types';
 import axios from 'axios';
 
+// eslint-disable-next-line no-undef
 const apiEndpoint = WINE_GUESSER_API_URL;
 
 export const getRedWines = () => async dispatch => {

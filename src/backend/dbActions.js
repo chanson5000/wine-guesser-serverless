@@ -6,8 +6,15 @@ import {
 } from './proxyResponseBuilder';
 
 export const getAllRedWines = async () => await getAllWines(true);
-
 export const getAllWhiteWines = async () => await getAllWines();
+export const getRedWineByVarietal = async wine =>
+  await getWineByVarietal(wine, true);
+export const getWhiteWineByVarietal = async wine =>
+  await getWineByVarietal(wine);
+export const addRedWine = async wine => addWine(wine, true);
+export const addWhiteWine = async wine => addWine(wine);
+export const deleteRedWine = async wine => await deleteWine(wine, true);
+export const deleteWhiteWine = async wine => await deleteWine(wine);
 
 const getAllWines = async (isRedWine = false) => {
   let result;
@@ -18,17 +25,11 @@ const getAllWines = async (isRedWine = false) => {
   }
 
   if (result.success) {
-    return successProxyResponse(result.response);
+    return successProxyResponse(result.data);
   } else {
-    return errorProxyResponse(result.response);
+    return errorProxyResponse(result.data);
   }
 };
-
-export const getRedWineByVarietal = async wine =>
-  await getWineByVarietal(wine, true);
-
-export const getWhiteWineByVarietal = async wine =>
-  await getWineByVarietal(wine);
 
 const getWineByVarietal = async (wine, isRedWine = false) => {
   if (wine.varietal === null) {
@@ -37,7 +38,8 @@ const getWineByVarietal = async (wine, isRedWine = false) => {
 
   let result;
   if (isRedWine) {
-    result = await Repository.findRedWineByVarietal(wine.varietal, wine.world);
+    result = await Repository.findRedWineByVarietal(wine.varietal,
+      wine.world);
   } else {
     result = await Repository.findWhiteWineByVarietal(
       wine.varietal,
@@ -46,18 +48,14 @@ const getWineByVarietal = async (wine, isRedWine = false) => {
   }
 
   if (result.success) {
-    return successProxyResponse(result.response);
+    return successProxyResponse(result.data);
   } else {
-    return errorProxyResponse(result.response);
+    return errorProxyResponse(result.data);
   }
 };
 
-export const addRedWine = async wine => addWine(wine, true);
-
-export const addWhiteWine = async wine => addWine(wine);
-
 const addWine = async (wine, isRedWine = false) => {
-  if (!validAddWineParams(wine)) {
+  if (!validWineParams(wine)) {
     return invalidRequestProxyResponse;
   }
 
@@ -69,19 +67,15 @@ const addWine = async (wine, isRedWine = false) => {
   }
 
   if (result.success) {
-    // TODO: Replace with custom response message.
-    return successProxyResponse(result.response);
+    // TODO: Replace with custom data message.
+    return successProxyResponse(result.data);
   } else {
-    return errorProxyResponse(result.response);
+    return errorProxyResponse(result.data);
   }
 };
 
-export const deleteRedWine = async wine => await deleteWine(wine, true);
-
-export const deleteWhiteWine = async wine => await deleteWine(wine);
-
 const deleteWine = async (wine, isRedWine = false) => {
-  if (wine.varietal === null) {
+  if (!validWineParams(wine)) {
     return invalidRequestProxyResponse;
   }
 
@@ -93,14 +87,14 @@ const deleteWine = async (wine, isRedWine = false) => {
   }
 
   if (result.success) {
-    // TODO: Replace with custom response message.
-    return successProxyResponse(result.response);
+    // TODO: Replace with custom data message.
+    return successProxyResponse(result.data);
   } else {
-    return errorProxyResponse(result.response);
+    return errorProxyResponse(result.data);
   }
 };
 
-const validAddWineParams = wine => {
+const validWineParams = wine => {
   const world = wine.world;
   return !(
     wine.varietal === null ||

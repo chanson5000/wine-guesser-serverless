@@ -1,10 +1,11 @@
 const path = require('path');
 
+const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = () => ({
+module.exports = (env) => ({
   entry: ['@babel/polyfill', './src/frontend/index.js'],
   module: {
     rules: [
@@ -39,7 +40,7 @@ module.exports = () => ({
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist/frontend'),
-    publicPath: "/"
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -53,7 +54,10 @@ module.exports = () => ({
     new CopyWebpackPlugin([
       { from: './public/favicon.ico' },
       { from: './public/manifest.json' }
-    ])
+    ]),
+    new webpack.DefinePlugin({
+      WINE_GUESSER_API_URL: JSON.stringify(env.WINE_GUESSER_API_URL)
+    })
   ],
   devServer: {
     historyApiFallback: true

@@ -79,7 +79,7 @@ class WhiteGuess extends Component {
 
     return (
       <div className="container text-center">
-        <h2 className="p-2">Select white wine characteristics.</h2>
+        <h2 className="p-4">Select white wine characteristics.</h2>
         <Form>
           <SelectListGroup
             name="color"

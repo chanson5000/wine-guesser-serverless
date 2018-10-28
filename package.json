@@ -16,16 +16,15 @@
     "provision:base": "aws cloudformation create-stack --stack-name wine-guesser-base --template-body file://./aws/template-base.yml --parameters file://./aws/parameters.json --capabilities CAPABILITY_NAMED_IAM",
     "build:backend": "yarn pack:backend && yarn package-sam",
     "deploy:backend": "aws cloudformation deploy --stack-name wine-guesser-sam --template-file ./dist/template-sam.yaml",
-    "build:frontend": "yarn set:env-api-url && webpack-cli --env.WINE_GUESSER_API_URL=$WINE_GUESSER_API_URL --mode production --config ./webpack.frontend.config.js",
+    "build:frontend": "webpack-cli --mode production --config ./webpack.frontend.config.js",
     "deploy:frontend": "aws s3 cp ./dist/frontend/ s3://wine-guesser-sam-website-bucket/ --recursive --include \"*\" --acl public-read",
     "show:frontend-url": "aws cloudformation describe-stacks --stack-name wine-guesser-base --query \"Stacks[0].Outputs[1].OutputValue\"",
-    "start:dev": "yarn set:env-api-url && webpack-dev-server --env.WINE_GUESSER_API_URL=$WINE_GUESSER_API_URL --mode development --config ./webpack.frontend.config.js --open",
+    "start:dev": "webpack-dev-server --mode development --config ./webpack.frontend.config.js --open",
     "reprovision:base": "aws cloudformation update-stack --stack-name wine-guesser-base --template-body file://./aws/template-base.yml --parameters file://./aws/parameters.json --capabilities CAPABLITY_NAMED_IAM",
     "deprovision:base": "aws cloudformation delete-stack --stack-name wine-guesser-base",
     "deprovision:backend": "aws cloudformation delete-stack --stack-name wine-guesser-sam",
     "pack:backend": "webpack-cli --mode production --config ./webpack.backend.config.js",
-    "package-sam": "aws cloudformation package --template-file ./aws/template-sam.yml --s3-bucket wine-guesser-sam-staging-bucket --output-template-file ./dist/template-sam.yaml",
-    "set:env-api-url": "cross-env WINE_GUESSER_API_URL=shell aws cloudformation describe-stacks --stack-name wine-guesser-sam --query 'Stacks[0].Outputs[0].OutputValue'"
+    "package-sam": "aws cloudformation package --template-file ./aws/template-sam.yml --s3-bucket wine-guesser-sam-staging-bucket --output-template-file ./dist/template-sam.yaml"
   },
   "dependencies": {
     "aws-sdk": "^2.325.0",
@@ -76,6 +75,7 @@
     "react-scripts": "^2.0.5",
     "react-test-renderer": "^16.5.2",
     "regenerator-runtime": "^0.12.1",
+    "shelljs": "^0.8.2",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9",

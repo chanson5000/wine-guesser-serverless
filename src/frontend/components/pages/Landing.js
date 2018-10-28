@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import WineGlassLink from '../common/WineGlassLink';
+import WineGlassLink from '../wine/WineGlassLink';
 
 class Landing extends Component {
   render() {

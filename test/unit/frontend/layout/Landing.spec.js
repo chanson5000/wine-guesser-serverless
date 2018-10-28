@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Landing from '../../../../src/frontend/components/pages/Landing';
-import WineGlassLink from '../../../../src/frontend/components/common/WineGlassLink/WineGlassLink';
+import WineGlassLink from '../../../../src/frontend/components/wine/WineGlassLink/WineGlassLink';
 
 describe('<Landing />', () => {
   let wrapper, h2, redWineGlassLink, whiteWineGlassLink;

@@ -113,7 +113,6 @@ export const deleteWine = (wine, isRedWine = false) => async dispatch => {
   try {
     res = await axios.delete(deleteURI, wine);
   } catch {
-    console.error('Error encountered');
     res.data = {};
   } finally {
     dispatch({

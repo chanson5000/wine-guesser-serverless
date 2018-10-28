@@ -4,8 +4,7 @@ import { Header, Footer } from './components/layout';
 import {
   About,
   Landing,
-  RedGuess,
-  WhiteGuess,
+  GuessWine,
   NotFound,
   NewWine,
   AllWines,
@@ -26,8 +25,16 @@ class App extends Component {
             <Header />
             <Switch>
               <Route exact path="/" component={Landing} />
-              <Route exact path="/wine/red/guess" component={RedGuess} />
-              <Route exact path="/wine/white/guess" component={WhiteGuess} />
+              <Route
+                exact
+                path="/wine/red/guess"
+                render={props => <GuessWine {...props} isRedWine={true} />}
+              />
+              <Route
+                exact
+                path="/wine/white/guess"
+                render={props => <GuessWine {...props} isRedWine={false} />}
+              />
               <Route
                 exact
                 path="/wine/red/new"

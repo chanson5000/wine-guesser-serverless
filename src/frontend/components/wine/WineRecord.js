@@ -9,7 +9,8 @@ class WineRecord extends Component {
   };
 
   render() {
-    const { varietal, world, description, descriptors } = this.props.wine;
+    const { wine, isRedWine } = this.props;
+    const { varietal, world, description, descriptors } = wine;
 
     return (
       <div className="card card-body mb-3">
@@ -17,11 +18,7 @@ class WineRecord extends Component {
           {varietal}
           <i
             className="fas fa-times"
-            onClick={this.onDeleteClick.bind(
-              this,
-              this.props.wine,
-              this.props.isRedWine
-            )}
+            onClick={this.onDeleteClick.bind(this, wine, isRedWine)}
             style={{ cursor: 'pointer', float: 'right', color: 'red' }}
           />
         </h3>

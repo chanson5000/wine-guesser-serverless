@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import WineGlassLink from '../common/WineGlassLink';
+import { Link } from 'react-router-dom';
+import WineGlassLink from '../wine/WineGlassLink';
 
 class Landing extends Component {
   render() {
@@ -13,6 +14,9 @@ class Landing extends Component {
           <div className="col-auto">
             <WineGlassLink isRedWine={false} />
           </div>
+        </div>
+        <div>
+          <Link to="/administration">Administration</Link>
         </div>
       </div>
     );

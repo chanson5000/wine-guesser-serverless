@@ -11,53 +11,53 @@ import {
 } from './dbActions';
 
 exports.getAllRedWinesHandler = async (event, context, callback) => {
-  const result = await getAllRedWines();
-  callback(null, result);
+  const redWinesArray = await getAllRedWines();
+  callback(null, redWinesArray);
 };
 
 exports.getAllWhiteWinesHandler = async (event, context, callback) => {
-  const result = await getAllWhiteWines();
-  callback(null, result);
+  const whiteWinesArray = await getAllWhiteWines();
+  callback(null, whiteWinesArray);
 };
 
 exports.getRedWineByVarietalHandler = async (event, context, callback) => {
-  const wine = makeValidWineObject(event);
-  const result = await getRedWineByVarietal(wine);
+  const redWineSearchParams = makeValidWineObject(event);
+  const redWine = await getRedWineByVarietal(redWineSearchParams);
 
-  callback(null, result);
+  callback(null, redWine);
 };
 
 exports.getWhiteWineByVarietalHandler = async (event, context, callback) => {
-  const wine = makeValidWineObject(event);
-  const result = await getWhiteWineByVarietal(wine);
+  const whiteWineSearchParams = makeValidWineObject(event);
+  const whiteWine = await getWhiteWineByVarietal(whiteWineSearchParams);
 
-  callback(null, result);
+  callback(null, whiteWine);
 };
 
 exports.addRedWineHandler = async (event, context, callback) => {
-  const wine = makeValidWineObject(event);
-  const result = await addRedWine(wine);
+  const redWine = makeValidWineObject(event);
+  const operationResult = await addRedWine(redWine);
 
-  callback(null, result);
+  callback(null, operationResult);
 };
 
 exports.addWhiteWineHandler = async (event, context, callback) => {
-  const wine = makeValidWineObject(event);
-  const result = await addWhiteWine(wine);
+  const whiteWine = makeValidWineObject(event);
+  const operationResult = await addWhiteWine(whiteWine);
 
-  callback(null, result);
+  callback(null, operationResult);
 };
 
 exports.deleteRedWineHandler = async (event, context, callback) => {
-  const wine = makeValidWineObject(event);
-  const result = await deleteRedWine(wine);
+  const redWineDeleteParams = makeValidWineObject(event);
+  const operationResult = await deleteRedWine(redWineDeleteParams);
 
-  callback(null, result);
+  callback(null, operationResult);
 };
 
 exports.deleteWhiteWineHandler = async (event, context, callback) => {
-  const wine = makeValidWineObject(event);
-  const result = await deleteWhiteWine(wine);
+  const whiteWineDeleteParams = makeValidWineObject(event);
+  const operationResult = await deleteWhiteWine(whiteWineDeleteParams);
 
-  callback(null, result);
+  callback(null, operationResult);
 };

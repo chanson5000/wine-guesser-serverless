@@ -22,8 +22,9 @@ const TextInput = ({
       </Form.Label>
       <Col md={3}>
         <Form.Control
-          value={value}
           type={type}
+          value={value}
+          name={name}
           placeholder={placeholder}
           onChange={onChange}
           className={{ 'is-invalid': error }}

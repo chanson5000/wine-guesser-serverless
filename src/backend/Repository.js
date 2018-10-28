@@ -1,8 +1,47 @@
-import { makeWineQueryParams } from './util';
 const aws = require('aws-sdk');
 aws.config.update({ region: 'us-east-2' });
 const docClient = new aws.DynamoDB.DocumentClient();
 const db = new aws.DynamoDB({ apiVersion: '2012-10-08' });
+const redWineTable = 'redWines';
+const whiteWineTable = 'whiteWines';
+
+class Repository {
+  static async findAllRedWines() {
+    return await scanWines({ TableName: redWineTable });
+  }
+
+  static async findAllWhiteWines() {
+    return await scanWines({ TableName: whiteWineTable });
+  }
+
+  static async findRedWineByVarietal(wine) {
+    return await queryWines(
+      makeWineQueryParams(redWineTable, wine.varietal, wine.world)
+    );
+  }
+
+  static async findWhiteWineByVarietal(wine) {
+    return await queryWines(
+      makeWineQueryParams(whiteWineTable, wine.varietal, wine.world)
+    );
+  }
+
+  static async putRedWine(wine) {
+    return await putWine(wine, true);
+  }
+
+  static async putWhiteWine(wine) {
+    return await putWine(wine);
+  }
+
+  static async deleteRedWine(wine) {
+    return await deleteWine(makeDeleteWineParams(wine, true));
+  }
+
+  static async deleteWhiteWine(wine) {
+    return await deleteWine(makeDeleteWineParams(wine));
+  }
+}
 
 const scanWines = async scanParams => {
   return await docClient
@@ -11,13 +50,13 @@ const scanWines = async scanParams => {
     .then(data => {
       return {
         success: true,
-        response: data.Items
+        data: data.Items
       };
     })
     .catch(err => {
       return {
         success: false,
-        response: err
+        data: err
       };
     });
 };
@@ -29,13 +68,13 @@ const queryWines = async queryParams => {
     .then(data => {
       return {
         success: true,
-        response: data.Items
+        data: data.Items
       };
     })
     .catch(err => {
       return {
         success: false,
-        response: err
+        data: err
       };
     });
 };
@@ -49,9 +88,9 @@ const putWine = async (wine, isRedWine = false) => {
   };
 
   if (isRedWine) {
-    putParams.TableName = 'redWines';
+    putParams.TableName = redWineTable;
   } else {
-    putParams.TableName = 'whiteWines';
+    putParams.TableName = whiteWineTable;
   }
 
   return await db
@@ -60,13 +99,13 @@ const putWine = async (wine, isRedWine = false) => {
     .then(data => {
       return {
         success: true,
-        response: data
+        data: data
       };
     })
     .catch(err => {
       return {
         success: false,
-        response: err
+        data: err
       };
     });
 };
@@ -78,59 +117,53 @@ const deleteWine = async params => {
     .then(data => {
       return {
         success: true,
-        response: data
+        data: data
       };
     })
     .catch(err => {
       return {
         success: false,
-        response: err
+        data: err
       };
     });
 };
 
-class Repository {
-  static async findAllRedWines() {
-    return await scanWines({ TableName: 'redWines' });
+const makeWineQueryParams = (table, varietal, world = null) => {
+  if (world !== null) {
+    return {
+      TableName: table,
+      KeyConditionExpression: 'varietal = :v and world = :w',
+      ExpressionAttributeValues: {
+        ':v': varietal,
+        ':w': world
+      }
+    };
   }
+  return {
+    TableName: table,
+    KeyConditionExpression: 'varietal = :v',
+    ExpressionAttributeValues: {
+      ':v': varietal
+    }
+  };
+};
 
-  static async findAllWhiteWines() {
-    return await scanWines({ TableName: 'whiteWines' });
-  }
+const makeDeleteWineParams = (wine, isRedWine = false) => {
+  let params = {
+    Key: { varietal: { S: wine.varietal }, world: { S: wine.world } }
+  };
 
-  static async findRedWineByVarietal(wine) {
-    return await queryWines(
-      makeWineQueryParams('redWines', wine.varietal, wine.world)
-    );
+  if (isRedWine) {
+    return {
+      TableName: redWineTable,
+      ...params
+    };
+  } else {
+    return {
+      TableName: whiteWineTable,
+      ...params
+    };
   }
-
-  static async findWhiteWineByVarietal(wine) {
-    return await queryWines(
-      makeWineQueryParams('whiteWines', wine.varietal, wine.world)
-    );
-  }
-
-  static async putRedWine(wine) {
-    return await putWine(wine, true);
-  }
-
-  static async putWhiteWine(wine) {
-    return await putWine(wine);
-  }
-
-  static async deleteRedWine(wine) {
-    return await deleteWine({
-      TableName: 'redWines',
-      Key: { varietal: { S: wine.varietal }, world: { S: wine.world } }
-    });
-  }
-
-  static async deleteWhiteWine(wine) {
-    return await deleteWine({
-      TableName: 'whiteWines',
-      Key: { varietal: { S: wine.varietal }, world: { S: wine.world } }
-    });
-  }
-}
+};
 
 export default Repository;

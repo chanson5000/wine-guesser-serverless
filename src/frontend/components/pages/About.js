@@ -4,7 +4,7 @@ import ExternalLink from '../common/ExternalLink';
 const About = () => {
   return (
     <div className="container text-center">
-      <h2 className="p-2">What is Wine Guesser?</h2>
+      <h2 className="p-4">What is Wine Guesser?</h2>
       <h3>
         Wine Guesser is web site meant to assist anyone trying to improve blind
         tasting.

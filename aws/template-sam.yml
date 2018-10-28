@@ -68,7 +68,7 @@ Resources:
         PostResourceWorld:
           Type: Api
           Properties:
-            Path: /wine/red/{varietal}/{world}
+            Path: /wines/red/{varietal}/{world}
             Method: get
 
   GetWhiteWineByVarietal:
@@ -89,7 +89,7 @@ Resources:
         PostResourceWorld:
           Type: Api
           Properties:
-            Path: /wine/white/{varietal}/{world}
+            Path: /wines/white/{varietal}/{world}
             Method: get
 
   AddRedWine:

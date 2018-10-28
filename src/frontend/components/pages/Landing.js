@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import WineGlassLink from '../common/WineGlassLink';
 
 class Landing extends Component {
@@ -13,6 +14,9 @@ class Landing extends Component {
           <div className="col-auto">
             <WineGlassLink isRedWine={false} />
           </div>
+        </div>
+        <div>
+          <Link to="/administration">Administration</Link>
         </div>
       </div>
     );

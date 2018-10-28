@@ -55,7 +55,11 @@ export default function(state = initialState, action) {
     case DELETE_WHITE_WINE:
       return {
         ...state,
-        wines: state.wines
+        wines: state.wines.filter(
+          wine =>
+            wine.varietal !== action.payload.varietal &&
+            wine.world !== action.payload.world
+        )
       };
     default:
       return state;

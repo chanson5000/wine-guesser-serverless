@@ -7,10 +7,10 @@ import {
   RedGuess,
   WhiteGuess,
   NotFound,
-  NewRedWine,
-  NewWhiteWine
+  NewWine,
+  AllWines,
+  Administration
 } from './components/pages';
-import ShowAllRedWines from './components/pages/ShowAllRedWines';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -28,9 +28,27 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route exact path="/wine/red/guess" component={RedGuess} />
               <Route exact path="/wine/white/guess" component={WhiteGuess} />
-              <Route exact path="/wine/red/new" component={NewRedWine} />
-              <Route exact path="/wine/white/new" component={NewWhiteWine} />
-              <Route exact path="/wine/red/all" component={ShowAllRedWines} />
+              <Route
+                exact
+                path="/wine/red/new"
+                render={props => <NewWine {...props} isRedWine={true} />}
+              />
+              <Route
+                exact
+                path="/wine/white/new"
+                render={props => <NewWine {...props} isRedWine={false} />}
+              />
+              <Route
+                exact
+                path="/wines/red"
+                render={props => <AllWines {...props} isRedWine={true} />}
+              />
+              <Route
+                exact
+                path="/wines/white"
+                render={props => <AllWines {...props} isRedWine={false} />}
+              />
+              <Route exact path="/administration" component={Administration} />
               <Route exact path="/about" component={About} />
               <Route component={NotFound} />
             </Switch>

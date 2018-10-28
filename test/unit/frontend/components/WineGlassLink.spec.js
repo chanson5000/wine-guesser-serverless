@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import WineGlassLink from '../../../../src/frontend/components/common/WineGlassLink/WineGlassLink';
+import WineGlassLink from '../../../../src/frontend/components/wine/WineGlassLink/WineGlassLink';
 import { Link } from 'react-router-dom';
-import redGlass from '../../../../src/frontend/components/common/WineGlassLink/red-glass-full.png';
-import whiteGlass from '../../../../src/frontend/components/common/WineGlassLink/white-glass-full.png';
+import redGlass from '../../../../src/frontend/components/wine/WineGlassLink/red-glass-full.png';
+import whiteGlass from '../../../../src/frontend/components/wine/WineGlassLink/white-glass-full.png';
 
 describe('<WineGlassLink />', () => {
   let wrapper, imageTag;

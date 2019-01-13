@@ -1,9 +1,5 @@
 import Repository from './Repository';
-import {
-  successProxyResponse,
-  errorProxyResponse,
-  invalidRequestProxyResponse
-} from './proxyResponseBuilder';
+import {errorProxyResponse, invalidRequestProxyResponse, successProxyResponse} from './proxyResponseBuilder';
 
 export const getAllRedWines = async () => await getAllWines(true);
 export const getAllWhiteWines = async () => await getAllWines();
@@ -38,12 +34,9 @@ const getWineByVarietal = async (wine, isRedWine = false) => {
 
   let result;
   if (isRedWine) {
-    result = await Repository.findRedWineByVarietal(wine.varietal,
-      wine.world);
+    result = await Repository.findRedWineByVarietal(wine.varietal, wine.world);
   } else {
-    result = await Repository.findWhiteWineByVarietal(
-      wine.varietal,
-      wine.world
+    result = await Repository.findWhiteWineByVarietal(wine.varietal, wine.world
     );
   }
 

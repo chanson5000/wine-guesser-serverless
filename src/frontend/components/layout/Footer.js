@@ -17,6 +17,9 @@ const Footer = () => {
           text="Cory Hanson"
           newWindow={true}
         />
+        <div>
+          Under Development
+        </div>
       </footer>
     </div>
   );

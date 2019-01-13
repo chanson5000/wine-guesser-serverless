@@ -18,7 +18,7 @@ This is a work in progress that will be replacing the following website.
 
 [react-bootstrap](https://react-bootstrap.netlify.com/)
 
-[Amazon Web Services](https://aws.amazon.com/) - S3, DynamoDB, Lambda
+[Amazon Web Services](https://aws.amazon.com/) - S3, DynamoDB, Lambda, CodePipeline
 
 ## License
 MIT

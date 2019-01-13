@@ -22,7 +22,3 @@ phases:
       - yarn run deploy:frontend
       - echo Deployed to...
       - yarn run show:frontend-url
-artifacts:
-  files:
-    - '**/*'
-  base-directory: build

@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Entered the install phase...
+      - apt-get update -y
+      - apt-get install -y yarn
+    finally:
+      - echo This always runs even if the update or install command fails
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+      - echo Installing source NPM dependencies...
+      - yarn install
+  build:
+    commands:
+      - echo Build started on `date`
+      - yarn run test
+      - yarn run build:backend
+  post_build:
+    commands:
+      - yarn run provision:base
+      - yarn run build:backend
+      - yarn run deploy:backend
+      - yarn run build:frontend
+      - yarn run deploy:frontend
+      - echo Deployed to...
+      - yarn run show:frontend-url
+artifacts:
+  files:
+    - '**/*'
+  base-directory: build

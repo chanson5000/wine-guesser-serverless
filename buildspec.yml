@@ -4,9 +4,10 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
+      - sudo apt-get update -y
+      - apt-get install apt-transport-https
       - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
       - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-      - sudo apt-get update -y
       - apt-get install -y yarn
     finally:
       - echo This always runs even if the update or install command fails

@@ -85,7 +85,8 @@ describe('Wine Scorer', () => {
     test('returns correct wine record', () => {
       const actual = WineUtil.calculateWineScore(wineToScore, wineRecords);
 
-      expect(actual).toEqual('Cabernet Sauvignon');
+      expect(actual.varietal).toEqual('Cabernet Sauvignon');
+      expect(actual).toEqual(wineRecords[1]);
     });
   });
 

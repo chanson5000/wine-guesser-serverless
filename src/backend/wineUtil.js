@@ -13,9 +13,13 @@ const calculateWineScore = (wineToScore, referenceWines) => {
     })
   });
 
-  return Object.entries(wineScoreMap).reduce((prev, next) => {
+  const winningVarietalName = Object.entries(wineScoreMap).reduce((prev, next) => {
     return prev[1] > next[1] ? prev : next;
   })[0];
+
+  return referenceWines.find((referenceWine) => {
+    return referenceWine.varietal === winningVarietalName;
+  });
 };
 
 export {calculateWineScore};

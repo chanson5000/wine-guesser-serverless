@@ -1,30 +1,21 @@
 const calculateWineScore = (wineToScore, referenceWines) => {
-  const descriptors = wineToScore.descriptors;
   const wineScoreMap = {};
 
-  for (let i = 0; i < referenceWines.length; i++) {
-    Object.entries(referenceWines[i].descriptors)
-      .filter(entry => Object.keys(descriptors).includes(entry[0]))
-      .forEach(entry => {
-        if (wineScoreMap[referenceWines[i]]) {
-          wineScoreMap[referenceWines[i]].score += entry[1];
-        } else {
-          wineScoreMap[referenceWines[i]].score = entry[1];
-        }
-      });
-    // Object.entries(referenceWines[i].descriptors).wineScoreMap[referenceWines[i].varietal].score
-
-  }
-// referenceWines.forEach(referenceWine => {
-//       wineScoreMap.put(referenceWine.varietal,
-//           referenceWine.descriptors.filter(d => descriptors.contains(d)).reduce((total, amount) => )
-//           )
-//     }
-// )
+  referenceWines.forEach(referenceWine => {
+    Object.entries(referenceWine.descriptors).filter(descriptor => {
+      return Object.keys(wineToScore.descriptors).includes(descriptor[0]);
+    }).forEach(() => {
+      if (wineScoreMap[referenceWine.varietal]) {
+        wineScoreMap[referenceWine.varietal]++;
+      } else {
+        wineScoreMap[referenceWine.varietal] = 1;
+      }
+    })
+  });
 
   return Object.entries(wineScoreMap).reduce((prev, next) => {
-    return prev.score > next.score ? prev : next;
-  });
+    return prev[1] > next[1] ? prev : next;
+  })[0];
 };
 
 export {calculateWineScore};

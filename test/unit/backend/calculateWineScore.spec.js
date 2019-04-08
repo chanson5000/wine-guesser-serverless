@@ -82,11 +82,11 @@ describe('Wine Scorer', () => {
           }
         ];
 
-    test('returns correct wine record', () => {
-      const actual = WineUtil.calculateWineScore(wineToScore, wineRecords);
+    it('returns correct wine record with varietal and score', () => {
+      const actual = WineUtil.getHighestMatchWine(wineToScore, wineRecords);
 
       expect(actual.varietal).toEqual('Cabernet Sauvignon');
-      expect(actual).toEqual(wineRecords[1]);
+      expect(actual.score).toEqual(14);
     });
   });
 

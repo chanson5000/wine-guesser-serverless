@@ -29,58 +29,57 @@ describe('Wine Scorer', () => {
       }
     };
 
-    const wineRecords =
-        [
-          {
-            varietal: 'Gamay',
-            isNewWorld: false,
-            descriptors: {
-              colorGarnet: 1,
-              fruitRed: 1,
-              characterTart: 1,
-              floral: 2,
-              herbalDried: 1,
-              carbonicMaceration: 2,
-              organic: 2,
-              tanninLow: 2,
-              acidModeratePlus: 2,
-              acidHigh: 1,
-              climateCool: 1
-            }
-          },
-          {
-            varietal: 'Cabernet Sauvignon',
-            isNewWorld: true,
-            descriptors: {
-              colorRuby: 1,
-              colorPurple: 1,
-              fruitRed: 1,
-              fruitBlack: 1,
-              fruitBlue: 1,
-              characterRipe: 2,
-              characterOverripe: 1,
-              tanninModeratePlus: 2,
-              tanninHigh: 1,
-              acidModeratePlus: 2,
-              acidHigh: 1,
-              climateWarm: 2
-            }
-          },
-          {
-            varietal: 'Pinot Noir',
-            isNewWorld: false,
-            descriptors: {
-              colorGarnet: 1,
-              colorRuby: 2,
-              fruitRed: 1,
-              characterTart: 1,
-              tanninModerate: 2,
-              tanninModerateMinus: 1,
-              acidModeratePlus: 2,
-              climateCool: 1
-            }
-          }
-        ];
+    const wineRecords = [
+      {
+        varietal: 'Gamay',
+        isNewWorld: false,
+        descriptors: {
+          colorGarnet: 1,
+          fruitRed: 1,
+          characterTart: 1,
+          floral: 2,
+          herbalDried: 1,
+          carbonicMaceration: 2,
+          organic: 2,
+          tanninLow: 2,
+          acidModeratePlus: 2,
+          acidHigh: 1,
+          climateCool: 1
+        }
+      },
+      {
+        varietal: 'Cabernet Sauvignon',
+        isNewWorld: true,
+        descriptors: {
+          colorRuby: 1,
+          colorPurple: 1,
+          fruitRed: 1,
+          fruitBlack: 1,
+          fruitBlue: 1,
+          characterRipe: 2,
+          characterOverripe: 1,
+          tanninModeratePlus: 2,
+          tanninHigh: 1,
+          acidModeratePlus: 2,
+          acidHigh: 1,
+          climateWarm: 2
+        }
+      },
+      {
+        varietal: 'Pinot Noir',
+        isNewWorld: false,
+        descriptors: {
+          colorGarnet: 1,
+          colorRuby: 2,
+          fruitRed: 1,
+          characterTart: 1,
+          tanninModerate: 2,
+          tanninModerateMinus: 1,
+          acidModeratePlus: 2,
+          climateCool: 1
+        }
+      }
+    ];
 
     it('returns correct wine record with varietal and score', () => {
       const actual = WineUtil.getHighestMatchWine(wineToScore, wineRecords);
@@ -89,5 +88,4 @@ describe('Wine Scorer', () => {
       expect(actual.score).toEqual(14);
     });
   });
-
 });

@@ -15,7 +15,7 @@ Globals:
   Api:
     Cors:
       AllowHeaders: "'content-type, authorization'"
-      AllowOrigin: "'*.wineguesser.com'"
+      AllowOrigin: "'*'"
 
 Resources:
   GetAllRedWinesFunction:

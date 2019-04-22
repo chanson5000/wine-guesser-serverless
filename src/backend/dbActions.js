@@ -20,9 +20,6 @@ const getAllWines = async (isRedWine = false) => {
   let result;
   if (isRedWine) {
     result = await Repository.findAllRedWines();
-    result.headers = {
-      'Access-Control-Allow-Origin': '"*"'
-    }
   } else {
     result = await Repository.findAllWhiteWines();
   }

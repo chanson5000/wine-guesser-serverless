@@ -9,35 +9,50 @@ import {
   deleteRedWine,
   deleteWhiteWine
 } from './dbActions';
-import { errorProxyResponse, successProxyResponse } from './proxyResponseBuilder';
+import { errorProxyResponse, invalidRequestProxyResponse, successProxyResponse } from './proxyResponseBuilder';
 
 exports.getAllRedWinesHandler = async (event) => {
   try {
-    return await successProxyResponse(getAllRedWines());
+    const response = await getAllRedWines();
+    return successProxyResponse(response);
   } catch (e) {
-    console.log(`Threw error for ${event}:`);
-    console.log(e);
-    return errorProxyResponse("Failed to retrieve results.");
+    return handleGenericFailure(e, event);
   }
 };
 
-exports.getAllWhiteWinesHandler = async (event, context, callback) => {
-  const whiteWinesArray = await getAllWhiteWines();
-  callback(null, whiteWinesArray);
+exports.getAllWhiteWinesHandler = async (event) => {
+  try {
+    const response = await getAllWhiteWines();
+    return successProxyResponse(response);
+  } catch (e) {
+    return handleGenericFailure(e, event);
+  }
 };
 
-exports.getRedWineByVarietalHandler = async (event, context, callback) => {
+exports.getRedWineByVarietalHandler = async (event) => {
   const redWineSearchParams = makeValidWineObject(event);
-  const redWine = await getRedWineByVarietal(redWineSearchParams);
-
-  callback(null, redWine);
+  if (!redWineSearchParams.varietal) {
+    return invalidRequestProxyResponse;
+  }
+  try {
+    const response = await getRedWineByVarietal(redWineSearchParams);
+    return successProxyResponse(response);
+  } catch (e) {
+    return handleGenericFailure(e, event);
+  }
 };
 
-exports.getWhiteWineByVarietalHandler = async (event, context, callback) => {
+exports.getWhiteWineByVarietalHandler = async (event) => {
   const whiteWineSearchParams = makeValidWineObject(event);
-  const whiteWine = await getWhiteWineByVarietal(whiteWineSearchParams);
-
-  callback(null, whiteWine);
+  if (!whiteWineSearchParams.varietal) {
+    return invalidRequestProxyResponse;
+  }
+  try {
+    const response = await getWhiteWineByVarietal(whiteWineSearchParams);
+    return successProxyResponse(response);
+  } catch (e) {
+    return handleGenericFailure(e, event);
+  }
 };
 
 exports.addRedWineHandler = async (event, context, callback) => {
@@ -66,4 +81,10 @@ exports.deleteWhiteWineHandler = async (event, context, callback) => {
   const operationResult = await deleteWhiteWine(whiteWineDeleteParams);
 
   callback(null, operationResult);
+};
+
+const handleGenericFailure = (error, event) => {
+  console.log(`Threw error for ${event}:`);
+  console.log(error);
+  return errorProxyResponse('Failed to retrieve results.');
 };

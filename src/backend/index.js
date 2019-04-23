@@ -9,12 +9,15 @@ import {
   deleteRedWine,
   deleteWhiteWine
 } from './dbActions';
+import { errorProxyResponse, successProxyResponse } from './proxyResponseBuilder';
 
-exports.getAllRedWinesHandler = async () => {
+exports.getAllRedWinesHandler = async (event) => {
   try {
-    return await getAllRedWines();
+    return await successProxyResponse(getAllRedWines());
   } catch (e) {
-    throw "Error retrieving results.";
+    console.log(`Threw error for ${event}:`);
+    console.log(e);
+    return errorProxyResponse("Failed to retrieve results.");
   }
 };
 

@@ -18,17 +18,13 @@ export const deleteWhiteWine = async wine => await deleteWine(wine);
 
 const getAllWines = async (isRedWine = false) => {
   let result;
+
   if (isRedWine) {
     result = await Repository.findAllRedWines();
   } else {
     result = await Repository.findAllWhiteWines();
   }
-
-  if (result.success) {
-    return successProxyResponse(result.data);
-  } else {
-    return errorProxyResponse(result.data);
-  }
+  return result.data;
 };
 
 const getWineByVarietal = async (wine, isRedWine = false) => {

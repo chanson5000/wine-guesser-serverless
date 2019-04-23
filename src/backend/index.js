@@ -10,7 +10,7 @@ import {
   deleteWhiteWine
 } from './dbActions';
 
-exports.getAllRedWinesHandler = async (event) => {
+exports.getAllRedWinesHandler = async () => {
   try {
     return await getAllRedWines();
   } catch (e) {

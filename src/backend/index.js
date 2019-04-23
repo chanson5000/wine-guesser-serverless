@@ -10,9 +10,12 @@ import {
   deleteWhiteWine
 } from './dbActions';
 
-exports.getAllRedWinesHandler = async (event, context, callback) => {
-  const redWinesArray = await getAllRedWines();
-  callback(null, redWinesArray);
+exports.getAllRedWinesHandler = async (event) => {
+  try {
+    return await getAllRedWines();
+  } catch (e) {
+    throw "Error retrieving results.";
+  }
 };
 
 exports.getAllWhiteWinesHandler = async (event, context, callback) => {

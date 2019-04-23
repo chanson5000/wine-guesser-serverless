@@ -44,7 +44,7 @@ class Repository {
 }
 
 const scanWines = async scanParams => {
-  const result = await docClient.scan(scanParams);
+  const result = await docClient.scan(scanParams).promise();
   return { success: true, data: result.Items } ;
 };
 

@@ -1,90 +1,56 @@
 import { makeValidWineObject } from './util';
-import {
-  getAllRedWines,
-  getAllWhiteWines,
-  getRedWineByVarietal,
-  getWhiteWineByVarietal,
-  addRedWine,
-  addWhiteWine,
-  deleteRedWine,
-  deleteWhiteWine
-} from './dbActions';
-import { errorProxyResponse, invalidRequestProxyResponse, successProxyResponse } from './proxyResponseBuilder';
+import WineController from 'WineController';
 
-exports.getAllRedWinesHandler = async (event) => {
-  try {
-    const response = await getAllRedWines();
-    return successProxyResponse(response);
-  } catch (e) {
-    return handleGenericFailure(e, event);
+exports.getAllRedWinesHandler = async () => {
+  return await WineController.getAllRedWines();
+};
+
+exports.getAllWhiteWinesHandler = async () => {
+  return await WineController.getAllWhiteWines();
+};
+
+exports.getRedWineByVarietalHandler = async event => {
+  return await WineController.getRedWineByVarietal(
+    makeWineRequestObject(event)
+  );
+};
+
+exports.getWhiteWineByVarietalHandler = async event => {
+  return await WineController.getWhiteWineByVarietal(
+    makeWineRequestObject(event)
+  );
+};
+
+exports.addRedWineHandler = async (event) => {
+  return await WineController.addRedWine(makeWineRequestObject(event));
+};
+
+exports.addWhiteWineHandler = async (event) => {
+  return await WineController.addWhiteWine(makeWineRequestObject(event));
+};
+
+exports.deleteRedWineHandler = async (event) => {
+  return await WineController.deleteRedWine(makeWineRequestObject(event));
+};
+
+exports.deleteWhiteWineHandler = async (event) => {
+  return await WineController.deleteWhiteWhine(makeWineRequestObject(event));
+};
+
+const makeWineRequestObject = event => {
+  const combinedParams = {
+    ...event.queryStringParameters,
+    ...event.pathParameters
+  };
+
+  let wine = {};
+
+  for (const [key, value] in combinedParams) {
+    wine = {
+      ...wine,
+      [decodeURIComponent(key)]: decodeURIComponent(value)
+    };
   }
-};
 
-exports.getAllWhiteWinesHandler = async (event) => {
-  try {
-    const response = await getAllWhiteWines();
-    return successProxyResponse(response);
-  } catch (e) {
-    return handleGenericFailure(e, event);
-  }
-};
-
-exports.getRedWineByVarietalHandler = async (event) => {
-  const redWineSearchParams = makeValidWineObject(event);
-  if (!redWineSearchParams.varietal) {
-    return invalidRequestProxyResponse;
-  }
-  try {
-    const response = await getRedWineByVarietal(redWineSearchParams);
-    return successProxyResponse(response);
-  } catch (e) {
-    return handleGenericFailure(e, event);
-  }
-};
-
-exports.getWhiteWineByVarietalHandler = async (event) => {
-  const whiteWineSearchParams = makeValidWineObject(event);
-  if (!whiteWineSearchParams.varietal) {
-    return invalidRequestProxyResponse;
-  }
-  try {
-    const response = await getWhiteWineByVarietal(whiteWineSearchParams);
-    return successProxyResponse(response);
-  } catch (e) {
-    return handleGenericFailure(e, event);
-  }
-};
-
-exports.addRedWineHandler = async (event, context, callback) => {
-  const redWine = makeValidWineObject(event);
-  const operationResult = await addRedWine(redWine);
-
-  callback(null, operationResult);
-};
-
-exports.addWhiteWineHandler = async (event, context, callback) => {
-  const whiteWine = makeValidWineObject(event);
-  const operationResult = await addWhiteWine(whiteWine);
-
-  callback(null, operationResult);
-};
-
-exports.deleteRedWineHandler = async (event, context, callback) => {
-  const redWineDeleteParams = makeValidWineObject(event);
-  const operationResult = await deleteRedWine(redWineDeleteParams);
-
-  callback(null, operationResult);
-};
-
-exports.deleteWhiteWineHandler = async (event, context, callback) => {
-  const whiteWineDeleteParams = makeValidWineObject(event);
-  const operationResult = await deleteWhiteWine(whiteWineDeleteParams);
-
-  callback(null, operationResult);
-};
-
-const handleGenericFailure = (error, event) => {
-  console.log(`Threw error for ${event}:`);
-  console.log(error);
-  return errorProxyResponse('Failed to retrieve results.');
+  return wine;
 };

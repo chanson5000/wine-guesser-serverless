@@ -19,7 +19,6 @@ class AllWines extends Component {
           <h2 className="text-center p-4">
             All {isRedWine ? 'Red' : 'White'} Wines
           </h2>
-          {wines.error && 'There was an error'}
           {wines.map(wine => (
             <WineRecord
               isRedWine={isRedWine}

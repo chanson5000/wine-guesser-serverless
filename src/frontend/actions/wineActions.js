@@ -14,7 +14,7 @@ import axios from 'axios';
 const apiEndpoint = WINE_GUESSER_API_URL;
 
 export const getAllWines = (isRedWine = false) => async dispatch => {
-  let response = null;
+  let response = [];
   let getURI;
   let type;
 
@@ -33,16 +33,18 @@ export const getAllWines = (isRedWine = false) => async dispatch => {
     })
     .catch(error => {
       if (error.response) {
-        response = { error: error.response };
+        // response = { error: error.response };
+        // response = [];
       } else {
-        response = {
-          error: {
-            status: 500,
-            data: 'Internal Server Error'
-          }
-        };
+
+        // response = {
+        //   error: {
+        //     status: 500,
+        //     data: 'Internal Server Error'
+        //   }
+        // };
       }
-      console.log(response.error);
+      console.log(error);
     });
 
   dispatch({

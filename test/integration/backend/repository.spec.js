@@ -8,9 +8,7 @@ describe('Database integration tests', () => {
 
     test('body is not empty', async () => {
       const result = await Repository.findAllRedWines(scanParams);
-      console.log('Part One:');
-      console.log(result.response);
-      expect(result.response).not.toEqual(undefined);
+      expect(result).not.toEqual(undefined);
     });
   });
 

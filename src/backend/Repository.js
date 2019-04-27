@@ -45,25 +45,12 @@ class Repository {
 
 const scanWines = async scanParams => {
   const result = await docClient.scan(scanParams).promise();
-  return { success: true, data: result.Items } ;
+  return result.Items;
 };
 
 const queryWines = async queryParams => {
-  return await docClient
-    .query(queryParams)
-    .promise()
-    .then(data => {
-      return {
-        success: true,
-        data: data.Items
-      };
-    })
-    .catch(err => {
-      return {
-        success: false,
-        data: err
-      };
-    });
+  const result = await docClient.query(queryParams).promise();
+  return result.Items;
 };
 
 const putWine = async (wine, isRedWine = false) => {
@@ -80,39 +67,11 @@ const putWine = async (wine, isRedWine = false) => {
     putParams.TableName = whiteWineTable;
   }
 
-  return await db
-    .putItem(putParams)
-    .promise()
-    .then(data => {
-      return {
-        success: true,
-        data: data
-      };
-    })
-    .catch(err => {
-      return {
-        success: false,
-        data: err
-      };
-    });
+  return await db.putItem(putParams).promise();
 };
 
 const deleteWine = async params => {
-  return await db
-    .deleteItem(params)
-    .promise()
-    .then(data => {
-      return {
-        success: true,
-        data: data
-      };
-    })
-    .catch(err => {
-      return {
-        success: false,
-        data: err
-      };
-    });
+  return await db.deleteItem(params).promise();
 };
 
 const makeWineQueryParams = (table, varietal, world = null) => {

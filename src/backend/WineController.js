@@ -8,7 +8,7 @@ import WineService from './WineService';
 class WineController {
   static async getAllRedWines() {
     try {
-      const result = WineService.getAllRedWines();
+      const result = await WineService.getAllRedWines();
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'getAllRedWines');

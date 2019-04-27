@@ -1,5 +1,5 @@
 const commonHeaders = {
-  'Access-Control-Allow-Origin': 'new.wineguesser.com',
+  'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json'
 };
 

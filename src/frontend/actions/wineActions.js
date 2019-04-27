@@ -1,12 +1,12 @@
 import {
-  GET_RED_WINES,
-  GET_WHITE_WINES,
-  GET_WHITE_WINE,
-  GET_RED_WINE,
   ADD_RED_WINE,
   ADD_WHITE_WINE,
   DELETE_RED_WINE,
-  DELETE_WHITE_WINE
+  DELETE_WHITE_WINE,
+  GET_RED_WINE,
+  GET_RED_WINES,
+  GET_WHITE_WINE,
+  GET_WHITE_WINES
 } from './types';
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ import axios from 'axios';
 const apiEndpoint = WINE_GUESSER_API_URL;
 
 export const getAllWines = (isRedWine = false) => async dispatch => {
-  let res;
+  let response = null;
   let getURI;
   let type;
 
@@ -26,16 +26,29 @@ export const getAllWines = (isRedWine = false) => async dispatch => {
     type = GET_WHITE_WINES;
   }
 
-  try {
-    res = await axios.get(getURI);
-  } catch {
-    res.data = [];
-  } finally {
-    dispatch({
-      type: type,
-      payload: res.data
+  axios
+    .get(getURI)
+    .then(res => {
+      response = res.data;
+    })
+    .catch(error => {
+      if (error.response) {
+        response = { error: error.response };
+      } else {
+        response = {
+          error: {
+            status: 500,
+            data: 'Internal Server Error'
+          }
+        };
+      }
+      console.log(response.error);
     });
-  }
+
+  dispatch({
+    type: type,
+    payload: response
+  });
 };
 
 export const getRedWine = wine => async dispatch => {
@@ -73,7 +86,7 @@ export const getWhiteWine = wine => async dispatch => {
 };
 
 export const addWine = (wine, isRedWine = false) => async dispatch => {
-  let res;
+  let response;
   let putURI;
   let type;
 
@@ -86,13 +99,13 @@ export const addWine = (wine, isRedWine = false) => async dispatch => {
   }
 
   try {
-    res = await axios.put(putURI, wine);
+    response = await axios.put(putURI, wine);
   } catch {
-    res.data = {};
+    response.data = {};
   } finally {
     dispatch({
       type: type,
-      payload: res.data
+      payload: response.data
     });
   }
 };

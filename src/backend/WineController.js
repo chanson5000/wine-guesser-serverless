@@ -3,21 +3,12 @@ import {
   invalidRequestProxyResponse,
   successProxyResponse
 } from './proxyResponseBuilder';
-import {
-  getAllRedWines,
-  getAllWhiteWines,
-  getRedWineByVarietal,
-  getWhiteWineByVarietal,
-  addRedWine,
-  addWhiteWine,
-  deleteRedWine,
-  deleteWhiteWine
-} from './dbActions';
+import WineService from './WineService';
 
 class WineController {
   static async getAllRedWines() {
     try {
-      const result = await getAllRedWines();
+      const result = WineService.getAllRedWines();
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'getAllRedWines');
@@ -26,7 +17,7 @@ class WineController {
 
   static async getAllWhiteWines() {
     try {
-      const result = await getAllWhiteWines();
+      const result = await WineService.getAllWhiteWines();
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'getAllWhiteWines');
@@ -38,7 +29,7 @@ class WineController {
       return invalidRequestProxyResponse;
     }
     try {
-      const result = await getRedWineByVarietal(request);
+      const result = await WineService.getRedWineByVarietal(request);
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'getRedWineByVarietal');
@@ -50,7 +41,7 @@ class WineController {
       return invalidRequestProxyResponse;
     }
     try {
-      const result = await getWhiteWineByVarietal(request);
+      const result = await WineService.getWhiteWineByVarietal(request);
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'getWhiteWineByVarietal');
@@ -62,7 +53,7 @@ class WineController {
       return invalidRequestProxyResponse;
     }
     try {
-      const result = await addRedWine(request);
+      const result = await WineService.addRedWine(request);
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'addRedWine');
@@ -74,7 +65,7 @@ class WineController {
       return invalidRequestProxyResponse;
     }
     try {
-      const result = await addWhiteWine(request);
+      const result = await WineService.addWhiteWine(request);
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'addWhiteWine');
@@ -86,7 +77,7 @@ class WineController {
       return invalidRequestProxyResponse;
     }
     try {
-      const result = await deleteRedWine(request);
+      const result = await WineService.deleteRedWine(request);
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'deleteRedWine')
@@ -98,7 +89,7 @@ class WineController {
       return invalidRequestProxyResponse;
     }
     try {
-      const result = await deleteWhiteWine(request);
+      const result = await WineService.deleteWhiteWine(request);
       return successProxyResponse(result);
     } catch (e) {
       return handleGenericFailure(e, 'deleteWhiteWine');

@@ -1,5 +1,4 @@
 import Repository from '../../../src/backend/Repository';
-import {getAllRedWines} from "../../../src/backend/dbActions";
 
 describe('Database integration tests', () => {
   describe('when querying all red wines', () => {
@@ -28,15 +27,15 @@ describe('Database integration tests', () => {
     });
   });
 });
-
-describe('dbActions', () => {
-  test('when getting all red wines', async () => {
-    const result = await getAllRedWines();
-
-    console.log('dbActions getAllRedWines()');
-    console.log(result);
-
-    expect(result).not.toEqual(undefined);
-  });
-
-});
+//
+// describe('dbActions', () => {
+//   test('when getting all red wines', async () => {
+//     const result = await getAllRedWines();
+//
+//     console.log('dbActions getAllRedWines()');
+//     console.log(result);
+//
+//     expect(result).not.toEqual(undefined);
+//   });
+//
+// });

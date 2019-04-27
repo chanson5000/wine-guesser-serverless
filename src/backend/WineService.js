@@ -41,7 +41,7 @@ const getAllWines = async (isRedWine = false) => {
   } else {
     result = await Repository.findAllWhiteWines();
   }
-  return result.data;
+  return result;
 };
 
 const getWineByVarietal = async (wine, isRedWine = false) => {
@@ -54,7 +54,7 @@ const getWineByVarietal = async (wine, isRedWine = false) => {
       wine.world
     );
   }
-  return result.data;
+  return result;
 };
 
 const addWine = async (wine, isRedWine = false) => {
@@ -64,7 +64,7 @@ const addWine = async (wine, isRedWine = false) => {
   } else {
     result = await Repository.putWhiteWine(wine);
   }
-  return result.data;
+  return result;
 };
 
 const deleteWine = async (wine, isRedWine = false) => {
@@ -74,7 +74,7 @@ const deleteWine = async (wine, isRedWine = false) => {
   } else {
     result = await Repository.deleteWhiteWine(wine);
   }
-  return result.data;
+  return result;
 };
 
 export default WineService;

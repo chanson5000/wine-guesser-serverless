@@ -31,8 +31,11 @@ export const addWine = (wine, isRedWine = false) => {
   return new Promise((resolve, reject) => {
     const putURI =
       isRedWine === true
-        ? `${apiEndpoint}wines/red`
-        : `${apiEndpoint}wines/white`;
+        ? `${apiEndpoint}wines/red/${wine.varietal}/${wine.world}`
+        : `${apiEndpoint}wines/white/${wine.varietal}/${wine.world}`;
+
+    console.log('Wine add request: ' + putURI);
+    console.log(wine);
 
     axios
       .put(putURI, wine)
@@ -42,7 +45,7 @@ export const addWine = (wine, isRedWine = false) => {
       .catch(error => {
         if (error.response) {
           console.log(`Failed call with: ${error.response.code}`);
-          console.log(error.response.data);
+          console.log(error.response);
         } else {
           console.log('No response was received.');
         }

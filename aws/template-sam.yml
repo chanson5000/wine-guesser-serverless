@@ -14,8 +14,8 @@ Globals:
     Timeout: 60
   Api:
     Cors:
+      AllowMethods: "'OPTIONS, PUT, POST, GET'"
       AllowHeaders: "'content-type, authorization'"
-      Access-Control-Allow-Methods: "'*'"
       AllowOrigin: "'*'"
 
 Resources:

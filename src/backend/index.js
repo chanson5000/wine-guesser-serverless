@@ -1,4 +1,4 @@
-import WineController from './WineController';
+git import WineController from './WineController';
 
 exports.getAllRedWinesHandler = async () => {
   return await WineController.getAllRedWines();
@@ -21,12 +21,7 @@ exports.getWhiteWineByVarietalHandler = async event => {
 };
 
 exports.addRedWineHandler = async (event) => {
-  console.log('Add Red Wine Event:');
-  console.log(event);
-  const wineRequestObject = makeWineRequestObject(event);
-  console.log('Request Object:');
-  console.log(wineRequestObject);
-  return await WineController.addRedWine(wineRequestObject);
+  return await WineController.addRedWine(makeWineRequestObject(event));
 };
 
 exports.addWhiteWineHandler = async (event) => {
@@ -34,12 +29,7 @@ exports.addWhiteWineHandler = async (event) => {
 };
 
 exports.deleteRedWineHandler = async (event) => {
-  console.log('Delete Red Wine Event');
-  console.log(event);
-  const wineRequestObject = makeWineRequestObject(event);
-  console.log('Request Object:');
-  console.log(wineRequestObject);
-  return await WineController.deleteRedWine(wineRequestObject);
+  return await WineController.deleteRedWine(makeWineRequestObject(event));
 };
 
 exports.deleteWhiteWineHandler = async (event) => {

@@ -1,4 +1,4 @@
-git import WineController from './WineController';
+import WineController from './WineController';
 
 exports.getAllRedWinesHandler = async () => {
   return await WineController.getAllRedWines();

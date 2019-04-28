@@ -1,5 +1,6 @@
 const commonHeaders = {
   'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'PUT',
   'Content-Type': 'application/json'
 };
 

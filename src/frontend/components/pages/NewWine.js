@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { RedWineFields, WhiteWineFields } from '../../model';
-import { addWine } from '../../actions/wineActions';
+import { addWine } from '../../actions/WineRestService';
 import { SelectListGroup, CheckboxGroup, TextInput } from '../common';
 
 const redWineDefaultState = {
@@ -100,7 +100,12 @@ const whiteWineDefaultState = {
 };
 
 class NewWine extends Component {
-  state = this.props.isRedWine ? redWineDefaultState : whiteWineDefaultState;
+  constructor(props) {
+    super(props);
+    this.state = this.props.isRedWine
+      ? redWineDefaultState
+      : whiteWineDefaultState;
+  }
 
   onSubmit = async e => {
     e.preventDefault();
@@ -140,7 +145,12 @@ class NewWine extends Component {
       ? { ...newWine, tannin }
       : { ...newWine, sweetness };
 
-    await this.props.addWine(newWine, this.props.isRedWine);
+    try {
+      await addWine(newWine, this.props.isRedWine);
+    } catch (e) {
+      console.log('Failed to add wine to database.');
+    }
+    // await this.props.addWine(newWine, this.props.isRedWine);
     const pushRoute = this.props.isRedWine ? '/wines/red' : '/wines/white';
     this.props.history.push(pushRoute);
   };
@@ -286,7 +296,6 @@ class NewWine extends Component {
 }
 
 NewWine.propTypes = {
-  addWine: PropTypes.func.isRequired,
   isRedWine: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired
 };
@@ -296,6 +305,4 @@ NewWine.defaultProps = {
 };
 
 export default connect(
-  null,
-  { addWine }
 )(NewWine);

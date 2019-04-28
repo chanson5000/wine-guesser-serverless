@@ -27,6 +27,30 @@ export const getAllWines = (isRedWine = false) => {
   });
 };
 
+export const addWine = (wine, isRedWine = false) => {
+  return new Promise((resolve, reject) => {
+    const putURI =
+      isRedWine === true
+        ? `${apiEndpoint}wines/red`
+        : `${apiEndpoint}wines/white`;
+
+    axios
+      .put(putURI, wine)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(error => {
+        if (error.response) {
+          console.log(`Failed call with: ${error.response.code}`);
+          console.log(error.response.data);
+        } else {
+          console.log('No response was received.');
+        }
+        reject(error);
+      })
+  });
+};
+
 export const deleteWine = (wine, isRedWine = false) => {
   return new Promise((resolve, reject) => {
     const deleteURI =
@@ -37,7 +61,7 @@ export const deleteWine = (wine, isRedWine = false) => {
     axios
       .delete(deleteURI, wine)
       .then(res => {
-        resolve(res.data)
+        resolve(res.data);
       })
       .catch(error => {
         if (error.response) {

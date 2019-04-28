@@ -33,10 +33,6 @@ export const addWine = (wine, isRedWine = false) => {
       isRedWine === true
         ? `${apiEndpoint}wines/red/${wine.varietal}/${wine.world}`
         : `${apiEndpoint}wines/white/${wine.varietal}/${wine.world}`;
-
-    console.log('Wine add request: ' + putURI);
-    console.log(wine);
-
     axios
       .put(putURI, wine)
       .then(res => {

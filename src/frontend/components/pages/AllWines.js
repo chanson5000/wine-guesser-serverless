@@ -62,7 +62,7 @@ class AllWines extends Component {
                 isRedWine={isRedWine}
                 key={wine.varietal + wine.world}
                 wine={wine}
-                onWineDeleted={this.onWineDeleted.bind(this)}
+                onWineDeleted={this.onWineDeleted}
               />
             ))}
         </React.Fragment>

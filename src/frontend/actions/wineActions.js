@@ -26,7 +26,7 @@ export const getAllWines = (isRedWine = false) => async dispatch => {
     type = GET_WHITE_WINES;
   }
 
-  axios
+  await axios
     .get(getURI)
     .then(res => {
       response = res.data;
@@ -46,7 +46,6 @@ export const getAllWines = (isRedWine = false) => async dispatch => {
       }
       console.log(error);
     });
-
   dispatch({
     type: type,
     payload: response

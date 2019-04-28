@@ -46,7 +46,7 @@ export const addWine = (wine, isRedWine = false) => {
           console.log('No response was received.');
         }
         reject(error);
-      })
+      });
   });
 };
 
@@ -74,3 +74,26 @@ export const deleteWine = (wine, isRedWine = false) => {
   });
 };
 
+export const getWine = (wine, isRedWine = false) => {
+  return new Promise((resolve, reject) => {
+    const getURI =
+      isRedWine === true
+        ? `${apiEndpoint}wine/red/${wine.varietal}/${wine.world}`
+        : `${apiEndpoint}/wine/white/${wine.world}/${wine.varietal}`;
+
+    axios
+      .get(getURI, wine)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(error => {
+        if (error.response) {
+          console.log(`Failed call with: ${error.response.code}`);
+          console.log(error.response.data);
+        } else {
+          console.log('No response was received.');
+        }
+        reject(error);
+      });
+  });
+};

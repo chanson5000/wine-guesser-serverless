@@ -25,7 +25,7 @@ class WineController {
   }
 
   static async getRedWineByVarietal(request) {
-    if (!request.varietal) {
+    if (!request.varietal || !request.world) {
       return invalidRequestProxyResponse;
     }
     try {
@@ -37,7 +37,7 @@ class WineController {
   }
 
   static async getWhiteWineByVarietal(request) {
-    if (!request.varietal) {
+    if (!request.varietal || !request.world) {
       return invalidRequestProxyResponse;
     }
     try {

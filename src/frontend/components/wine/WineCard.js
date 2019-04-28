@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteWine } from '../../actions/WineRestService';
 
-class WineRecord extends Component {
+class WineCard extends Component {
   onDeleteClick = async (wine, isRedWine = false) => {
     await deleteWine(wine, isRedWine);
     this.props.onWineDeleted();
@@ -36,15 +36,15 @@ class WineRecord extends Component {
   }
 }
 
-WineRecord.propTypes = {
+WineCard.propTypes = {
   wine: PropTypes.object.isRequired,
   isRedWine: PropTypes.bool.isRequired,
   onWineDeleted: PropTypes.func.isRequired
 };
 
-WineRecord.defaultProps = {
+WineCard.defaultProps = {
   isRedWine: false
 };
 
 export default connect(
-)(WineRecord);
+)(WineCard);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import WineRecord from '../wine/WineRecord';
+import WineCard from '../wine/WineCard';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
@@ -58,7 +58,7 @@ class AllWines extends Component {
           )}
           {wines &&
             wines.map(wine => (
-              <WineRecord
+              <WineCard
                 isRedWine={isRedWine}
                 key={wine.varietal + wine.world}
                 wine={wine}

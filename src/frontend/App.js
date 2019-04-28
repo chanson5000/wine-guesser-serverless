@@ -8,7 +8,8 @@ import {
   NotFound,
   NewWine,
   AllWines,
-  Administration
+  Administration,
+  WineDetail
 } from './components/pages';
 
 import { Provider } from 'react-redux';
@@ -22,44 +23,52 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Header />
+            <Header/>
             <Switch>
-              <Route exact path="/" component={Landing} />
+              <Route exact path="/" component={Landing}/>
               <Route
                 exact
                 path="/wine/red/guess"
-                render={props => <GuessWine {...props} isRedWine={true} />}
+                render={props => <GuessWine {...props} isRedWine={true}/>}
               />
               <Route
                 exact
                 path="/wine/white/guess"
-                render={props => <GuessWine {...props} isRedWine={false} />}
+                render={props => <GuessWine {...props} isRedWine={false}/>}
               />
               <Route
                 exact
                 path="/wine/red/new"
-                render={props => <NewWine {...props} isRedWine={true} />}
+                render={props => <NewWine {...props} isRedWine={true}/>}
               />
               <Route
                 exact
                 path="/wine/white/new"
-                render={props => <NewWine {...props} isRedWine={false} />}
+                render={props => <NewWine {...props} isRedWine={false}/>}
               />
               <Route
                 exact
                 path="/wines/red"
-                render={props => <AllWines {...props} isRedWine={true} />}
+                render={props => <AllWines {...props} isRedWine={true}/>}
               />
               <Route
                 exact
                 path="/wines/white"
-                render={props => <AllWines {...props} isRedWine={false} />}
+                render={props => <AllWines {...props} isRedWine={false}/>}
               />
-              <Route exact path="/administration" component={Administration} />
-              <Route exact path="/about" component={About} />
-              <Route component={NotFound} />
+              <Route
+                path="/wines/red/:varietal/:world"
+                render={props => <WineDetail {...props} isRedWine={true}/>}
+              />
+              <Route
+                path="/wines/white/:varietal/:world"
+                render={props => <WineDetail {...props} isRedWine={false}/>}
+              />
+              <Route exact path="/administration" component={Administration}/>
+              <Route exact path="/about" component={About}/>
+              <Route component={NotFound}/>
             </Switch>
-            <Footer />
+            <Footer/>
           </div>
         </Router>
       </Provider>

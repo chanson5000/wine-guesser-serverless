@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import { getAllWines } from '../../actions/WineRestService';
+import { Link } from 'react-router-dom';
 import arrowSpinner from '../../components/common/arrowSpinner.gif';
 
 class AllWines extends Component {
@@ -58,12 +59,19 @@ class AllWines extends Component {
           )}
           {wines &&
             wines.map(wine => (
-              <WineCard
-                isRedWine={isRedWine}
+              <Link
+                to={`/wines/${isRedWine === true ? 'red' : 'white'}/${
+                  wine.varietal
+                }/${wine.world}`}
                 key={wine.varietal + wine.world}
-                wine={wine}
-                onWineDeleted={this.onWineDeleted}
-              />
+              >
+                <WineCard
+                  isRedWine={isRedWine}
+                  key={wine.varietal + wine.world}
+                  wine={wine}
+                  onWineDeleted={this.onWineDeleted}
+                />
+              </Link>
             ))}
         </React.Fragment>
       </Container>
@@ -83,6 +91,5 @@ AllWines.defaultProps = {
 //   wines: state.wine.wines
 // });
 
-export default connect(
-  // mapStateToProps
-)(AllWines);
+export default connect()(AllWines);
+// mapStateToProps

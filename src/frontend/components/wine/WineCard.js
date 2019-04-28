@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { deleteWine } from '../../actions/WineRestService';
 
 class WineCard extends Component {
-  onDeleteClick = async (wine, isRedWine = false) => {
+  onDeleteClick = async (event, wine, isRedWine = false) => {
+    event.preventDefault();
     await deleteWine(wine, isRedWine);
     this.props.onWineDeleted();
   };
@@ -17,9 +18,9 @@ class WineCard extends Component {
       <div className="card card-body mb-3">
         <h3>
           {varietal}
-          <i
+            <i
             className="fas fa-times"
-            onClick={this.onDeleteClick.bind(this, wine, isRedWine)}
+            onClick={e => this.onDeleteClick(e, wine, isRedWine)}
             style={{ cursor: 'pointer', float: 'right', color: 'red' }}
           />
         </h3>

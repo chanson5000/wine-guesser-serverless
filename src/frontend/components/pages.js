@@ -5,6 +5,7 @@ import NotFound from './pages/NotFound';
 import NewWine from './pages/NewWine';
 import AllWines from './pages/AllWines';
 import Administration from './pages/Administration';
+import WineDetail from './pages/WineDetail';
 
 export {
   About,
@@ -13,5 +14,6 @@ export {
   NotFound,
   NewWine,
   AllWines,
-  Administration
+  Administration,
+  WineDetail
 };

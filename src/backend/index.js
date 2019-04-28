@@ -54,10 +54,10 @@ const makeWineRequestObject = event => {
 
   let wine = {};
 
-  for (const [key, value] in combinedParams) {
+  for (const key in combinedParams) {
     wine = {
       ...wine,
-      [decodeURIComponent(key)]: decodeURIComponent(value)
+      [decodeURIComponent(key)]: decodeURIComponent(combinedParams[key])
     };
   }
 

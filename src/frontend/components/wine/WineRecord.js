@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import { deleteWine } from '../../actions/WineRestService';
 
 class WineRecord extends Component {
-  onDeleteClick = (wine, isRedWine = false) => {
-    try {
-      deleteWine(wine, isRedWine);
-    } catch (e) {
-      console.log(e);
-    }
+  onDeleteClick = async (wine, isRedWine = false) => {
+    await deleteWine(wine, isRedWine);
+    this.props.onWineDeleted();
   };
 
   render() {
@@ -30,9 +27,9 @@ class WineRecord extends Component {
         <p>{description}</p>
         <ul>
           {descriptors &&
-            Object.keys(descriptors).map(descriptor => (
-              <li key={descriptor}>{descriptor}</li>
-            ))}
+          Object.keys(descriptors).map(descriptor => (
+            <li key={descriptor}>{descriptor}</li>
+          ))}
         </ul>
       </div>
     );
@@ -42,7 +39,7 @@ class WineRecord extends Component {
 WineRecord.propTypes = {
   wine: PropTypes.object.isRequired,
   isRedWine: PropTypes.bool.isRequired,
-  deleteWine: PropTypes.func.isRequired
+  onWineDeleted: PropTypes.func.isRequired
 };
 
 WineRecord.defaultProps = {

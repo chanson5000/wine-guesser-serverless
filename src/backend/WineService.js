@@ -17,7 +17,7 @@ class WineService {
     return await getWineByVarietal(wine);
   }
 
-  static async addRedwine(wine) {
+  static async addRedWine(wine) {
     return await addWine(wine, true);
   }
 

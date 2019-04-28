@@ -3,7 +3,7 @@ import WineRecord from '../wine/WineRecord';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container } from 'react-bootstrap';
-import { getAllWines } from '../../actions/wineService';
+import { getAllWines } from '../../actions/WineRestService';
 import arrowSpinner from '../../components/common/arrowSpinner.gif';
 
 class AllWines extends Component {
@@ -18,6 +18,14 @@ class AllWines extends Component {
   }
 
   componentDidMount() {
+    this.loadWines();
+  }
+
+  onWineDeleted = () => {
+    this.loadWines();
+  };
+
+  loadWines = () => {
     getAllWines(this.props.isRedWine)
       .then(response => {
         this.setState({
@@ -32,7 +40,7 @@ class AllWines extends Component {
           loading: false
         });
       });
-  }
+  };
 
   render() {
     const { wines, isRedWine, loading } = this.state;
@@ -43,13 +51,18 @@ class AllWines extends Component {
           <h2 className="text-center p-4">
             All {isRedWine && isRedWine ? 'Red' : 'White'} Wines
           </h2>
-          {loading === true && <div className="text-center p-4"><img  src={arrowSpinner} alt="Loading..." /></div>}
+          {loading === true && (
+            <div className="text-center p-4">
+              <img src={arrowSpinner} alt="Loading..." />
+            </div>
+          )}
           {wines &&
             wines.map(wine => (
               <WineRecord
                 isRedWine={isRedWine}
                 key={wine.varietal + wine.world}
                 wine={wine}
+                deleteWine={this.onWineDeleted.bind}
               />
             ))}
         </React.Fragment>
@@ -59,8 +72,6 @@ class AllWines extends Component {
 }
 
 AllWines.propTypes = {
-  wines: PropTypes.array.isRequired,
-  getAllWines: PropTypes.func.isRequired,
   isRedWine: PropTypes.bool.isRequired
 };
 
@@ -68,11 +79,10 @@ AllWines.defaultProps = {
   isRedWine: false
 };
 
-const mapStateToProps = state => ({
-  wines: state.wine.wines
-});
+// const mapStateToProps = state => ({
+//   wines: state.wine.wines
+// });
 
 export default connect(
-  mapStateToProps,
-  { getAllWines }
+  // mapStateToProps
 )(AllWines);

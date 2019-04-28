@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteWine } from '../../actions/wineActions';
+import { deleteWine } from '../../actions/WineRestService';
 
 class WineRecord extends Component {
   onDeleteClick = (wine, isRedWine = false) => {
-    this.props.deleteWine(wine, isRedWine);
+    try {
+      deleteWine(wine, isRedWine);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   render() {
@@ -46,6 +50,4 @@ WineRecord.defaultProps = {
 };
 
 export default connect(
-  null,
-  { deleteWine }
 )(WineRecord);

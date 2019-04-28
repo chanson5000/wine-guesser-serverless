@@ -26,3 +26,28 @@ export const getAllWines = (isRedWine = false) => {
       });
   });
 };
+
+export const deleteWine = (wine, isRedWine = false) => {
+  return new Promise((resolve, reject) => {
+    const deleteURI =
+      isRedWine === true
+        ? `${apiEndpoint}wines/red/${wine.varietal}/${wine.world}`
+        : `${apiEndpoint}wines/white/${wine.varietal}/${wine.world}`;
+
+    axios
+      .delete(deleteURI, wine)
+      .then(res => {
+        resolve(res.data)
+      })
+      .catch(error => {
+        if (error.response) {
+          console.log(`Failed call with: ${error.response.code}`);
+          console.log(error.response.data);
+        } else {
+          console.log('No response was received.');
+        }
+        reject(error);
+      });
+  });
+};
+

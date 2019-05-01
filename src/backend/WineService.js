@@ -47,12 +47,9 @@ const getAllWines = async (isRedWine = false) => {
 const getWineByVarietal = async (wine, isRedWine = false) => {
   let result;
   if (isRedWine) {
-    result = await Repository.findRedWineByVarietal(wine.varietal, wine.world);
+    result = await Repository.findRedWineByVarietal(wine);
   } else {
-    result = await Repository.findWhiteWineByVarietal(
-      wine.varietal,
-      wine.world
-    );
+    result = await Repository.findWhiteWineByVarietal(wine);
   }
   return result;
 };

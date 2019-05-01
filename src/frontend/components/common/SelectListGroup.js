@@ -20,7 +20,7 @@ const SelectListGroup = ({ label, name, options, value, onChange }) => {
         {label}
       </Form.Label>
       <Col md={3}>
-        <Form.Control as="select" name={name} onChange={onChange}>
+        <Form.Control as="select" name={name} value={value} onChange={onChange}>
           {optionsMap}
         </Form.Control>
       </Col>

@@ -10,7 +10,6 @@ import arrowSpinner from '../../components/common/arrowSpinner.gif';
 class AllWines extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       wines: [],
       isRedWine: this.props.isRedWine,

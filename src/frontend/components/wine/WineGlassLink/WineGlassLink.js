@@ -8,7 +8,7 @@ const WineGlassLink = ({ isRedWine }) => {
   if (isRedWine) {
     return (
       <Link to="/wine/red/guess">
-        <img src={redGlass} alt="Guess a red wine." />
+        <img className="rotate-img" src={redGlass} alt="Guess a red wine." />
       </Link>
     );
   } else {

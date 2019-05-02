@@ -37,6 +37,7 @@ const About = () => {
             url="http://www.wineguesser.com/files/Examinable_Red_Wines.pdf"
             text="Red"
             newWindow={true}
+            isButton={true}
           />
         </div>
         <div className="col-md-1">
@@ -44,6 +45,7 @@ const About = () => {
             url="http://www.wineguesser.com/files/Examinable_White_Wines.pdf"
             text="White"
             newWindow={true}
+            isButton={true}
           />
         </div>
       </div>

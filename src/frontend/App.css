@@ -47,6 +47,16 @@ header a:visited {
   color: white;
 }
 
+.link-button {
+  background: #c48b9f;
+  border: #4c0017;
+  color: white;
+}
+
+.rotate-img {
+  animation: rotate 0.5s infinite linear;
+}
+
 .wg-footer {
   color: black;
 }

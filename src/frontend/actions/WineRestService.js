@@ -79,7 +79,7 @@ export const getWine = (wine, isRedWine = false) => {
     const getURI =
       isRedWine === true
         ? `${apiEndpoint}wines/red/${wine.varietal}/${wine.world}`
-        : `${apiEndpoint}wines/white/${wine.world}/${wine.varietal}`;
+        : `${apiEndpoint}wines/white/${wine.varietal}/${wine.world}`;
 
     axios
       .get(getURI, wine)

@@ -226,7 +226,7 @@ class WineDetail extends Component {
       confusion,
       errors
     } = this.state;
-
+    console.log(condition);
     return (
       <div className="container p-4 text-center">
         <h2>Wine Details</h2>
@@ -330,7 +330,7 @@ class WineDetail extends Component {
           />
 
           <Button type="submit" className="guess-btn m-2">
-            Add
+            Save
           </Button>
         </Form>
         {/*<div className="card card-body mb-3">*/}

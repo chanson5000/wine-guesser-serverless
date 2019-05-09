@@ -146,6 +146,8 @@ class NewWine extends Component {
       : { ...newWine, sweetness };
 
     try {
+      console.log('Adding wine to the database...');
+      console.log(newWine);
       await addWine(newWine, this.props.isRedWine);
     } catch (e) {
       console.log('Failed to add wine to database.');

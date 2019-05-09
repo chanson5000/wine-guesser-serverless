@@ -54,10 +54,14 @@ const queryWines = async queryParams => {
 };
 
 const putWine = async (wine, isRedWine = false) => {
+
   let putParams = {
     Item: {
       varietal: { S: wine.varietal },
-      world: { S: wine.world }
+      world: { S: wine.world },
+      descriptors: {
+        M: wine.descriptors
+      }
     }
   };
 

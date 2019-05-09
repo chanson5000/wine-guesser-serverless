@@ -59,8 +59,19 @@ const putWine = async (wine, isRedWine = false) => {
     Item: {
       varietal: { S: wine.varietal },
       world: { S: wine.world },
-      descriptors: {
-        M: wine.descriptors
+      acidity: { S: wine.acidity },
+      alcohol: { S: wine.alcohol },
+      climate: { S: wine.climate },
+      tannin: { S: wine.tannin },
+      color: { S: wine.color },
+      condition: {
+        M: wine.condition
+      },
+      nonFruit: {
+        M: wine.nonFruit
+      },
+      type: {
+        M: wine.type
       }
     }
   };

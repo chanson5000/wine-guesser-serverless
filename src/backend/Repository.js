@@ -54,8 +54,12 @@ const queryWines = async queryParams => {
 };
 
 const putWine = async (wine, isRedWine = false) => {
-  console.log("Repository>Got for put:");
+  console.log('Repository>Got for put:');
   console.log(wine);
+
+  const type = isRedWine ? redTypes(wine) : whiteTypes(wine);
+  const nonFruit = isRedWine ? redNonFruit(wine) : whiteNonFruit(wine);
+  const additionalParams = uniqueParams(wine, isRedWine);
 
   let putParams = {
     Item: {
@@ -64,10 +68,9 @@ const putWine = async (wine, isRedWine = false) => {
       acidity: { S: wine.acidity },
       alcohol: { S: wine.alcohol },
       climate: { S: wine.climate },
-      tannin: { S: wine.tannin },
       color: { S: wine.color },
       condition: {
-        M : {
+        M: {
           tart: {
             BOOL: wine.condition.tart
           },
@@ -80,94 +83,11 @@ const putWine = async (wine, isRedWine = false) => {
           baked: {
             BOOL: wine.condition.baked
           }
-        },
-      },
-      type: {
-        M: {
-          red: {
-            BOOL: wine.type.red
-          },
-          black: {
-            BOOL: wine.type.black
-          },
-          blue: {
-            BOOL: wine.type.blue
-          }
         }
       },
-      nonFruit: {
-        M: {
-          floral: {
-            BOOL: wine.nonFruit.floral
-          },
-          vegetalPyrazine: {
-            BOOL: wine.nonFruit.vegetalPyrazine
-          },
-          vegetalTomato: {
-            BOOL: wine.nonFruit.vegetalTomato
-          },
-          herbalTobacco: {
-            BOOL: wine.nonFruit.herbalTobacco
-          },
-          herbalMint: {
-            BOOL: wine.nonFruit.herbalMint
-          },
-          herbalThyme: {
-            BOOL: wine.nonFruit.herbalThyme
-          },
-          herbalTea: {
-            BOOL: wine.nonFruit.herbalTea
-          },
-          herbalOregano: {
-            BOOL: wine.nonFruit.herbalOregano
-          },
-          herbalDried: {
-            BOOL: wine.nonFruit.herbalDried
-          },
-          spicePepper: {
-            BOOL: wine.nonFruit.spicePepper
-          },
-          spiceAnise: {
-            BOOL: wine.nonFruit.spiceAnise
-          },
-          spiceOther: {
-            BOOL: wine.nonFruit.spiceOther
-          },
-          coffee: {
-            BOOL: wine.nonFruit.coffee
-          },
-          cocoa: {
-            BOOL: wine.nonFruit.cocoa
-          },
-          game: {
-            BOOL: wine.nonFruit.game
-          },
-          smoke: {
-            BOOL: wine.nonFruit.smoke
-          },
-          balsamic: {
-            BOOL: wine.nonFruit.balsamic
-          },
-          carbonicMaceration: {
-            BOOL: wine.nonFruit.carbonicMaceration
-          },
-          volatileAcidity: {
-            BOOL: wine.nonFruit.volatileAcidity
-          },
-          oxidization: {
-            BOOL: wine.nonFruit.oxidization
-          },
-          organic: {
-            BOOL: wine.nonFruit.organic
-          },
-          inorganic: {
-            BOOL: wine.nonFruit.inorganic
-          },
-          oak: {
-            BOOL: wine.nonFruit.oak
-          }
-        }
-      }
+      type: type,
+      nonFruit: nonFruit,
+      ...additionalParams
     }
   };
 
@@ -176,7 +96,7 @@ const putWine = async (wine, isRedWine = false) => {
   } else {
     putParams.TableName = whiteWineTable;
   }
-  console.log("Repository>Putting Item:");
+  console.log('Repository>Putting Item:');
   console.log(putParams);
   return await db.putItem(putParams).promise();
 };
@@ -221,6 +141,193 @@ const makeDeleteWineParams = (wine, isRedWine = false) => {
       ...params
     };
   }
+};
+
+const uniqueParams = (wine, isRedWine = false) => {
+  if (isRedWine) {
+    return {
+      tannin: { S: wine.tannin }
+    };
+  } else {
+    return {
+      sweetness: { S: wine.sweetness }
+    };
+  }
+};
+
+const redTypes = wine => {
+  return {
+    M: {
+      red: {
+        BOOL: wine.type.red
+      },
+      black: {
+        BOOL: wine.type.black
+      },
+      blue: {
+        BOOL: wine.type.blue
+      }
+    }
+  };
+};
+
+const whiteTypes = wine => {
+  return {
+    M: {
+      applePear: {
+        BOOL: wine.type.applePear
+      },
+      citrus: {
+        BOOL: wine.type.citrus
+      },
+      stone: {
+        BOOL: wine.type.stone
+      },
+      tropical: {
+        BOOL: wine.type.tropical
+      }
+    }
+  };
+};
+
+const redNonFruit = wine => {
+  return {
+    M: {
+      floral: {
+        BOOL: wine.nonFruit.floral
+      },
+      vegetalPyrazine: {
+        BOOL: wine.nonFruit.vegetalPyrazine
+      },
+      vegetalTomato: {
+        BOOL: wine.nonFruit.vegetalTomato
+      },
+      herbalTobacco: {
+        BOOL: wine.nonFruit.herbalTobacco
+      },
+      herbalMint: {
+        BOOL: wine.nonFruit.herbalMint
+      },
+      herbalThyme: {
+        BOOL: wine.nonFruit.herbalThyme
+      },
+      herbalTea: {
+        BOOL: wine.nonFruit.herbalTea
+      },
+      herbalOregano: {
+        BOOL: wine.nonFruit.herbalOregano
+      },
+      herbalDried: {
+        BOOL: wine.nonFruit.herbalDried
+      },
+      spicePepper: {
+        BOOL: wine.nonFruit.spicePepper
+      },
+      spiceAnise: {
+        BOOL: wine.nonFruit.spiceAnise
+      },
+      spiceOther: {
+        BOOL: wine.nonFruit.spiceOther
+      },
+      coffee: {
+        BOOL: wine.nonFruit.coffee
+      },
+      cocoa: {
+        BOOL: wine.nonFruit.cocoa
+      },
+      game: {
+        BOOL: wine.nonFruit.game
+      },
+      smoke: {
+        BOOL: wine.nonFruit.smoke
+      },
+      balsamic: {
+        BOOL: wine.nonFruit.balsamic
+      },
+      carbonicMaceration: {
+        BOOL: wine.nonFruit.carbonicMaceration
+      },
+      volatileAcidity: {
+        BOOL: wine.nonFruit.volatileAcidity
+      },
+      oxidization: {
+        BOOL: wine.nonFruit.oxidization
+      },
+      organic: {
+        BOOL: wine.nonFruit.organic
+      },
+      inorganic: {
+        BOOL: wine.nonFruit.inorganic
+      },
+      oak: {
+        BOOL: wine.nonFruit.oak
+      }
+    }
+  };
+};
+
+const whiteNonFruit = wine => {
+  return {
+    M: {
+      fruitBlossoms: {
+        BOOL: wine.type.fruitBlossoms
+      },
+      redFlowers: {
+        BOOL: wine.type.redFlowers
+      },
+      hay: {
+        BOOL: wine.type.hay
+      },
+      herbalFresh: {
+        BOOL: wine.type.herbalFresh
+      },
+      chive: {
+        BOOL: wine.type.chive
+      },
+      herbalDried: {
+        BOOL: wine.type.herbalDried
+      },
+      herbalSage: {
+        BOOL: wine.type.herbalSage
+      },
+      herbalTea: {
+        BOOL: wine.type.herbalTea
+      },
+      vegetalPyrazine: {
+        BOOL: wine.type.vegetalPyrazine
+      },
+      spice: {
+        BOOL: wine.type.spice
+      },
+      terpene: {
+        BOOL: wine.type.terpene
+      },
+      wax: {
+        BOOL: wine.type.wax
+      },
+      soap: {
+        BOOL: wine.type.soap
+      },
+      oysterShell: {
+        BOOL: wine.type.oysterShell
+      },
+      botrytis: {
+        BOOL: wine.type.botrytis
+      },
+      oxidative: {
+        BOOL: wine.type.oxidative
+      },
+      lees: {
+        BOOL: wine.type.lees
+      },
+      organic: {
+        BOOL: wine.type.organic
+      },
+      inorganic: {
+        BOOL: wine.type.inorganic
+      }
+    }
+  };
 };
 
 export default Repository;

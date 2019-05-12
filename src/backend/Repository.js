@@ -277,61 +277,61 @@ const makeNonFruitParams = (wine, isRedWine) => {
       nonFruit: {
         M: {
           fruitBlossoms: {
-            BOOL: wine.type.fruitBlossoms
+            BOOL: wine.nonFruit.fruitBlossoms
           },
           redFlowers: {
-            BOOL: wine.type.redFlowers
+            BOOL: wine.nonFruit.redFlowers
           },
           hay: {
-            BOOL: wine.type.hay
+            BOOL: wine.nonFruit.hay
           },
           herbalFresh: {
-            BOOL: wine.type.herbalFresh
+            BOOL: wine.nonFruit.herbalFresh
           },
           chive: {
-            BOOL: wine.type.chive
+            BOOL: wine.nonFruit.chive
           },
           herbalDried: {
-            BOOL: wine.type.herbalDried
+            BOOL: wine.nonFruit.herbalDried
           },
           herbalSage: {
-            BOOL: wine.type.herbalSage
+            BOOL: wine.nonFruit.herbalSage
           },
           herbalTea: {
-            BOOL: wine.type.herbalTea
+            BOOL: wine.nonFruit.herbalTea
           },
           vegetalPyrazine: {
-            BOOL: wine.type.vegetalPyrazine
+            BOOL: wine.nonFruit.vegetalPyrazine
           },
           spice: {
-            BOOL: wine.type.spice
+            BOOL: wine.nonFruit.spice
           },
           terpene: {
-            BOOL: wine.type.terpene
+            BOOL: wine.nonFruit.terpene
           },
           wax: {
-            BOOL: wine.type.wax
+            BOOL: wine.nonFruit.wax
           },
           soap: {
-            BOOL: wine.type.soap
+            BOOL: wine.nonFruit.soap
           },
           oysterShell: {
-            BOOL: wine.type.oysterShell
+            BOOL: wine.nonFruit.oysterShell
           },
           botrytis: {
-            BOOL: wine.type.botrytis
+            BOOL: wine.nonFruit.botrytis
           },
           oxidative: {
-            BOOL: wine.type.oxidative
+            BOOL: wine.nonFruit.oxidative
           },
           lees: {
-            BOOL: wine.type.lees
+            BOOL: wine.nonFruit.lees
           },
           organic: {
-            BOOL: wine.type.organic
+            BOOL: wine.nonFruit.organic
           },
           inorganic: {
-            BOOL: wine.type.inorganic
+            BOOL: wine.nonFruit.inorganic
           }
         }
       }

@@ -68,27 +68,27 @@ const putWine = async (wine, isRedWine = false) => {
       color: { S: wine.color },
       condition: {
         tart: {
-          BOOL: wine.condition.tart
+          BOOL: wine.condition.tart.toString()
         },
         ripe: {
-          BOOL: wine.condition.ripe
+          BOOL: wine.condition.ripe.toString()
         },
         overripe: {
-          BOOL: wine.condition.overripe
+          BOOL: wine.condition.overripe.toString()
         },
         baked: {
-          BOOL: wine.condition.babel
+          BOOL: wine.condition.baked.toString()
         }
       },
       type: {
         red: {
-          BOOL: wine.type.red
+          BOOL: wine.type.red.toString()
         },
         black: {
-          BOOL: wine.type.black
+          BOOL: wine.type.black.toString()
         },
         blue: {
-          BOOL: wine.type.blue
+          BOOL: wine.type.blue.toString()
         }
       }
     }

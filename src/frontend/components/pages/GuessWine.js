@@ -169,7 +169,7 @@ class GuessWine extends Component {
             value={isRedWine ? tannin : sweetness}
             onChange={this.onChange}
             options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+              isRedWine ? RedWineFields.structure : WhiteWineFields.sweetness
             }
           />
 
@@ -199,7 +199,7 @@ class GuessWine extends Component {
             value={climate}
             onChange={this.onChange}
             options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+              isRedWine ? RedWineFields.climate : WhiteWineFields.climate
             }
           />
 

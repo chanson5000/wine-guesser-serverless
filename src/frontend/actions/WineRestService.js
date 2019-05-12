@@ -42,7 +42,7 @@ export const addWine = (wine, isRedWine = false) => {
       })
       .catch(error => {
         if (error.response) {
-          console.log(`Failed call with: ${error.response.code}`);
+          console.log(`Failed call with: ${error.response.data}`);
           console.log(error.response);
         } else {
           console.log('No response was received.');

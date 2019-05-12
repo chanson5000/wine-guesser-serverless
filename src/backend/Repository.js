@@ -54,6 +54,8 @@ const queryWines = async queryParams => {
 };
 
 const putWine = async (wine, isRedWine = false) => {
+  console.log("Repository>Got for put:");
+  console.log(wine);
 
   let putParams = {
     Item: {

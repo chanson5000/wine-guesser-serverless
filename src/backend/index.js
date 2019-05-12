@@ -37,7 +37,12 @@ exports.addRedWineHandler = async (event) => {
 };
 
 exports.addWhiteWineHandler = async (event) => {
-  return await WineController.addWhiteWine(makeValidWineObject(event));
+  console.log('AddWhiteWineHandler>Receive event:');
+  console.log(event);
+  console.log('AddRedWineHandler>make wine request object:');
+  const wine = makeValidWineObject(event);
+  console.log(wine);
+  return await WineController.addWhiteWine(wine);
 };
 
 exports.deleteRedWineHandler = async (event) => {

@@ -235,7 +235,7 @@ class NewWine extends Component {
             label="Fruit Type"
             values={type}
             onChange={this.onChange}
-            options={isRedWine ? RedWineFields.type : WhiteWineFields.condition}
+            options={isRedWine ? RedWineFields.type : WhiteWineFields.type}
           />
 
           <CheckboxGroup
@@ -284,7 +284,7 @@ class NewWine extends Component {
             value={climate}
             onChange={this.onChange}
             options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+              isRedWine ? RedWineFields.climate : WhiteWineFields.climate
             }
           />
 

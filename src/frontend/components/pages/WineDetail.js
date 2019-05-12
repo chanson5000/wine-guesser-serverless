@@ -287,7 +287,7 @@ class WineDetail extends Component {
             label="Fruit Type"
             values={type}
             onChange={this.onChange}
-            options={isRedWine ? RedWineFields.type : WhiteWineFields.condition}
+            options={isRedWine ? RedWineFields.type : WhiteWineFields.type}
           />
 
           <CheckboxGroup

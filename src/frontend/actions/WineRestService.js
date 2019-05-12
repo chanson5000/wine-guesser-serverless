@@ -86,7 +86,9 @@ export const getWine = (wine, isRedWine = false) => {
     axios
       .get(getURI, wine)
       .then(res => {
-        resolve(res.data);
+        console.log('WineRestService>getWine');
+        console.log(res.data[0]);
+        resolve(res.data[0]);
       })
       .catch(error => {
         if (error.response) {

@@ -66,15 +66,15 @@ const putWine = async (wine, isRedWine = false) => {
       climate: { S: wine.climate },
       tannin: { S: wine.tannin },
       color: { S: wine.color },
-      // condition: {
-      //   M: wine.condition
-      // },
-      // nonFruit: {
-      //   M: wine.nonFruit
-      // },
-      // type: {
-      //   M: wine.type
-      // }
+      condition: {
+        M: wine.condition
+      },
+      nonFruit: {
+        M: wine.nonFruit
+      },
+      type: {
+        M: wine.type
+      }
     }
   };
 

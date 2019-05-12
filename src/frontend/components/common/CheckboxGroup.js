@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Form, Row, Col } from 'react-bootstrap';
 
 const CheckboxGroup = ({ label, name, options, values, onChange }) => {
-  console.log(values);
   const optionsMap = options.map(option => (
     <Form.Check
       type="checkbox"

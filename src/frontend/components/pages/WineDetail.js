@@ -6,7 +6,6 @@ import { Form, Button } from 'react-bootstrap';
 import { RedWineFields, WhiteWineFields } from '../../model';
 import {
   SelectListGroup,
-  CheckboxGrooup,
   TextInput,
   CheckboxGroup
 } from '../common';
@@ -187,12 +186,36 @@ class WineDetail extends Component {
     };
     getWine(wine, this.props.isRedWine)
       .then(response => {
+
+        let newState = {
+          varietal: response.varietal,
+          world: response.world,
+          descriptors: response.descriptors,
+          description: response.description,
+          confusion: response.confusion,
+          acidity: response.acidity,
+          tannin: response.tannin,
+          alcohol: response.tannin,
+          climate: response.climate
+        };
+
+        if (response.condition) {
+          newState.condition = response.condition;
+        }
+        // if (response.fruitType) {
+        //   newState.condition = response.fruitType
+        // }
+
         this.setState({
-          varietal: response[0].varietal,
-          world: response[0].world,
-          descriptors: response[0].descriptors,
-          description: response[0].description,
-          confusion: response[0].confusion
+          varietal: response.varietal,
+          world: response.world,
+          descriptors: response.descriptors,
+          description: response.description,
+          confusion: response.confusion,
+          acidity: response.acidity,
+          tannin: response.tannin,
+          alcohol: response.tannin,
+          climate: response.climate
         });
       })
       .catch(() => {
@@ -318,7 +341,7 @@ class WineDetail extends Component {
             value={climate}
             onChange={this.onChange}
             options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+              isRedWine ? RedWineFields.climate : WhiteWineFields.climate
             }
           />
 

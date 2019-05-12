@@ -55,7 +55,7 @@ const redWineDefaultState = {
 
 const whiteWineDefaultState = {
   varietal: '',
-  world: 'new',
+  world: 'old',
   color: 'straw',
   condition: {
     tart: false,
@@ -254,7 +254,7 @@ class NewWine extends Component {
             value={isRedWine ? tannin : sweetness}
             onChange={this.onChange}
             options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+              isRedWine ? RedWineFields.structure : WhiteWineFields.sweetness
             }
           />
 

@@ -236,8 +236,8 @@ class WineDetail extends Component {
       confusion,
       errors
     } = this.state;
-    console.log('Returned condition:');
-    console.log(condition);
+    console.log('Returned state:');
+    console.log(this.state);
     return (
       <div className="container p-4 text-center">
         <h2>Wine Details</h2>
@@ -306,7 +306,7 @@ class WineDetail extends Component {
             value={isRedWine ? tannin : sweetness}
             onChange={this.onChange}
             options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+              isRedWine ? RedWineFields.structure : WhiteWineFields.sweetness
             }
           />
 

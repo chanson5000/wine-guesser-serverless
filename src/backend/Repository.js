@@ -67,13 +67,29 @@ const putWine = async (wine, isRedWine = false) => {
       tannin: { S: wine.tannin },
       color: { S: wine.color },
       condition: {
-        M: wine.condition
-      },
-      nonFruit: {
-        M: wine.nonFruit
+        tart: {
+          BOOL: wine.condition.tart
+        },
+        ripe: {
+          BOOL: wine.condition.ripe
+        },
+        overripe: {
+          BOOL: wine.condition.overripe
+        },
+        baked: {
+          BOOL: wine.condition.babel
+        }
       },
       type: {
-        M: wine.type
+        red: {
+          BOOL: wine.type.red
+        },
+        black: {
+          BOOL: wine.type.black
+        },
+        blue: {
+          BOOL: wine.type.blue
+        }
       }
     }
   };

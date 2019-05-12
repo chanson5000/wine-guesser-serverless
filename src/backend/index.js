@@ -10,8 +10,6 @@ exports.getAllWhiteWinesHandler = async () => {
 
 exports.getRedWineByVarietalHandler = async event => {
   const wineRequest = makeWineRequestObject(event);
-  console.log('Got wine request: ');
-  console.log(wineRequest);
   return await WineController.getRedWineByVarietal(
     wineRequest
   );
@@ -24,6 +22,8 @@ exports.getWhiteWineByVarietalHandler = async event => {
 };
 
 exports.addRedWineHandler = async (event) => {
+  console.log('AddRedWineHandler>Receive Event:');
+  console.log(event);
   return await WineController.addRedWine(makeWineRequestObject(event));
 };
 

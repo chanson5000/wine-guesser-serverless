@@ -158,6 +158,8 @@ class WineDetail extends Component {
       ? { ...updateWine, tannin }
       : { ...updateWine, sweetness };
 
+      // console.log('WineDetail>AddWine');
+      // console.log(updateWine);
     try {
       await addWine(updateWine, this.props.isRedWine);
     } catch (e) {
@@ -166,7 +168,7 @@ class WineDetail extends Component {
   };
 
   onChange = e => {
-    console.log(this.state);
+    // console.log(this.state);
     if (e.target.type === 'checkbox') {
       this.setState({
         [e.target.id]: {

@@ -112,12 +112,6 @@ class WineDetail extends Component {
     this.state = this.props.isRedWine
       ? redWineDefaultState
       : whiteWineDefaultState;
-
-    // this.state = {
-    //   descriptors: null,
-    //   description: null,
-    //   confusion: null
-    // };
   }
 
   onSubmit = async e => {
@@ -158,8 +152,8 @@ class WineDetail extends Component {
       ? { ...updateWine, tannin }
       : { ...updateWine, sweetness };
 
-      // console.log('WineDetail>AddWine');
-      // console.log(updateWine);
+    console.log('WineDetail>AddWine');
+    console.log(updateWine);
     try {
       await addWine(updateWine, this.props.isRedWine);
     } catch (e) {
@@ -168,7 +162,6 @@ class WineDetail extends Component {
   };
 
   onChange = e => {
-    // console.log(this.state);
     if (e.target.type === 'checkbox') {
       this.setState({
         [e.target.id]: {
@@ -201,7 +194,6 @@ class WineDetail extends Component {
           description: response[0].description,
           confusion: response[0].confusion
         });
-        console.log(this.state);
       })
       .catch(() => {
         this.setState({
@@ -228,7 +220,6 @@ class WineDetail extends Component {
       confusion,
       errors
     } = this.state;
-    console.log(condition);
     return (
       <div className="container p-4 text-center">
         <h2>Wine Details</h2>
@@ -292,8 +283,8 @@ class WineDetail extends Component {
           />
 
           <SelectListGroup
-            name={isRedWine ? 'Tannin' : 'Sweetness'}
-            label={isRedWine ? 'tannin' : 'sweetness'}
+            name={isRedWine ? 'tannin' : 'sweetness'}
+            label={isRedWine ? 'Tannin' : 'Sweetness'}
             value={isRedWine ? tannin : sweetness}
             onChange={this.onChange}
             options={

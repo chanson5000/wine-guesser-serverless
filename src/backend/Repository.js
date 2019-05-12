@@ -94,6 +94,79 @@ const putWine = async (wine, isRedWine = false) => {
             BOOL: wine.type.blue
           }
         }
+      },
+      nonFruit: {
+        M: {
+          floral: {
+            BOOL: wine.nonFruit.floral
+          },
+          vegetalPyrazine: {
+            BOOL: wine.nonFruit.vegetalPyrazine
+          },
+          vegetalTomato: {
+            BOOL: wine.nonFruit.vegetalTomato
+          },
+          herbalTobacco: {
+            BOOL: wine.nonFruit.herbalTobacco
+          },
+          herbalMint: {
+            BOOL: wine.nonFruit.herbalMint
+          },
+          herbalThyme: {
+            BOOL: wine.nonFruit.herbalThyme
+          },
+          herbalTea: {
+            BOOL: wine.nonFruit.herbalTea
+          },
+          herbalOregano: {
+            BOOL: wine.nonFruit.herbalOregano
+          },
+          herbalDried: {
+            BOOL: wine.nonFruit.herbalDried
+          },
+          spicePepper: {
+            BOOL: wine.nonFruit.spicePepper
+          },
+          spiceAnise: {
+            BOOL: wine.nonFruit.spiceAnise
+          },
+          spiceOther: {
+            BOOL: wine.nonFruit.spiceOther
+          },
+          coffee: {
+            BOOL: wine.nonFruit.coffee
+          },
+          cocoa: {
+            BOOL: wine.nonFruit.cocoa
+          },
+          game: {
+            BOOL: wine.nonFruit.game
+          },
+          smoke: {
+            BOOL: wine.nonFruit.smoke
+          },
+          balsamic: {
+            BOOL: wine.nonFruit.balsamic
+          },
+          carbonicMaceration: {
+            BOOL: wine.nonFruit.carbonicMaceration
+          },
+          volatileAcidity: {
+            BOOL: wine.nonFruit.volatileAcidity
+          },
+          oxidization: {
+            BOOL: wine.nonFruit.oxidization
+          },
+          organic: {
+            BOOL: wine.nonFruit.organic
+          },
+          inorganic: {
+            BOOL: wine.nonFruit.inorganic
+          },
+          oak: {
+            BOOL: wine.nonFruit.oak
+          }
+        }
       }
     }
   };

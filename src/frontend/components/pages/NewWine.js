@@ -249,8 +249,8 @@ class NewWine extends Component {
           />
 
           <SelectListGroup
-            name={isRedWine ? 'Tannin' : 'Sweetness'}
-            label={isRedWine ? 'tannin' : 'sweetness'}
+            name={isRedWine ? 'tannin' : 'sweetness'}
+            label={isRedWine ? 'Tannin' : 'Sweetness'}
             value={isRedWine ? tannin : sweetness}
             onChange={this.onChange}
             options={

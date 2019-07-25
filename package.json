@@ -14,7 +14,7 @@
     "test:frontend": "jest --testPathPattern ./test/unit/frontend",
     "test:backend": "jest --testPathPattern ./test/unit/backend",
     "provision:base": "aws cloudformation create-stack --stack-name wine-guesser-base --template-body file://./aws/template-base.yml --parameters file://./aws/parameters.json --capabilities CAPABILITY_NAMED_IAM",
-    "build:backend": "npm pack:backend && npm package-sam",
+    "build:backend": "npm run pack:backend && npm run package-sam",
     "deploy:backend": "aws cloudformation deploy --stack-name wine-guesser-sam --template-file ./dist/template-sam.yaml",
     "build:frontend": "webpack-cli --mode production --config ./webpack.frontend.config.js",
     "deploy:frontend": "aws s3 cp ./dist/frontend/ s3://wine-guesser-sam-website-bucket/ --recursive --include \"*\" --acl public-read",

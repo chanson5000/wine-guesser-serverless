@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Row, Col } from 'react-bootstrap';
 
-const SelectListGroup = ({ label, name, options, value, onChange }) => {
+export default function SelectListGroup({label, name, options, value, onChange}) {
   const optionsMap = options.map(option => (
     <option key={option.value} value={option.value}>
       {option.label}
@@ -26,7 +26,7 @@ const SelectListGroup = ({ label, name, options, value, onChange }) => {
       </Col>
     </Form.Group>
   );
-};
+}
 
 SelectListGroup.propTypes = {
   label: PropTypes.string.isRequired,
@@ -40,5 +40,3 @@ SelectListGroup.propTypes = {
     })
   ).isRequired
 };
-
-export default SelectListGroup;

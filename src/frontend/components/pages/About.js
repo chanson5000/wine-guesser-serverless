@@ -1,7 +1,7 @@
 import React from 'react';
 import ExternalLink from '../common/ExternalLink';
 
-const About = () => {
+export default function About() {
   return (
     <div className="container text-center">
       <h2 className="p-4">What is Wine Guesser?</h2>
@@ -51,6 +51,4 @@ const About = () => {
       </div>
     </div>
   );
-};
-
-export default About;
+}

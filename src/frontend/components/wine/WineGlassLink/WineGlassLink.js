@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import redGlass from './red-glass-full.png';
 import whiteGlass from './white-glass-full.png';
 
-const WineGlassLink = ({ isRedWine }) => {
+export default function WineGlassLink({isRedWine}) {
   if (isRedWine) {
     return (
       <Link to="/wine/red/guess">
@@ -18,10 +18,8 @@ const WineGlassLink = ({ isRedWine }) => {
       </Link>
     );
   }
-};
+}
 
 WineGlassLink.proptypes = {
   isRedWine: PropTypes.bool
 };
-
-export default WineGlassLink;

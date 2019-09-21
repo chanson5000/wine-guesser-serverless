@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ExternalLink = ({ url, text, newWindow, isButton }) => {
+export default function ExternalLink ({url, text, newWindow, isButton}) {
   if (newWindow) {
     return (
       <a href={url} className={isButton && 'btn link-button m-2'} rel="noopener noreferrer" target="_blank">
@@ -15,7 +15,7 @@ const ExternalLink = ({ url, text, newWindow, isButton }) => {
       </a>
     );
   }
-};
+}
 
 ExternalLink.propTypes = {
   url: PropTypes.string.isRequired,
@@ -23,5 +23,3 @@ ExternalLink.propTypes = {
   newWindow: PropTypes.bool,
   isButton: PropTypes.bool
 };
-
-export default ExternalLink;

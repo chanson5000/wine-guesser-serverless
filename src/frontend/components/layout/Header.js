@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+export default function Header() {
   return (
     <div className="container-fluid wg-header-outer">
       <div className="container p-2 font-weight-bold text-center">
@@ -11,6 +11,4 @@ const Header = () => {
       </div>
     </div>
   );
-};
-
-export default Header;
+}

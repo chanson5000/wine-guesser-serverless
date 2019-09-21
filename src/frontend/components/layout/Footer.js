@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ExternalLink from '../common/ExternalLink';
 
-const Footer = () => {
+export default function Footer() {
   return (
     <div className="container-fluid wg-footer text-center p-2">
       <footer className="p-2">
@@ -21,6 +21,4 @@ const Footer = () => {
       </footer>
     </div>
   );
-};
-
-export default Footer;
+}

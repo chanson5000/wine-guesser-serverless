@@ -2,15 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Row, Col } from 'react-bootstrap';
 
-const TextInput = ({
-  label,
-  name,
-  value,
-  placeholder,
-  type,
-  onChange,
-  error
-}) => {
+export default function TextInput(label, name, value, placeholder, type, onChange, error) {
   return (
     <Form.Group
       as={Row}
@@ -33,7 +25,7 @@ const TextInput = ({
       </Col>
     </Form.Group>
   );
-};
+}
 
 TextInput.propTypes = {
   label: PropTypes.string.isRequired,
@@ -48,5 +40,3 @@ TextInput.propTypes = {
 TextInput.defaultProps = {
   type: 'text'
 };
-
-export default TextInput;

@@ -15,7 +15,7 @@ Globals:
   Api:
     Cors:
       AllowHeaders: "'content-type, authorization'"
-      AllowOrigin: "'*'"
+      AllowOrigin: "'*, localhost:8080'"
 
 Resources:
   GetAllRedWinesFunction:

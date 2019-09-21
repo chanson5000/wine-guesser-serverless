@@ -1,137 +1,43 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import Proptypes from 'prop-types';
 import { addWine, getWine } from '../../actions/WineRestService';
 import { Form, Button } from 'react-bootstrap';
 import { RedWineFields, WhiteWineFields } from '../../model';
-import {
-  SelectListGroup,
-  TextInput,
-  CheckboxGroup
-} from '../common';
+import { redWineDefaultState, whiteWineDefaultState } from '../../constants';
+import { SelectListGroup, TextInput, CheckboxGroup } from '../common';
 
-const redWineDefaultState = {
-  varietal: '',
-  world: 'old',
-  color: 'garnet',
-  confusion: '',
-  condition: {
-    tart: false,
-    ripe: false,
-    overripe: false,
-    baked: false
-  },
-  type: {
-    red: false,
-    black: false,
-    blue: false
-  },
-  nonFruit: {
-    floral: false,
-    vegetalPyrazine: false,
-    vegetalTomato: false,
-    herbalTobacco: false,
-    herbalMint: false,
-    herbalThyme: false,
-    herbalTea: false,
-    herbalOregano: false,
-    herbalDried: false,
-    spicePepper: false,
-    spiceAnise: false,
-    spiceOther: false,
-    coffee: false,
-    cocoa: false,
-    game: false,
-    smoke: false,
-    balsamic: false,
-    carbonicMaceration: false,
-    volatileAcidity: false,
-    oxidization: false,
-    organic: false,
-    inorganic: false,
-    oak: false
-  },
-  tannin: 'moderateMinus',
-  acidity: 'moderateMinus',
-  alcohol: 'moderateMinus',
-  climate: 'moderateMinus',
-  errors: {}
-};
+export default function WineDetail(match, isRedWine) {
+  const defaultWineState = isRedWine
+    ? redWineDefaultState
+    : whiteWineDefaultState;
+  const [errors, setErrors] = useState({});
+  const [wine, setWine] = useState(defaultWineState);
 
-const whiteWineDefaultState = {
-  varietal: '',
-  world: 'new',
-  color: 'straw',
-  confusion: '',
-  condition: {
-    tart: false,
-    ripe: false,
-    overripe: false,
-    baked: false
-  },
-  type: {
-    applePear: false,
-    citrus: false,
-    stone: false,
-    tropical: false
-  },
-  nonFruit: {
-    fruitBlossoms: false,
-    redFlowers: false,
-    hay: false,
-    herbalFresh: false,
-    chive: false,
-    herbalDried: false,
-    herbalSage: false,
-    herbalTea: false,
-    vegetalPyrazine: false,
-    spice: false,
-    terpene: false,
-    wax: false,
-    soap: false,
-    oysterShell: false,
-    botrytis: false,
-    oxidative: false,
-    lees: false,
-    organic: false,
-    inorganic: false,
-    oak: false,
-    bitter: false
-  },
-  sweetness: 'dry',
-  acidity: 'moderateMinus',
-  alcohol: 'moderateMinus',
-  climate: 'cool',
-  errors: {}
-};
+  const {
+    varietal,
+    world,
+    color,
+    condition,
+    type,
+    nonFruit,
+    acidity,
+    alcohol,
+    climate,
+    tannin,
+    sweetness,
+    confusion,
+    description
+  } = wine;
 
-class WineDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.isRedWine
-      ? redWineDefaultState
-      : whiteWineDefaultState;
-  }
+  useEffect(() => {
+    loadWine();
+  }, []);
 
-  onSubmit = async e => {
+  async function onSubmit(e) {
     e.preventDefault();
 
-    const {
-      varietal,
-      world,
-      color,
-      condition,
-      type,
-      nonFruit,
-      tannin,
-      sweetness,
-      acidity,
-      alcohol,
-      climate
-    } = this.state;
-
     if (varietal === '') {
-      this.setState({ errors: { varietal: 'Varietal name is required' } });
+      setErrors({ varietal: 'Varietal name is required' });
       return;
     }
 
@@ -147,7 +53,7 @@ class WineDetail extends Component {
       climate
     };
 
-    updateWine = this.props.isRedWine
+    updateWine = isRedWine
       ? { ...updateWine, tannin }
       : { ...updateWine, sweetness };
 
@@ -158,210 +64,176 @@ class WineDetail extends Component {
     } catch (e) {
       console.log('Failed to add wine to database.');
     }
-  };
+  }
 
-  onChange = e => {
+  function onChange(e) {
     if (e.target.type === 'checkbox') {
-      this.setState({
+      setWine({
         [e.target.id]: {
-          ...this.state[e.target.id],
+          ...wine[e.target.id],
           [e.target.name]: e.target.checked
         }
       });
     } else {
-      this.setState({
-        [e.target.name]: e.target.value
-      });
+      setWine({ [e.target.name]: e.target.value });
     }
-  };
-
-  componentDidMount() {
-    this.loadWine();
   }
 
-  loadWine = () => {
-    const wine = {
-      varietal: this.props.match.params.varietal,
-      world: this.props.match.params.world
+  async function loadWine() {
+    const toLoad = {
+      varietal: match.params.varietal,
+      world: match.params.world
     };
-    getWine(wine, this.props.isRedWine)
-      .then(response => {
+    try {
+      const response = await getWine(toLoad, isRedWine);
+      let newState = {
+        varietal: response.varietal,
+        world: response.world,
+        descriptors: response.descriptors,
+        description: response.description,
+        confusion: response.confusion,
+        acidity: response.acidity,
+        tannin: response.tannin,
+        alcohol: response.tannin,
+        climate: response.climate
+      };
 
-        let newState = {
-          varietal: response.varietal,
-          world: response.world,
-          descriptors: response.descriptors,
-          description: response.description,
-          confusion: response.confusion,
-          acidity: response.acidity,
-          tannin: response.tannin,
-          alcohol: response.tannin,
-          climate: response.climate
-        };
-
-        if (response.condition) {
-          newState.condition = response.condition;
-        }
-        if (response.type) {
-          newState.type = response.type;
-        }
-        if (response.nonFruit) {
-          newState.nonFruit = response.nonFruit;
-        }
-
-        this.setState(newState);
-      })
-      .catch(() => {
-        this.setState({
-          description: 'Unable to retrieve wine details.'
-        });
-      });
-  };
-
-  render() {
-    const { isRedWine } = this.props;
-    const {
-      varietal,
-      world,
-      color,
-      condition,
-      type,
-      nonFruit,
-      tannin,
-      sweetness,
-      acidity,
-      alcohol,
-      climate,
-      description,
-      confusion,
-      errors
-    } = this.state;
-    console.log('Returned state:');
-    console.log(this.state);
-    return (
-      <div className="container p-4 text-center">
-        <h2>Wine Details</h2>
-        <h3>{varietal}</h3>
-        <h4>{world.charAt(0).toUpperCase() + world.slice(1)} World</h4>
-        {description && <p>{description}</p>}
-        {confusion && <p>{confusion}</p>}
-        <Form onSubmit={this.onSubmit}>
-          <TextInput
-            label="Varietal"
-            onChange={this.onChange}
-            value={varietal}
-            placeholder="Enter a varietal..."
-            name="varietal"
-            type="text"
-            error={errors.varietal}
-          />
-
-          <SelectListGroup
-            value={world}
-            label="World"
-            onChange={this.onChange}
-            name="world"
-            options={isRedWine ? RedWineFields.world : WhiteWineFields.world}
-          />
-
-          <SelectListGroup
-            name="color"
-            label="Color"
-            value={color}
-            onChange={this.onChange}
-            options={isRedWine ? RedWineFields.color : WhiteWineFields.color}
-          />
-
-          <CheckboxGroup
-            name="condition"
-            label="Condition"
-            values={condition}
-            onChange={this.onChange}
-            options={
-              isRedWine ? RedWineFields.condition : WhiteWineFields.condition
-            }
-          />
-
-          <CheckboxGroup
-            name="type"
-            label="Fruit Type"
-            values={type}
-            onChange={this.onChange}
-            options={isRedWine ? RedWineFields.type : WhiteWineFields.type}
-          />
-
-          <CheckboxGroup
-            name="nonFruit"
-            label="Non-Fruit"
-            values={nonFruit}
-            onChange={this.onChange}
-            options={
-              isRedWine ? RedWineFields.nonFruit : WhiteWineFields.nonFruit
-            }
-          />
-
-          <SelectListGroup
-            name={isRedWine ? 'tannin' : 'sweetness'}
-            label={isRedWine ? 'Tannin' : 'Sweetness'}
-            value={isRedWine ? tannin : sweetness}
-            onChange={this.onChange}
-            options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.sweetness
-            }
-          />
-
-          <SelectListGroup
-            name="acidity"
-            label="Acidity"
-            value={acidity}
-            onChange={this.onChange}
-            options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
-            }
-          />
-
-          <SelectListGroup
-            name="alcohol"
-            label="Alcohol"
-            value={alcohol}
-            onChange={this.onChange}
-            options={
-              isRedWine ? RedWineFields.structure : WhiteWineFields.structure
-            }
-          />
-
-          <SelectListGroup
-            name="climate"
-            label="Climate"
-            value={climate}
-            onChange={this.onChange}
-            options={
-              isRedWine ? RedWineFields.climate : WhiteWineFields.climate
-            }
-          />
-
-          <Button type="submit" className="guess-btn m-2">
-            Save
-          </Button>
-        </Form>
-        {/*<div className="card card-body mb-3">*/}
-        {/*  <ul>*/}
-        {/*    {descriptors &&*/}
-        {/*    Object.keys(descriptors).map(descriptor => (*/}
-        {/*      <li key={descriptor}>{descriptor}</li>*/}
-        {/*    ))}*/}
-        {/*  </ul>*/}
-        {/*</div>*/}
-        {/*<div>*/}
-        {/*  <ul>*/}
-        {/*    {Object.keys(RedWine).map(entry => (*/}
-        {/*      <li key={entry}>{entry}</li>*/}
-        {/*    ))}*/}
-        {/*  </ul>*/}
-        {/*</div>*/}
-      </div>
-    );
+      if (response.condition) {
+        newState.condition = response.condition;
+      }
+      if (response.type) {
+        newState.type = response.type;
+      }
+      if (response.nonFruit) {
+        newState.nonFruit = response.nonFruit;
+      }
+      setWine(newState);
+    } catch (e) {
+      setWine({ description: 'Unable to retrieve wine details.' });
+    }
   }
+
+  return (
+    <div className="container p-4 text-center">
+      <h2>Wine Details</h2>
+      <h3>{varietal}</h3>
+      <h4>{world.charAt(0).toUpperCase() + world.slice(1)} World</h4>
+      {description && <p>{description}</p>}
+      {confusion && <p>{confusion}</p>}
+      <Form onSubmit={onSubmit}>
+        <TextInput
+          label="Varietal"
+          onChange={onChange}
+          value={varietal}
+          placeholder="Enter a varietal..."
+          name="varietal"
+          type="text"
+          error={errors.varietal}
+        />
+
+        <SelectListGroup
+          value={world}
+          label="World"
+          onChange={onChange}
+          name="world"
+          options={isRedWine ? RedWineFields.world : WhiteWineFields.world}
+        />
+
+        <SelectListGroup
+          name="color"
+          label="Color"
+          value={color}
+          onChange={onChange}
+          options={isRedWine ? RedWineFields.color : WhiteWineFields.color}
+        />
+
+        <CheckboxGroup
+          name="condition"
+          label="Condition"
+          values={condition}
+          onChange={onChange}
+          options={
+            isRedWine ? RedWineFields.condition : WhiteWineFields.condition
+          }
+        />
+
+        <CheckboxGroup
+          name="type"
+          label="Fruit Type"
+          values={type}
+          onChange={onChange}
+          options={isRedWine ? RedWineFields.type : WhiteWineFields.type}
+        />
+
+        <CheckboxGroup
+          name="nonFruit"
+          label="Non-Fruit"
+          values={nonFruit}
+          onChange={onChange}
+          options={
+            isRedWine ? RedWineFields.nonFruit : WhiteWineFields.nonFruit
+          }
+        />
+
+        <SelectListGroup
+          name={isRedWine ? 'tannin' : 'sweetness'}
+          label={isRedWine ? 'Tannin' : 'Sweetness'}
+          value={isRedWine ? tannin : sweetness}
+          onChange={onChange}
+          options={
+            isRedWine ? RedWineFields.structure : WhiteWineFields.sweetness
+          }
+        />
+
+        <SelectListGroup
+          name="acidity"
+          label="Acidity"
+          value={acidity}
+          onChange={onChange}
+          options={
+            isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+          }
+        />
+
+        <SelectListGroup
+          name="alcohol"
+          label="Alcohol"
+          value={alcohol}
+          onChange={onChange}
+          options={
+            isRedWine ? RedWineFields.structure : WhiteWineFields.structure
+          }
+        />
+
+        <SelectListGroup
+          name="climate"
+          label="Climate"
+          value={climate}
+          onChange={onChange}
+          options={isRedWine ? RedWineFields.climate : WhiteWineFields.climate}
+        />
+
+        <Button type="submit" className="guess-btn m-2">
+          Save
+        </Button>
+      </Form>
+      {/*<div className="card card-body mb-3">*/}
+      {/*  <ul>*/}
+      {/*    {descriptors &&*/}
+      {/*    Object.keys(descriptors).map(descriptor => (*/}
+      {/*      <li key={descriptor}>{descriptor}</li>*/}
+      {/*    ))}*/}
+      {/*  </ul>*/}
+      {/*</div>*/}
+      {/*<div>*/}
+      {/*  <ul>*/}
+      {/*    {Object.keys(RedWine).map(entry => (*/}
+      {/*      <li key={entry}>{entry}</li>*/}
+      {/*    ))}*/}
+      {/*  </ul>*/}
+      {/*</div>*/}
+    </div>
+  );
 }
 
 WineDetail.propTypes = {
@@ -372,5 +244,3 @@ WineDetail.propTypes = {
 WineDetail.defaultProps = {
   isRedWine: false
 };
-
-export default connect()(WineDetail);

@@ -1,15 +1,15 @@
 import WineController from './WineController';
 import { makeValidWineObject } from './util'
 
-exports.getAllRedWinesHandler = async () => {
+exports.getAllRedWinesHandler = async function() {
   return await WineController.getAllRedWines();
 };
 
-exports.getAllWhiteWinesHandler = async () => {
+exports.getAllWhiteWinesHandler = async function() {
   return await WineController.getAllWhiteWines();
 };
 
-exports.getRedWineByVarietalHandler = async event => {
+exports.getRedWineByVarietalHandler = async function(event) {
   console.log('getRedWineByVarietalHandler>Receive event:');
   console.log(event);
   const wineRequest = makeValidWineObject(event);
@@ -21,13 +21,13 @@ exports.getRedWineByVarietalHandler = async event => {
   return result;
 };
 
-exports.getWhiteWineByVarietalHandler = async event => {
+exports.getWhiteWineByVarietalHandler = async function(event) {
   return await WineController.getWhiteWineByVarietal(
     makeValidWineObject(event)
   );
 };
 
-exports.addRedWineHandler = async (event) => {
+exports.addRedWineHandler = async function(event) {
   console.log('AddRedWineHandler>Receive event:');
   console.log(event);
   console.log('AddRedWineHandler>Make wine request object:');
@@ -36,7 +36,7 @@ exports.addRedWineHandler = async (event) => {
   return await WineController.addRedWine(wine);
 };
 
-exports.addWhiteWineHandler = async (event) => {
+exports.addWhiteWineHandler = async function(event) {
   console.log('AddWhiteWineHandler>Receive event:');
   console.log(event);
   console.log('AddRedWineHandler>make wine request object:');
@@ -45,10 +45,10 @@ exports.addWhiteWineHandler = async (event) => {
   return await WineController.addWhiteWine(wine);
 };
 
-exports.deleteRedWineHandler = async (event) => {
+exports.deleteRedWineHandler = async function(event) {
   return await WineController.deleteRedWine(makeValidWineObject(event));
 };
 
-exports.deleteWhiteWineHandler = async (event) => {
+exports.deleteWhiteWineHandler = async function(event) {
   return await WineController.deleteWhiteWhine(makeValidWineObject(event));
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Row, Col } from 'react-bootstrap';
 
-const CheckboxGroup = ({ label, name, options, values, onChange }) => {
+function CheckboxGroup({label, name, options, values, onChange}) {
   const optionsMap = options.map(option => (
     <Form.Check
       type="checkbox"
@@ -26,7 +26,7 @@ const CheckboxGroup = ({ label, name, options, values, onChange }) => {
       <Col md={3}>{optionsMap}</Col>
     </Form.Group>
   );
-};
+}
 
 CheckboxGroup.propTypes = {
   label: PropTypes.string.isRequired,

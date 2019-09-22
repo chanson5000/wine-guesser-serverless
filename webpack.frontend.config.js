@@ -1,10 +1,10 @@
-const path = require('path');
-
-const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const shell = require('shelljs');
+import path from 'path';
+import HtmlWebPackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import shell from 'shelljs';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 module.exports = () => {
   const apiUrl = shell.exec(
@@ -20,7 +20,10 @@ module.exports = () => {
           exclude: /node_modules/,
           test: /\.js$/,
           use: {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              rootMode: 'upward'
+            }
           }
         },
         {

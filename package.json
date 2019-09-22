@@ -30,8 +30,10 @@
   "devDependencies": {
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-runtime": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.6.0",
     "aws-sdk": "^2.533.0",
     "axios": "^0.18.1",
     "babel-eslint": "^10.0.3",

@@ -5,8 +5,7 @@
       {
         "targets": {
           "node": "10.15"
-        },
-        "shippedProposals": true
+        }
       }
     ],
     "@babel/preset-react"

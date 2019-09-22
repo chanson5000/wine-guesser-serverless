@@ -3,9 +3,24 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'production',
-  entry: './src/backend/index.js',
+  entry: ['@babel/polyfill', './src/backend/index.js'],
   externals: [
-    nodeExternals()
+    nodeExternals({
+      whitelist: [
+        '@babel/polyfill',
+        'core-js/es6',
+        'core-js/fn/array/includes',
+        'core-js/fn/string/pad-start',
+        'core-js/fn/string/pad-end',
+        'core-js/fn/symbol/async-iterator',
+        'core-js/fn/object/get-own-property-descriptors',
+        'core-js/fn/object/values',
+        'core-js/fn/object/entries',
+        'core-js/fn/promise/finally',
+        'core-js/web',
+        'regenerator-runtime/runtime'
+      ]
+    })
   ],
   module: {
     rules: [

@@ -26,14 +26,13 @@
     "pack:backend": "webpack-cli --mode production --config ./webpack.backend.config.js",
     "package-sam": "aws cloudformation package --template-file ./aws/template-sam.yml --s3-bucket wine-guesser-sam-staging-bucket --output-template-file ./dist/template-sam.yaml"
   },
-  "dependencies": {
-    "aws-sdk": "^2.325.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
+    "aws-sdk": "^2.533.0",
     "axios": "^0.18.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",

@@ -1,7 +1,7 @@
-import path from 'path';
-import awsExternals from 'webpack-aws-externals';
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+const path = require('path');
+const awsExternals = require('webpack-aws-externals');
+require('core-js/stable');
+require('regenerator-runtime/runtime');
 
 module.exports = {
   mode: 'production',

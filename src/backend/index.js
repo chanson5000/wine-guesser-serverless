@@ -1,4 +1,4 @@
-import WineController from './WineController';
+import * as WineController from './WineController';
 import { makeValidWineObject } from './util'
 
 exports.getAllRedWinesHandler = async function() {

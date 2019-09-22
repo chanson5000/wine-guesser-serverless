@@ -3,21 +3,27 @@ const commonHeaders = {
   'Content-Type': 'application/json'
 };
 
-export const invalidRequestProxyResponse = {
-  statusCode: 400,
-  body: JSON.stringify({ message: 'Invalid request. Invalid Parameters.' }),
-  headers: commonHeaders
-};
+export function invalidRequestProxyResponse() {
+  return {
+    statusCode: 400,
+    body: JSON.stringify({message: 'Invalid request. Invalid parameters.'}),
+    headers: JSON.stringify(commonHeaders)
+  }
+}
 
-export const successProxyResponse = response => ({
-  statusCode: 200,
-  body: JSON.stringify(response),
-  headers: commonHeaders
-});
+export function successProxyResponse(response) {
+  return {
+    statusCode: 200,
+    body: JSON.stringify(response),
+    headers: JSON.stringify(commonHeaders)
+  }
+}
 
-export const errorProxyResponse = response => ({
-  // TODO: Add some logging of errors.
-  statusCode: 500,
-  body: response,
-  headers: commonHeaders
-});
+// TODO: Add logging of errors.
+export function errorProxyResponse(response) {
+  return {
+    statusCode: 500,
+    body: JSON.stringify(response),
+    headers: JSON.stringify(commonHeaders)
+  }
+}

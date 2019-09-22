@@ -14,8 +14,8 @@ Globals:
     Timeout: 60
   Api:
     Cors:
-      AllowHeaders: "'content-type, authorization'"
-      AllowOrigin: "'*, localhost:8080'"
+      AllowHeaders: "'content-type'"
+      AllowOrigin: "'*'"
 
 Resources:
   GetAllRedWinesFunction:

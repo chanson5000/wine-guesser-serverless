@@ -13,7 +13,7 @@ module.exports = () => {
   ).stdout;
 
   return {
-    entry: ['@babel/polyfill', './src/frontend/index.js'],
+    entry: './src/frontend/index.js',
     module: {
       rules: [
         {

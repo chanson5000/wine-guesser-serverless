@@ -6,7 +6,7 @@ const commonHeaders = {
 export function invalidRequestProxyResponse() {
   return {
     statusCode: 400,
-    body: { message: 'Invalid request. Invalid parameters.' },
+    body: JSON.stringify({ message: 'Invalid request. Invalid parameters.' }),
     headers: commonHeaders
   };
 }
@@ -14,7 +14,7 @@ export function invalidRequestProxyResponse() {
 export function successProxyResponse(response) {
   return {
     statusCode: 200,
-    body: response,
+    body: JSON.stringify(response),
     headers: commonHeaders
   };
 }
@@ -23,7 +23,7 @@ export function successProxyResponse(response) {
 export function errorProxyResponse(response) {
   return {
     statusCode: 500,
-    body: response,
+    body: JSON.stringify(response),
     headers: commonHeaders
   };
 }

@@ -2,28 +2,28 @@ import * as WineController from './WineController';
 import { makeValidWineObject } from './util';
 
 exports.getAllRedWinesHandler = async function() {
-  console.log('getAllRedWinesHandler');
+  console.debug('getAllRedWinesHandler');
   const result = await WineController.getAllRedWines();
-  console.log(result);
+  console.debug(result);
   return result;
 };
 
 exports.getAllWhiteWinesHandler = async function() {
-  console.log('getAllWhiteWinesHandler');
+  console.debug('getAllWhiteWinesHandler');
   const result = await WineController.getAllWhiteWines();
-  console.log(JSON.stringify(result));
-  return JSON.stringify(result);
+  console.debug(result)
+  return result;
 };
 
 exports.getRedWineByVarietalHandler = async function(event) {
-  console.log('getRedWineByVarietalHandler>Receive event:');
-  console.log(event);
+  console.debug('getRedWineByVarietalHandler>Receive event:');
+  console.debug(event);
   const wineRequest = makeValidWineObject(event);
   const result = await WineController.getRedWineByVarietal(
     wineRequest
   );
-  console.log('getRedWineByVarietalHandler>Returned');
-  console.log(result);
+  console.debug('getRedWineByVarietalHandler>Returned');
+  console.debug(result);
   return result;
 };
 
@@ -34,20 +34,20 @@ exports.getWhiteWineByVarietalHandler = async function(event) {
 };
 
 exports.addRedWineHandler = async function(event) {
-  console.log('AddRedWineHandler>Receive event:');
-  console.log(event);
-  console.log('AddRedWineHandler>Make wine request object:');
+  console.debug('AddRedWineHandler>Receive event:');
+  console.debug(event);
+  console.debug('AddRedWineHandler>Make wine request object:');
   const wine = makeValidWineObject(event);
-  console.log(wine);
+  console.debug(wine);
   return await WineController.addRedWine(wine);
 };
 
 exports.addWhiteWineHandler = async function(event) {
-  console.log('AddWhiteWineHandler>Receive event:');
-  console.log(event);
-  console.log('AddRedWineHandler>make wine request object:');
+  console.debug('AddWhiteWineHandler>Receive event:');
+  console.debug(event);
+  console.debug('AddRedWineHandler>make wine request object:');
   const wine = makeValidWineObject(event);
-  console.log(wine);
+  console.debug(wine);
   return await WineController.addWhiteWine(wine);
 };
 

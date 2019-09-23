@@ -5,13 +5,13 @@ exports.getAllRedWinesHandler = async function() {
   console.log('getAllRedWinesHandler');
   const result = await WineController.getAllRedWines();
   console.log(result);
-  return JSON.stringify(result);
+  return result;
 };
 
 exports.getAllWhiteWinesHandler = async function() {
   console.log('getAllWhiteWinesHandler');
   const result = await WineController.getAllWhiteWines();
-  console.log(result);
+  console.log(JSON.stringify(result));
   return JSON.stringify(result);
 };
 

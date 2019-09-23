@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Row, Col } from 'react-bootstrap';
 
-export default function TextInput(label, name, value, placeholder, type, onChange, error) {
+export default function TextInput({label, name, value, placeholder, type, onChange, error}) {
   return (
     <Form.Group
       as={Row}

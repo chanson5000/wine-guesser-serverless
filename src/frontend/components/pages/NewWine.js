@@ -6,7 +6,7 @@ import { addWine } from '../../actions/WineRestService';
 import { SelectListGroup, CheckboxGroup, TextInput } from '../common';
 import { redWineDefaultState, whiteWineDefaultState } from '../../constants';
 
-export default function NewWine(isRedWine) {
+export default function NewWine({isRedWine}) {
   const defaultWineState = isRedWine ? redWineDefaultState : whiteWineDefaultState;
   const [errors, setErrors] = useState({});
   const [wine, setWine] = useState(defaultWineState);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { deleteWine } from '../../actions/WineRestService';
 
-export default function WineCard(wine, onWineDeleted, isRedWine) {
+export default function WineCard({wine, onWineDeleted, isRedWine}) {
   const { varietal, world, description, descriptors } = wine;
   async function onDeleteClick(event, wine, isRedWine = false) {
     event.preventDefault();

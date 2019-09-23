@@ -1,12 +1,18 @@
 import * as WineController from './WineController';
-import { makeValidWineObject } from './util'
+import { makeValidWineObject } from './util';
 
 exports.getAllRedWinesHandler = async function() {
-  return await WineController.getAllRedWines();
+  console.log('getAllRedWinesHandler');
+  const result = await WineController.getAllRedWines();
+  console.log(result);
+  return result;
 };
 
 exports.getAllWhiteWinesHandler = async function() {
-  return await WineController.getAllWhiteWines();
+  console.log('getAllWhiteWinesHandler');
+  const result = await WineController.getAllWhiteWines();
+  console.log(result);
+  return result;
 };
 
 exports.getRedWineByVarietalHandler = async function(event) {

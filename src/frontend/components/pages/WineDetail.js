@@ -6,7 +6,7 @@ import { RedWineFields, WhiteWineFields } from '../../model';
 import { redWineDefaultState, whiteWineDefaultState } from '../../constants';
 import { SelectListGroup, TextInput, CheckboxGroup } from '../common';
 
-export default function WineDetail(match, isRedWine) {
+export default function WineDetail({match, isRedWine}) {
   const defaultWineState = isRedWine
     ? redWineDefaultState
     : whiteWineDefaultState;

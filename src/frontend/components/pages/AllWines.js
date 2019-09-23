@@ -28,6 +28,10 @@ export default function AllWines({ isRedWine }) {
     }
   }
 
+  function onWineDeleted() {
+    loadWines();
+  }
+
   return (
     <Container>
       <React.Fragment>
@@ -51,7 +55,7 @@ export default function AllWines({ isRedWine }) {
                 isRedWine={isRedWine}
                 key={wine.varietal + wine.world}
                 wine={wine}
-                onWineDeleted={this.onWineDeleted}
+                onWineDeleted={onWineDeleted}
               />
             </Link>
           ))}

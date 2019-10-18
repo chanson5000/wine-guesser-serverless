@@ -59,6 +59,9 @@ export default function NewWine({isRedWine}) {
   }
 
   function onChange(e) {
+    console.log(e.target.value);
+    console.log(e.target.type);
+    console.log(e.target.id);
     if (e.target.type === 'checkbox') {
       setWine({
         [e.target.id]: {
@@ -79,7 +82,7 @@ export default function NewWine({isRedWine}) {
       <Form onSubmit={onSubmit}>
         <TextInput
           label="Varietal"
-          onChange={onChange}
+          onChange={e => setWine()}
           value={varietal}
           placeholder="Enter a varietal..."
           name="varietal"

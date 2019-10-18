@@ -4,8 +4,8 @@ import { deleteWine } from '../../actions/WineRestService';
 
 export default function WineCard({wine, onWineDeleted, isRedWine}) {
   const { varietal, world, description, descriptors } = wine;
-  async function onDeleteClick(event, wine, isRedWine = false) {
-    event.preventDefault();
+  async function onDeleteClick(e, wine, isRedWine = false) {
+    e.preventDefault();
     await deleteWine(wine, isRedWine);
     onWineDeleted();
   }
@@ -35,7 +35,7 @@ export default function WineCard({wine, onWineDeleted, isRedWine}) {
 WineCard.propTypes = {
   wine: PropTypes.object.isRequired,
   isRedWine: PropTypes.bool.isRequired,
-  onWineDeleted: PropTypes.func.isRequired
+  onWineDeleted: PropTypes.func
 };
 
 WineCard.defaultProps = {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // eslint-disable-next-line no-undef
-const apiEndpoint = WINE_GUESSER_API_URL;
+const apiEndpoint = WINE_GUESSER_API_URL || 'http://localhost:3000';
 
 export async function getAllWines(isRedWine = false) {
   const getURI = isRedWine === true

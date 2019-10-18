@@ -6,7 +6,7 @@ import { RedWineFields, WhiteWineFields } from '../../model';
 import { redWineDefaultState, whiteWineDefaultState } from '../../constants';
 import { SelectListGroup, TextInput, CheckboxGroup } from '../common';
 
-export default function WineDetail({match, isRedWine}) {
+export default function WineDetail({ match, isRedWine }) {
   const defaultWineState = isRedWine
     ? redWineDefaultState
     : whiteWineDefaultState;
@@ -84,8 +84,12 @@ export default function WineDetail({match, isRedWine}) {
       varietal: match.params.varietal,
       world: match.params.world
     };
+    console.log('To Load: ');
+    console.dir(toLoad);
     try {
       const response = await getWine(toLoad, isRedWine);
+      console.log('Got wine response.');
+      console.dir(response);
       let newState = {
         varietal: response.varietal,
         world: response.world,

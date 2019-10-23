@@ -67,7 +67,7 @@ module.exports = () => {
         { from: './public/manifest.json' }
       ]),
       new webpack.DefinePlugin({
-        WINE_GUESSER_API_URL: JSON.stringify(apiUrl)
+        'process.env.WINE_GUESSER_API_URL': JSON.stringify(apiUrl)
       })
     ],
     devServer: {

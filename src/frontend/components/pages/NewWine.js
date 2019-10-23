@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 import { RedWineFields, WhiteWineFields } from '../../model';
-import { addWine } from '../../actions/WineRestService';
 import { SelectListGroup, CheckboxGroup, TextInput } from '../common';
-import { redWineDefaultState, whiteWineDefaultState } from '../../constants';
+import {
+  redWineFormDefaultState,
+  whiteWineFormDefaultState
+} from '../../constants';
+import useNewWineForm from '../../hooks/use-new-wine-form';
 
-export default function NewWine({isRedWine}) {
-  const defaultWineState = isRedWine ? redWineDefaultState : whiteWineDefaultState;
-  const [errors, setErrors] = useState({});
-  const [wine, setWine] = useState(defaultWineState);
+export default function NewWine({ isRedWine }) {
+  const history = useHistory();
+  const initialWineFormState = isRedWine
+    ? redWineFormDefaultState
+    : whiteWineFormDefaultState;
+  const { wineForm, handleWineFormChange, onSubmit } = useNewWineForm(
+    initialWineFormState,
+    isRedWine,
+    history
+  );
+
   const {
     varietal,
     world,
@@ -21,58 +32,9 @@ export default function NewWine({isRedWine}) {
     sweetness,
     acidity,
     alcohol,
-    climate
-  } = wine;
-
-  async function onSubmit(e) {
-    e.preventDefault();
-
-    if (varietal === '') {
-      setErrors({ varietal: 'Varietal name is required' });
-      return;
-    }
-
-    let newWine = {
-      varietal,
-      world,
-      color,
-      condition,
-      type,
-      nonFruit,
-      acidity,
-      alcohol,
-      climate
-    };
-
-    newWine = isRedWine ? { ...newWine, tannin } : { ...newWine, sweetness };
-
-    try {
-      console.log('Adding wine to the database...');
-      console.log(newWine);
-      await addWine(newWine, isRedWine);
-    } catch (e) {
-      console.log('Failed to add wine to database.');
-    }
-    // await this.props.addWine(newWine, this.props.isRedWine);
-    const pushRoute = isRedWine ? '/wines/red' : '/wines/white';
-    this.props.history.push(pushRoute);
-  }
-
-  function onChange(e) {
-    console.log(e.target.value);
-    console.log(e.target.type);
-    console.log(e.target.id);
-    if (e.target.type === 'checkbox') {
-      setWine({
-        [e.target.id]: {
-          ...this.state[e.target.id],
-          [e.target.name]: e.target.checked
-        }
-      });
-    } else {
-      setWine({ [e.target.name]: e.target.value });
-    }
-  }
+    climate,
+    errors
+  } = wineForm;
 
   return (
     <div className="container text-center">
@@ -82,7 +44,7 @@ export default function NewWine({isRedWine}) {
       <Form onSubmit={onSubmit}>
         <TextInput
           label="Varietal"
-          onChange={e => setWine()}
+          onChange={handleWineFormChange}
           value={varietal}
           placeholder="Enter a varietal..."
           name="varietal"
@@ -93,7 +55,7 @@ export default function NewWine({isRedWine}) {
         <SelectListGroup
           value={world}
           label="World"
-          onChange={onChange}
+          onChange={handleWineFormChange}
           name="world"
           options={isRedWine ? RedWineFields.world : WhiteWineFields.world}
         />
@@ -102,7 +64,7 @@ export default function NewWine({isRedWine}) {
           name="color"
           label="Color"
           value={color}
-          onChange={onChange}
+          onChange={handleWineFormChange}
           options={isRedWine ? RedWineFields.color : WhiteWineFields.color}
         />
 
@@ -110,7 +72,7 @@ export default function NewWine({isRedWine}) {
           name="condition"
           label="Condition"
           values={condition}
-          onChange={onChange}
+          onChange={handleWineFormChange}
           options={
             isRedWine ? RedWineFields.condition : WhiteWineFields.condition
           }
@@ -120,7 +82,7 @@ export default function NewWine({isRedWine}) {
           name="type"
           label="Fruit Type"
           values={type}
-          onChange={onChange}
+          onChange={handleWineFormChange}
           options={isRedWine ? RedWineFields.type : WhiteWineFields.type}
         />
 
@@ -128,7 +90,7 @@ export default function NewWine({isRedWine}) {
           name="nonFruit"
           label="Non-Fruit"
           values={nonFruit}
-          onChange={onChange}
+          onChange={handleWineFormChange}
           options={
             isRedWine ? RedWineFields.nonFruit : WhiteWineFields.nonFruit
           }
@@ -138,7 +100,7 @@ export default function NewWine({isRedWine}) {
           name={isRedWine ? 'tannin' : 'sweetness'}
           label={isRedWine ? 'Tannin' : 'Sweetness'}
           value={isRedWine ? tannin : sweetness}
-          onChange={onChange}
+          onChange={handleWineFormChange}
           options={
             isRedWine ? RedWineFields.structure : WhiteWineFields.sweetness
           }
@@ -148,7 +110,7 @@ export default function NewWine({isRedWine}) {
           name="acidity"
           label="Acidity"
           value={acidity}
-          onChange={onChange}
+          onChange={handleWineFormChange}
           options={
             isRedWine ? RedWineFields.structure : WhiteWineFields.structure
           }
@@ -158,7 +120,7 @@ export default function NewWine({isRedWine}) {
           name="alcohol"
           label="Alcohol"
           value={alcohol}
-          onChange={onChange}
+          onChange={handleWineFormChange}
           options={
             isRedWine ? RedWineFields.structure : WhiteWineFields.structure
           }
@@ -168,10 +130,8 @@ export default function NewWine({isRedWine}) {
           name="climate"
           label="Climate"
           value={climate}
-          onChange={onChange}
-          options={
-            isRedWine ? RedWineFields.climate : WhiteWineFields.climate
-          }
+          onChange={handleWineFormChange}
+          options={isRedWine ? RedWineFields.climate : WhiteWineFields.climate}
         />
 
         <Button type="submit" className="guess-btn m-2">
@@ -183,8 +143,7 @@ export default function NewWine({isRedWine}) {
 }
 
 NewWine.propTypes = {
-  isRedWine: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired
+  isRedWine: PropTypes.bool.isRequired
 };
 
 NewWine.defaultProps = {

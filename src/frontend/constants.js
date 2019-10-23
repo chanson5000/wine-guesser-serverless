@@ -85,7 +85,7 @@ export const whiteDefaultState = {
   climate: 'cool'
 };
 
-export const redWineDefaultState = {
+export const redWineFormDefaultState = {
   varietal: '',
   world: 'old',
   color: 'garnet',
@@ -132,7 +132,7 @@ export const redWineDefaultState = {
   errors: {}
 };
 
-export const whiteWineDefaultState = {
+export const whiteWineFormDefaultState = {
   varietal: '',
   world: 'old',
   color: 'straw',
@@ -174,5 +174,6 @@ export const whiteWineDefaultState = {
   sweetness: 'dry',
   acidity: 'moderateMinus',
   alcohol: 'moderateMinus',
-  climate: 'cool'
+  climate: 'cool',
+  errors: {}
 };

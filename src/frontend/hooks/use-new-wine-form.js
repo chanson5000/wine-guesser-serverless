@@ -4,7 +4,7 @@ import { addWine } from '../actions/WineRestService';
 export default function useNewWineForm(initialWineFormState, isRedWine) {
   const [wineForm, setWineForm] = useState(initialWineFormState);
   const [errors, setErrors] = useState({});
-
+  const [redirect, setRedirect] = useState();
   // const [state, dispatch] = useReducer(wineReducer, initialWineFormState);
 
   function handleWineFormChange(e) {
@@ -75,10 +75,10 @@ export default function useNewWineForm(initialWineFormState, isRedWine) {
     }
     // await this.props.addWine(newWine, this.props.isRedWine);
     const pushRoute = isRedWine ? '/wines/red' : '/wines/white';
-    history.push(pushRoute);
+    setRedirect(pushRoute);
   }
 
-  return { wineForm, handleWineFormChange, errors, onSubmit };
+  return { wineForm, handleWineFormChange, errors, onSubmit, redirect };
 }
 //
 // function wineReducer(state, wine) {

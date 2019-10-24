@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 import { RedWineFields, WhiteWineFields } from '../../model';
@@ -9,16 +8,15 @@ import {
   whiteWineFormDefaultState
 } from '../../constants';
 import useNewWineForm from '../../hooks/use-new-wine-form';
+import { Redirect } from 'react-router';
 
-export default function NewWine({ isRedWine }) {
-  const history = useHistory();
+function NewWine({ isRedWine }) {
   const initialWineFormState = isRedWine
     ? redWineFormDefaultState
     : whiteWineFormDefaultState;
-  const { wineForm, handleWineFormChange, onSubmit } = useNewWineForm(
+  const { wineForm, handleWineFormChange, onSubmit, redirect } = useNewWineForm(
     initialWineFormState,
-    isRedWine,
-    history
+    isRedWine
   );
 
   const {
@@ -35,6 +33,10 @@ export default function NewWine({ isRedWine }) {
     climate,
     errors
   } = wineForm;
+
+  if (redirect) {
+    return (<Redirect to={redirect}/>);
+  }
 
   return (
     <div className="container text-center">
@@ -141,6 +143,8 @@ export default function NewWine({ isRedWine }) {
     </div>
   );
 }
+
+export default NewWine;
 
 NewWine.propTypes = {
   isRedWine: PropTypes.bool.isRequired

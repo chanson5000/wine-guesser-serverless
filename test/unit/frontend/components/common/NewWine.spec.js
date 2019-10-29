@@ -31,7 +31,6 @@ describe('New Wine form', function() {
       const { getByLabelText } = renderNewWineForm(true);
       const varietalTextInput = getByLabelText('Varietal');
 
-      expect(varietalTextInput).toBeVisible();
       expect(varietalTextInput).toHaveValue(redWineFormDefaultState.varietal);
       expect(varietalTextInput).toHaveAttribute(
         'placeholder',
@@ -43,19 +42,30 @@ describe('New Wine form', function() {
       const { getByLabelText } = renderNewWineForm(true);
       const worldSelectListGroup = getByLabelText('World');
 
-      expect(worldSelectListGroup).toBeVisible();
       expect(worldSelectListGroup).toHaveValue(redWineFormDefaultState.world);
       // TODO: Assert options prop
       // expect(worldSelectListGroup).toHaveFormValues(RedWineFields.world);
       expect(worldSelectListGroup).toHaveAttribute('name', 'world');
     });
     it('should render color select list group', () => {
-      const {getByLabelText} = renderNewWineForm(true);
+      const { getByLabelText } = renderNewWineForm(true);
       const colorSelectListGroup = getByLabelText('Color');
 
-      expect(colorSelectListGroup).toBeVisible();
       expect(colorSelectListGroup).toHaveValue(redWineFormDefaultState.color);
       expect(colorSelectListGroup).toHaveAttribute('name', 'color');
+    });
+    it('should render condition check box group', () => {
+      const { getByLabelText } = renderNewWineForm(true);
+      const conditionCheckboxGroup = getByLabelText('Condition');
+
+      expect(conditionCheckboxGroup).toHaveAttribute('type', 'checkbox');
+      expect(conditionCheckboxGroup).toHaveValue(
+        redWineFormDefaultState.condition
+      );
+      expect(conditionCheckboxGroup).toHaveAttribute(
+        'options',
+        RedWineFields.condition
+      );
     });
   });
 
